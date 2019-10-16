@@ -11,9 +11,12 @@
               Son Roy Almerol
             </v-card-title>
             <v-card-text>
-              <div class="text--primary">
-                10/16/2019 11:59pm
-              </div><br>
+              <v-chip>
+                <div class="text--primary">
+                  10/16/2019 11:59pm
+                </div>
+              </v-chip>
+              <br><br>
               <h3>Test Location<br>
               Test Reason</h3>
             </v-card-text>
@@ -36,9 +39,17 @@
         </v-col>
       </v-row>
       <v-card-actions>
-        <v-btn fab color="green"><v-icon>mdi-check</v-icon></v-btn>
-        <v-btn fab color="red"><v-icon>mdi-close</v-icon></v-btn>
-        <v-btn fab color="blue"><v-icon>mdi-message-bulleted</v-icon></v-btn>
+        <v-row>
+          <v-col>
+            <v-btn tile outlined block color="green"><v-icon>mdi-check</v-icon></v-btn>
+          </v-col>
+          <v-col>
+            <v-btn tile outlined block color="blue"><v-icon>mdi-message-bulleted</v-icon></v-btn>
+          </v-col>
+          <v-col>
+            <v-btn tile outlined block color="red"><v-icon>mdi-close</v-icon></v-btn>
+          </v-col>
+        </v-row>
       </v-card-actions>
     </v-card-text>
   </v-card>

@@ -1,6 +1,26 @@
 <template>
   <v-app :dark="true">
-    <v-app-bar app clipped-right>
+    <v-navigation-drawer
+      v-model="drawerRight"
+      app
+      clipped
+      right
+    >
+      <v-card hover outlined tile>
+        <v-card-text>
+          No notifications
+        </v-card-text>
+      </v-card>
+    </v-navigation-drawer>
+    <v-app-bar app clipped-right color="#fcb69f"
+      src="https://scontent.fmnl2-1.fna.fbcdn.net/v/t31.0-8/21551820_1683303988378392_2044572461631207389_o.jpg?_nc_cat=103&_nc_oc=AQndIfAN9Q3zadGqeK5Lr_jh0f1JdlhCvM4ORQNkzFyntQjj0Kn6BmZ1XIKrDSPmLuI&_nc_ht=scontent.fmnl2-1.fna&oh=003aba39deffd85bb3ec4e759a42a654&oe=5E327E9B"
+    >
+      <template v-slot:img="{ props }">
+        <v-img
+          v-bind="props"
+          :gradient="appBarGradient"
+        ></v-img>
+      </template>
       <v-app-bar-nav-icon v-if="$route.path !== '/login' && $route.path !== '/register'" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <img :src="require('./assets/logo.png')" width="50px" />
       <v-toolbar-title class="headline">
@@ -9,6 +29,9 @@
         <span class="font-weight-light"> - Centralized Database System</span>
       </v-toolbar-title>
       <div class="flex-grow-1"></div>
+      <v-btn icon @click.stop="drawerRight = !drawerRight">
+        <v-icon>mdi-bell</v-icon>
+      </v-btn>&nbsp;&nbsp;
       <v-menu v-if="$route.path !== '/login' && $route.path !== '/register'" offset-y>
         <template v-slot:activator="{ on }">
           <v-btn
@@ -37,10 +60,19 @@
           <v-list-item @click.stop="">
             <v-list-item-title>Log Out</v-list-item-title>
           </v-list-item>
+          <v-divider />
+          <v-list-item @click.stop="$vuetify.theme.dark = !$vuetify.theme.dark">
+            <v-list-item-title v-if="$vuetify.theme.dark">Disable Dark Mode</v-list-item-title>
+            <v-list-item-title v-else>Enable Dark Mode</v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-menu>
-      <!--<template v-slot:extension>
-      </template>-->
+      <template v-slot:extension>
+        <v-toolbar-title>
+          <v-icon>{{ $route.meta.icon }}</v-icon>
+          <span class="font-weight-light">{{ $route.name }}</span>
+        </v-toolbar-title>
+      </template>
     </v-app-bar>
 
     <!-- NAVIGATION DRAWER -->
@@ -108,6 +140,14 @@ export default {
   computed: {
     routes() {
       return this.$router.options.routes
+    },
+    appBarGradient() {
+      if (this.$vuetify.theme.dark) {
+        return 'to top right, rgba(0,0,0,.8), rgba(0,0,0,.8)'
+      }
+      else {
+        return 'to top right, rgba(255,255,255,.8), rgba(255,255,255,.8)'
+      }
     }
   }
 }
