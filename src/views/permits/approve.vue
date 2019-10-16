@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <ApplicationRules />
+    <ApplicationRules /><br>
     <v-card>
       <v-tabs v-model="tab" background-color="transparent" grow>
         <v-tab :key="`ln`">
