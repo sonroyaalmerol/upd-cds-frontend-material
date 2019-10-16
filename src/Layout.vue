@@ -1,7 +1,7 @@
 <template>
   <v-app :dark="true">
     <v-app-bar app clipped-right>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon v-if="$route.path !== '/login' && $route.path !== '/register'" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <img :src="require('./assets/logo.png')" width="50px" />
       <v-toolbar-title class="headline">
         <span class="font-weight-light">&nbsp;&nbsp;e</span>
@@ -9,7 +9,7 @@
         <span class="font-weight-light"> - Centralized Database System</span>
       </v-toolbar-title>
       <div class="flex-grow-1"></div>
-      <v-menu offset-y>
+      <v-menu v-if="$route.path !== '/login' && $route.path !== '/register'" offset-y>
         <template v-slot:activator="{ on }">
           <v-btn
             color="secondary"
@@ -46,12 +46,17 @@
     <!-- NAVIGATION DRAWER -->
 
     <v-navigation-drawer
+      v-if="$route.path !== '/login' && $route.path !== '/register'"
       v-model="drawer"
       app
     >
       <v-list dense>
         <template v-for="(item, index) in routes">
-          <v-list-item v-if="item.children.filter((i) => 'meta' in i && !i.hidden && i.meta.roles.includes(role)).length === 1" :key="index" @click.stop="$router.push(`${(item.path === '/') ? '' : item.path}/${item.children[0].path}`)">
+          <v-list-item
+            v-if="item.children.filter((i) => 'meta' in i && !i.hidden && i.meta.roles.includes(role)).length === 1"
+            :key="index"
+            :to="`${(item.path === '/') ? '' : item.path}/${item.children[0].path}`"
+          >
             <v-list-item-action>
               <v-icon>{{ item.meta.icon }}</v-icon>
             </v-list-item-action>
@@ -67,7 +72,7 @@
               <v-list-item
                 v-if="!sub.hidden && sub.meta.roles.includes(role)"
                 :key="i"
-                @click.stop="$router.push(`${(item.path === '/') ? '' : item.path}/${sub.path}`)"
+                :to="`${(item.path === '/') ? '' : item.path}/${sub.path}`"
               >
                 <v-list-item-title v-text="sub.meta.title"></v-list-item-title>
               </v-list-item>
@@ -90,6 +95,9 @@
 export default {
   name: 'App',
   components: {
+  },
+  created() {
+    console.log(this.$router.path)
   },
   data: () => ({
     drawer: null,
