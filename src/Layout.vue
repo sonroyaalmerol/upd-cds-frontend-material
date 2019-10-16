@@ -64,18 +64,20 @@
               <v-list-item-title>{{ item.children[0].meta.title }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-group v-else :key="index" :prepend-icon="item.meta.icon">
+          <v-list-group v-else-if="item.children.filter((i) => 'meta' in i && !i.hidden && i.meta.roles.includes(role)).length > 1" :key="index" :prepend-icon="item.meta.icon">
             <template v-slot:activator>
               <v-list-item-title>{{ item.meta.title }}</v-list-item-title>
             </template>
             <template v-for="(sub, i) in item.children">
-              <v-list-item
-                v-if="!sub.hidden && sub.meta.roles.includes(role)"
-                :key="i"
-                :to="`${(item.path === '/') ? '' : item.path}/${sub.path}`"
-              >
-                <v-list-item-title v-text="sub.meta.title"></v-list-item-title>
-              </v-list-item>
+              <template v-if="!sub.hidden">
+                <v-list-item
+                  v-if="sub.meta.roles.includes(role)"
+                  :key="i"
+                  :to="`${(item.path === '/') ? '' : item.path}/${sub.path}`"
+                >
+                  <v-list-item-title v-text="sub.meta.title"></v-list-item-title>
+                </v-list-item>
+              </template>
             </template>
           </v-list-group>
         </template>

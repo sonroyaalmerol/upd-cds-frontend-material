@@ -17,12 +17,12 @@ export default new Router({
         path: 'dashboard',
         name: 'Dashboard',
         meta: { title: 'Dashboard', roles: [0, 1, 2] },
-        component: () => import('@/views/dashboard')
+        component: () => import('@/views/dashboard/index')
       },
       {
         path: 'login',
         name: 'Login',
-        component: () => import('@/views/login.vue')
+        component: () => import('@/views/login')
       },
       {
         path: 'register',
@@ -59,15 +59,148 @@ export default new Router({
           path: ':profileId',
           name: 'Permit Records',
           component: () => import('@/views/permits/resident'),
-          meta: { title: 'Permit Records', icon: 'book', roles: [0, 1, 2] },
+          meta: { title: 'Permit Records', roles: [0, 1, 2] },
           hidden: true
         },
         {
           path: '',
           name: 'Permit Records',
           component: () => import('@/views/permits/resident'),
-          meta: { title: 'Permit Records', icon: 'book', roles: [0, 1, 2], breadcrumb: false },
+          meta: { title: 'Permit Records', roles: [0, 1, 2], breadcrumb: false },
           hidden: true
+        }
+      ]
+    },
+    {
+      path: '/inoutentries',
+      component: Layout,
+      meta: { title: 'In/Out Records', icon: 'book' },
+      children: [
+        {
+          path: ':profileId',
+          name: 'In/Out Records',
+          component: () => import('@/views/inout/index'),
+          meta: { title: 'In/Out Records', roles: [0, 1, 2] },
+          hidden: true
+        },
+        {
+          path: '',
+          name: 'In/Out Records',
+          component: () => import('@/views/inout/index'),
+          meta: { title: 'In/Out Records', roles: [0], breadcrumb: false }
+        }
+      ]
+    },
+    {
+      path: '/database',
+      component: Layout,
+      redirect: '/database/users',
+      name: 'Databases',
+      meta: {
+        title: 'Databases',
+        icon: 'mdi-database'
+      },
+      children: [
+        {
+          path: 'users',
+          component: () => import('@/views/database/users'), // Parent router-view
+          name: 'Users Database',
+          meta: { title: 'Users Database', roles: [1, 2] }
+        },
+        {
+          path: 'forms',
+          component: () => import('@/views/database/forms'),
+          name: 'Forms Database',
+          meta: { title: 'Forms Database', roles: [2] }
+        },
+        {
+          path: 'violations/:residentId',
+          component: () => import('@/views/database/violations'),
+          name: 'Violations',
+          meta: { title: 'Violations', roles: [0, 1, 2] },
+          hidden: true
+        },
+        {
+          path: 'violations',
+          component: () => import('@/views/database/violations'),
+          name: 'Violations',
+          meta: { title: 'Violations', roles: [0], breadcrumb: false }
+        },
+        {
+          path: 'activities/:activityId',
+          component: () => import('@/views/database/activityInOuts'),
+          name: 'Activities',
+          meta: { title: 'Activities', roles: [1, 2] },
+          hidden: true
+        },
+        {
+          path: 'activities',
+          component: () => import('@/views/database/activities'),
+          name: 'Activities',
+          meta: { title: 'Activities', roles: [0, 1, 2], breadcrumb: false }
+        },
+        {
+          path: 'assistants',
+          component: () => import('@/views/database/ras'),
+          name: 'RA Database',
+          meta: { title: 'RA Database', roles: [1, 2] }
+        },
+        {
+          path: 'staffs',
+          component: () => import('@/views/database/staffs'),
+          name: 'Staff Database',
+          meta: { title: 'Staff Database', roles: [1, 2] }
+        },
+        {
+          path: 'managers',
+          component: () => import('@/views/database/managers'),
+          name: 'DM Database',
+          meta: { title: 'DM Database', roles: [2] }
+        },
+        {
+          path: 'permits',
+          component: () => import('@/views/database/permits'),
+          name: 'Permits Database',
+          meta: { title: 'Permits Database', roles: [1, 2] }
+        },
+        {
+          path: 'accountabilities/:residentId',
+          component: () => import('@/views/database/accountabilities'),
+          name: 'Accountabilties',
+          meta: { title: 'Accountabilties', roles: [0, 1, 2] },
+          hidden: true
+        },
+        {
+          path: 'accountabilities',
+          component: () => import('@/views/database/accountabilities'),
+          name: 'Accountabilties',
+          meta: { title: 'Accountabilties', roles: [0], breadcrumb: false }
+        },
+        {
+          path: 'directives/:assistantId',
+          component: () => import('@/views/database/directives'),
+          name: 'Directives',
+          meta: { title: 'Directives', roles: [1, 2] },
+          hidden: true
+        },
+        {
+          path: 'directives',
+          component: () => import('@/views/database/directives'),
+          name: 'Directives',
+          meta: { title: 'Directives', roles: [1], breadcrumb: false }
+        }
+      ]
+    },
+    {
+      path: '/keys',
+      component: Layout,
+      meta: { title: 'Key Borrowing', icon: 'mdi-key-variant' },
+      children: [
+        {
+          path: 'records',
+          name: 'Key Borrowing',
+          component: () => import('@/views/keyborrowing/index'),
+          meta: { title: 'Key Borrowing', roles: [1, 2] }
         }
       ]
     }

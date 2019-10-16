@@ -4,10 +4,11 @@
             <v-expansion-panel-header>Permit Rules</v-expansion-panel-header>
             <v-expansion-panel-content>
                 <v-alert
-                    border="top"
-                    colored-border
-                    type="warning"
+                    type="info"
+                    color="primary"
                     elevation="0"
+                    outlined
+                    prominent
                 >
                 <b>General Rules</b>
                 <ul>
