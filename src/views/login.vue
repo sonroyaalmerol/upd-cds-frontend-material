@@ -43,7 +43,7 @@
               <v-card-actions>
                 <div class="flex-grow-1"></div>
                 <v-btn color="secondary" x-large text @click.stop="$router.push('register')">Register</v-btn>
-                <v-btn color="primary" x-large>Login</v-btn>
+                <v-btn color="primary" x-large :to="'/dashboard'">Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>

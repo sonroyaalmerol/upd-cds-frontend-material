@@ -1,20 +1,84 @@
 <template>
   <v-container>
-    <v-alert
-      border="right"
-      color="blue-grey"
-      dark
-    >
-      I'm under construction!
-    </v-alert>
+    <v-card>
+      <v-data-table
+        :headers="headers"
+        :items="forms"
+        :single-expand="singleExpand"
+        :expanded.sync="expanded"
+        :search="search"
+        item-key="name"
+        show-expand
+        @click:row="clicked"
+      >
+        <template v-slot:top>
+          <v-toolbar flat>
+            <v-spacer></v-spacer>
+            <v-text-field
+              v-model="search"
+              append-icon="mdi-account-search"
+              label="Search"
+              single-line
+              hide-details
+            ></v-text-field>
+          </v-toolbar>
+        </template>
+        <template v-slot:expanded-item="{ headers }">
+          <td :colspan="headers.length">
+            <v-btn text>
+              Edit
+            </v-btn>
+            <v-btn text>
+              Download Responses
+            </v-btn>
+            <v-btn text>
+              Go Live
+            </v-btn>
+            <v-btn color="red" text>
+              Delete Form
+            </v-btn>
+          </td>
+        </template>
+      </v-data-table>
+    </v-card>
   </v-container>
 </template>
 
 <script>
-
-export default {
-  components: {
-    
+  export default {
+    methods: {
+      clicked(value) {
+        if(this.expanded.includes(value)) {
+          var index = this.expanded.indexOf(value);
+          if (index > -1) {
+            this.expanded.splice(index, 1);
+          }
+        } else {
+          this.expanded.push(value)
+        }
+      }
+    },
+    data () {
+      return {
+        search: '',
+        expanded: [],
+        singleExpand: false,
+        headers: [
+          { text: 'Title', value: 'title' },
+          { text: 'Required', value: 'required' },
+          { text: 'Posted By', value: 'postedBy' },
+          { text: 'Timestamp', value: 'timestamp' },
+          { text: '', value: 'data-table-expand' },
+        ],
+        forms: [
+          {
+            title: 'Attend Talk on Solid Waste Management',
+            required: 'Required',
+            postedBy: '5cb3e961808c214348087b62',
+            timestamp: '2019-10-14T05:23:02.859Z',
+          }
+        ],
+      }
+    },
   }
-}
 </script>

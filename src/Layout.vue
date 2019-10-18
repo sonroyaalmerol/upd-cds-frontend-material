@@ -1,6 +1,7 @@
 <template>
   <v-app :dark="true">
     <v-navigation-drawer
+      v-if="$route.path !== '/login' && $route.path !== '/register'"
       v-model="drawerRight"
       app
       clipped
@@ -29,7 +30,7 @@
         <span class="font-weight-light"> - Centralized Database System</span>
       </v-toolbar-title>
       <div class="flex-grow-1"></div>
-      <v-btn icon @click.stop="drawerRight = !drawerRight">
+      <v-btn v-if="$route.path !== '/login' && $route.path !== '/register'" icon @click.stop="drawerRight = !drawerRight">
         <v-icon>mdi-bell</v-icon>
       </v-btn>&nbsp;&nbsp;
       <v-menu v-if="$route.path !== '/login' && $route.path !== '/register'" offset-y>
@@ -57,7 +58,7 @@
             <v-list-item-title>Support Development</v-list-item-title>
           </v-list-item>
           <v-divider />
-          <v-list-item @click.stop="">
+          <v-list-item :to="'/login'">
             <v-list-item-title>Log Out</v-list-item-title>
           </v-list-item>
           <v-divider />
@@ -135,7 +136,7 @@ export default {
     drawerRight: null,
     right: false,
     left: false,
-    role: 1
+    role: 2
   }),
   computed: {
     routes() {

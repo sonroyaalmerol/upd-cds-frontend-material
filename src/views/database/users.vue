@@ -3,7 +3,7 @@
     <v-card>
       <v-data-table
         :headers="headers"
-        :items="desserts"
+        :items="users"
         :single-expand="singleExpand"
         :expanded.sync="expanded"
         :search="search"
@@ -79,7 +79,7 @@
           { text: 'In/Out', value: 'inout' },
           { text: '', value: 'data-table-expand' },
         ],
-        desserts: [
+        users: [
           {
             upid: '2015-12584',
             name: 'Son Roy Almerol',
