@@ -5,6 +5,10 @@ import store from './store'
 import './registerServiceWorker'
 import vuetify from './plugins/vuetify'
 
+import VueOffline from 'vue-offline'
+
+Vue.use(VueOffline)
+
 Vue.config.productionTip = false
 Vue.prototype.$windowOrientation = window.orientation
 Vue.prototype.$userAgent = navigator.userAgent
