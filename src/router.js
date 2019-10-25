@@ -74,7 +74,7 @@ export default new Router({
     {
       path: '/inoutentries',
       component: Layout,
-      meta: { title: 'In/Out Records', icon: 'book' },
+      meta: { title: 'In/Out Records', icon: 'mdi-book' },
       children: [
         {
           path: ':profileId',
