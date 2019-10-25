@@ -24,11 +24,6 @@
             required: true
         }
     },
-    watch: {
-        imageFile(next) {
-            console.log(next)
-        }
-    },
     data () {
       return {
           imageFile: null,
@@ -38,7 +33,6 @@
     methods: {
         onUpload(e) {
             var files = e.target.files || e.dataTransfer.files
-            console.log(files[0])
         }
     }
   }
