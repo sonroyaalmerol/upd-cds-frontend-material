@@ -122,7 +122,9 @@
 
     <v-content>
       <!--<transition name="fade" mode="out-in">-->
+      <keep-alive>
         <router-view class="overflow-y-auto" />
+      </keep-alive>
       <!--</transition>-->
     </v-content>
 
@@ -230,5 +232,9 @@ export default {
   .fade-enter,
   .fade-leave-active {
     opacity: 0
+  }
+
+  .overflow-y-auto {
+    overflow-y: auto
   }
 </style>
