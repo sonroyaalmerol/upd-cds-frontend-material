@@ -46,7 +46,7 @@
             </v-avatar>
           </v-btn>
         </template>
-        <v-list>
+        <v-list class="overflow-y-auto">
           <v-list-item @click.stop="">
             <v-list-item-title>Edit Student Profile</v-list-item-title>
           </v-list-item>
@@ -86,7 +86,7 @@
       v-model="drawer"
       app
     >
-      <v-list dense>
+      <v-list class="overflow-y-auto" dense>
         <template v-for="(item, index) in routes">
           <v-list-item
             v-if="item.children.filter((i) => 'meta' in i && !i.hidden && i.meta.roles.includes(role)).length === 1"
@@ -122,7 +122,7 @@
 
     <v-content>
       <!--<transition name="fade" mode="out-in">-->
-        <router-view />
+        <router-view class="overflow-y-auto" />
       <!--</transition>-->
     </v-content>
 
