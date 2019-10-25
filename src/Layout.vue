@@ -68,10 +68,13 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <template v-slot:extension>
+      <template v-if="$route.path !== '/login' && $route.path !== '/register'" v-slot:extension>
         <v-toolbar-title>
           <v-icon>{{ $route.meta.icon }}</v-icon>
-          <span class="font-weight-light">{{ $route.name }}</span>
+          <span v-if="$route.params.profileId" class="font-weight-light">{{ $route.name }} ({{ $route.params.profileId }})</span>
+          <span v-else-if="$route.params.residentId" class="font-weight-light">{{ $route.name }} ({{ $route.params.residentId }})</span>
+          <span v-else-if="$route.params.activityId" class="font-weight-light">{{ $route.name }} ({{ $route.params.activityId }})</span>
+          <span v-else class="font-weight-light">{{ $route.name }}</span>
         </v-toolbar-title>
       </template>
     </v-app-bar>

@@ -25,18 +25,20 @@
         </template>
         <template v-slot:expanded-item="{ headers }">
           <td :colspan="headers.length">
-            <v-btn text>
-              Edit
-            </v-btn>
-            <v-btn text>
-              Download Responses
-            </v-btn>
-            <v-btn text>
-              Go Live
-            </v-btn>
-            <v-btn color="red" text>
-              Delete Form
-            </v-btn>
+            <v-row>
+              <v-col>
+                <v-btn tile block color="primary">Edit</v-btn>
+              </v-col>
+              <v-col>
+                <v-btn tile block color="primary">Download Responses</v-btn>
+              </v-col>
+              <v-col>
+                <v-btn tile block color="primary">Go Live</v-btn>
+              </v-col>
+              <v-col>
+                <v-btn color="red" dark tile block>Delete Form</v-btn>
+              </v-col>
+            </v-row>
           </td>
         </template>
       </v-data-table>

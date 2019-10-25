@@ -25,12 +25,14 @@
         </template>
         <template v-slot:expanded-item="{ headers }">
           <td :colspan="headers.length">
-            <v-btn text>
-              Edit Staff
-            </v-btn>
-            <v-btn color="red" text>
-              Checkout
-            </v-btn>
+            <v-row>
+              <v-col>
+                <v-btn tile block color="primary">Edit Staff</v-btn>
+              </v-col>
+              <v-col>
+                <v-btn color="red" dark tile block>Checkout</v-btn>
+              </v-col>
+            </v-row>
           </td>
         </template>
       </v-data-table>

@@ -1,5 +1,27 @@
 <template>
   <v-container>
+    <ActionsPanel>
+      <v-row>
+        <v-col>
+          <BatchProfileUploader block />
+        </v-col>
+        <v-col>
+          <ProfileForm :profile="null" block />
+        </v-col>
+        <v-col>
+          <AddAccountabilityButton batch block />
+        </v-col>
+        <v-col>
+          <v-btn tile block color="primary">Export Violations</v-btn>
+        </v-col>
+        <v-col>
+          <v-btn tile block color="primary">Export Accountabilities</v-btn>
+        </v-col>
+        <v-col>
+          <v-btn tile block color="red" disabled>Clear Database</v-btn>
+        </v-col>
+      </v-row>
+    </ActionsPanel><br/>
     <v-card>
       <v-data-table
         :headers="headers"
@@ -7,7 +29,7 @@
         :single-expand="singleExpand"
         :expanded.sync="expanded"
         :search="search"
-        item-key="name"
+        item-key="upid"
         show-expand
         @click:row="clicked"
       >
@@ -25,27 +47,29 @@
         </template>
         <template v-slot:expanded-item="{ headers }">
           <td :colspan="headers.length">
-            <v-btn text>
-              View Permit Records
-            </v-btn>
-            <v-btn text>
-              Violations
-            </v-btn>
-            <v-btn text>
-              Accountabilities
-            </v-btn>
-            <v-btn text>
-              Update Profile
-            </v-btn>
-            <v-btn text>
-              Update PIS
-            </v-btn>
-            <v-btn color="red" text>
-              Reset Account
-            </v-btn>
-            <v-btn color="red" text>
-              Checkout
-            </v-btn>
+            <v-row>
+              <v-col>
+                <v-btn tile block color="primary" :to="'/permits/asd'">View Permit Records</v-btn>
+              </v-col>
+              <v-col>
+                <v-btn tile block color="primary" :to="'/database/violations/asd'">Violations</v-btn>
+              </v-col>
+              <v-col>
+                <v-btn tile block color="primary" :to="'/database/accountabilities/asd'">Accountabilities</v-btn>
+              </v-col>
+              <v-col>
+                <ProfileForm block :profile="null" />
+              </v-col>
+              <v-col>
+                <PISForm block :pisId="'asdasd'" />
+              </v-col>
+              <v-col>
+                <ConfirmButton block color="red" @action="test()">Reset Account</ConfirmButton>
+              </v-col>
+              <v-col>
+                <ConfirmButton block color="red" @action="test()">Checkout</ConfirmButton>
+              </v-col>
+            </v-row>
           </td>
         </template>
       </v-data-table>
@@ -54,7 +78,22 @@
 </template>
 
 <script>
+  import ProfileForm from '@/components/database/ProfileForm'
+  import PISForm from '@/components/database/PISForm'
+  import ActionsPanel from '@/components/database/ActionsPanel'
+  import ConfirmButton from '@/components/general/ConfirmButton'
+  import BatchProfileUploader from '@/components/database/BatchProfileUploader'
+  import AddAccountabilityButton from '@/components/database/AddAccountabilityButton'
+
   export default {
+    components: {
+      ProfileForm,
+      PISForm,
+      ConfirmButton,
+      ActionsPanel,
+      BatchProfileUploader,
+      AddAccountabilityButton
+    },
     methods: {
       clicked(value) {
         if(this.expanded.includes(value)) {
@@ -65,6 +104,9 @@
         } else {
           this.expanded.push(value)
         }
+      },
+      test() {
+        console.log("test")
       }
     },
     data () {
@@ -92,7 +134,7 @@
             username: 'sonroyaalmerol',
             inout: 'IN',
           },
-        ],
+        ]
       }
     },
   }

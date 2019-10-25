@@ -25,18 +25,20 @@
         </template>
         <template v-slot:expanded-item="{ headers }">
           <td :colspan="headers.length">
-            <v-btn text>
-              Add IN Entry
-            </v-btn>
-            <v-btn text>
-              Add OUT Entry
-            </v-btn>
-            <v-btn text>
-              View Entries
-            </v-btn>
-            <v-btn color="red" text>
-              Delete
-            </v-btn>
+            <v-row>
+              <v-col>
+                <v-btn tile block color="primary">Add IN Entry</v-btn>
+              </v-col>
+              <v-col>
+                <v-btn tile block color="primary">Add OUT Entry</v-btn>
+              </v-col>
+              <v-col>
+                <v-btn tile block color="primary">View Entries</v-btn>
+              </v-col>
+              <v-col>
+                <v-btn color="red" dark tile block>Delete</v-btn>
+              </v-col>
+            </v-row>
           </td>
         </template>
       </v-data-table>
