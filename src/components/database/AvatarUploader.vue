@@ -33,6 +33,7 @@
     methods: {
         onUpload(e) {
             var files = e.target.files || e.dataTransfer.files
+            this.imageFile = files[0]
         }
     }
   }
