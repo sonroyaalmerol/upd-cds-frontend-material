@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 if (workbox) {
     console.log(`Workbox is loaded`)
     workbox.setConfig({
@@ -12,8 +13,8 @@ if (workbox) {
             cacheName: 'images',
             plugins: [
                 new workbox.expiration.Plugin({
-                maxEntries: 60,
-                maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+                    maxEntries: 60,
+                    maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
                 }),
             ],
         }),
