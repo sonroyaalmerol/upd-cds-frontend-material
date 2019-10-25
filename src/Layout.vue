@@ -125,6 +125,48 @@
         <router-view />
       </transition>
     </v-content>
+
+    <v-bottom-sheet v-model="offline">
+      <v-sheet class="text-center" height="150px">
+        <v-btn
+          class="mt-6"
+          flat
+          dark
+          color="primary"
+          @click="offline = !offline"
+        >close</v-btn>
+        <div>You are currently
+          <v-chip
+            class="ma-2"
+            color="red"
+            text-color="white"
+          >
+            OFFLINE
+          </v-chip>
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
+
+    <v-bottom-sheet v-model="online">
+      <v-sheet class="text-center" height="150px">
+        <v-btn
+          class="mt-6"
+          flat
+          dark
+          color="primary"
+          @click="online = !online"
+        >close</v-btn>
+        <div>You are now back
+          <v-chip
+            class="ma-2"
+            color="green"
+            text-color="white"
+          >
+            ONLINE
+          </v-chip>
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
   </v-app>
 </template>
 
@@ -136,11 +178,28 @@ export default {
   },
   data: () => ({
     drawer: null,
+    offline: false,
+    online: false,
+    wentOffline: false,
     drawerRight: null,
     right: false,
     left: false,
     role: 2
   }),
+  watch: {
+    networkStatus(next) {
+      if(!next) {
+        this.offline = true
+        this.online = false
+        this.wentOffline = true
+      } else {
+        this.offline = false
+        if(this.wentOffline) {
+          this.online = true
+        }
+      }
+    }
+  },
   computed: {
     routes() {
       return this.$router.options.routes
@@ -152,6 +211,9 @@ export default {
       else {
         return 'to top right, rgba(255,255,255,.8), rgba(255,255,255,.8)'
       }
+    },
+    networkStatus() {
+      return this.isOnline
     }
   }
 }
