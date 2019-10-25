@@ -17,17 +17,17 @@ export default new Router({
         path: 'dashboard',
         name: 'Dashboard',
         meta: { title: 'Dashboard', roles: [0, 1, 2] },
-        component: () => import('@/views/dashboard/index')
+        component: () => import(/* webpackPrefetch: true */ '@/views/dashboard/index')
       },
       {
         path: 'login',
         name: 'Login',
-        component: () => import('@/views/login')
+        component: () => import(/* webpackPrefetch: true */ '@/views/login')
       },
       {
         path: 'register',
         name: 'Register',
-        component: () => import('@/views/register')
+        component: () => import(/* webpackPrefetch: true */ '@/views/register')
       }]
     },
     {
@@ -40,32 +40,32 @@ export default new Router({
         {
           path: 'approve',
           name: 'Approve Permits',
-          component: () => import('@/views/permits/approve'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/permits/approve'),
           meta: { title: 'Approve Permits', roles: [1, 2] }
         },
         {
           path: 'apply',
           name: 'Apply Permits',
-          component: () => import('@/views/permits/apply'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/permits/apply'),
           meta: { title: 'Apply Permits', roles: [0, 1, 2] }
         },
         {
           path: 'view',
           name: 'View Permits',
-          component: () => import('@/views/permits/view'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/permits/view'),
           meta: { title: 'View Permits', roles: [0] }
         },
         {
           path: ':profileId',
           name: 'Permit Records',
-          component: () => import('@/views/permits/resident'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/permits/resident'),
           meta: { title: 'Permit Records', roles: [0, 1, 2] },
           hidden: true
         },
         {
           path: '',
           name: 'Permit Records',
-          component: () => import('@/views/permits/resident'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/permits/resident'),
           meta: { title: 'Permit Records', roles: [0, 1, 2], breadcrumb: false },
           hidden: true
         }
@@ -79,14 +79,14 @@ export default new Router({
         {
           path: ':profileId',
           name: 'In/Out Records',
-          component: () => import('@/views/inout/index'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/inout/index'),
           meta: { title: 'In/Out Records', roles: [0, 1, 2] },
           hidden: true
         },
         {
           path: '',
           name: 'In/Out Records',
-          component: () => import('@/views/inout/index'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/inout/index'),
           meta: { title: 'In/Out Records', roles: [0], breadcrumb: false }
         }
       ]
@@ -103,89 +103,89 @@ export default new Router({
       children: [
         {
           path: 'users',
-          component: () => import('@/views/database/users'), // Parent router-view
+          component: () => import(/* webpackPrefetch: true */ '@/views/database/users'), // Parent router-view
           name: 'Users Database',
           meta: { title: 'Users Database', roles: [1, 2] }
         },
         {
           path: 'forms',
-          component: () => import('@/views/database/forms'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/database/forms'),
           name: 'Forms Database',
           meta: { title: 'Forms Database', roles: [2] }
         },
         {
           path: 'violations/:residentId',
-          component: () => import('@/views/database/violations'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/database/violations'),
           name: 'Violations',
           meta: { title: 'Violations', roles: [0, 1, 2] },
           hidden: true
         },
         {
           path: 'violations',
-          component: () => import('@/views/database/violations'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/database/violations'),
           name: 'Violations',
           meta: { title: 'Violations', roles: [0], breadcrumb: false }
         },
         {
           path: 'activities/:activityId',
-          component: () => import('@/views/database/activityInOuts'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/database/activityInOuts'),
           name: 'Activities',
           meta: { title: 'Activities', roles: [1, 2] },
           hidden: true
         },
         {
           path: 'activities',
-          component: () => import('@/views/database/activities'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/database/activities'),
           name: 'Activities',
           meta: { title: 'Activities', roles: [0, 1, 2], breadcrumb: false }
         },
         {
           path: 'assistants',
-          component: () => import('@/views/database/ras'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/database/ras'),
           name: 'RA Database',
           meta: { title: 'RA Database', roles: [1, 2] }
         },
         {
           path: 'staffs',
-          component: () => import('@/views/database/staffs'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/database/staffs'),
           name: 'Staff Database',
           meta: { title: 'Staff Database', roles: [1, 2] }
         },
         {
           path: 'managers',
-          component: () => import('@/views/database/managers'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/database/managers'),
           name: 'DM Database',
           meta: { title: 'DM Database', roles: [2] }
         },
         {
           path: 'permits',
-          component: () => import('@/views/database/permits'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/database/permits'),
           name: 'Permits Database',
           meta: { title: 'Permits Database', roles: [1, 2] }
         },
         {
           path: 'accountabilities/:residentId',
-          component: () => import('@/views/database/accountabilities'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/database/accountabilities'),
           name: 'Accountabilties',
           meta: { title: 'Accountabilties', roles: [0, 1, 2] },
           hidden: true
         },
         {
           path: 'accountabilities',
-          component: () => import('@/views/database/accountabilities'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/database/accountabilities'),
           name: 'Accountabilties',
           meta: { title: 'Accountabilties', roles: [0], breadcrumb: false }
         },
         {
           path: 'directives/:assistantId',
-          component: () => import('@/views/database/directives'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/database/directives'),
           name: 'Directives',
           meta: { title: 'Directives', roles: [1, 2] },
           hidden: true
         },
         {
           path: 'directives',
-          component: () => import('@/views/database/directives'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/database/directives'),
           name: 'Directives',
           meta: { title: 'Directives', roles: [1], breadcrumb: false }
         }
@@ -199,7 +199,7 @@ export default new Router({
         {
           path: 'records',
           name: 'Key Borrowing',
-          component: () => import('@/views/keyborrowing/index'),
+          component: () => import(/* webpackPrefetch: true */ '@/views/keyborrowing/index'),
           meta: { title: 'Key Borrowing', roles: [1, 2] }
         }
       ]
