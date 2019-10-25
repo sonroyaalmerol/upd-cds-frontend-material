@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import ApprovingElement from '@/components/permits/ApprovingElement'
+  const ApprovingElement = () => import('@/components/permits/ApprovingElement')
 
   export default {
     components: {

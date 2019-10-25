@@ -30,8 +30,8 @@
 </template>
 
 <script>
-  import ApplicationRules from '@/components/permits/ApplicationRules'
-  import Forms from '@/components/permits/Forms'
+  const ApplicationRules = () => import('@/components/permits/ApplicationRules')
+  const Forms = () => import('@/components/permits/Forms')
 
   export default {
     components: {

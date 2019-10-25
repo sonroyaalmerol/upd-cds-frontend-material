@@ -78,12 +78,12 @@
 </template>
 
 <script>
-  import ProfileForm from '@/components/database/ProfileForm'
-  import PISForm from '@/components/database/PISForm'
-  import ActionsPanel from '@/components/database/ActionsPanel'
-  import ConfirmButton from '@/components/general/ConfirmButton'
-  import BatchProfileUploader from '@/components/database/BatchProfileUploader'
-  import AddAccountabilityButton from '@/components/database/AddAccountabilityButton'
+  const ProfileForm = () => import('@/components/database/ProfileForm')
+  const PISForm = () => import('@/components/database/PISForm')
+  const ActionsPanel = () => import('@/components/database/ActionsPanel')
+  const ConfirmButton = () => import('@/components/general/ConfirmButton')
+  const BatchProfileUploader = () => import('@/components/database/BatchProfileUploader')
+  const AddAccountabilityButton = () => import('@/components/database/AddAccountabilityButton')
 
   export default {
     components: {

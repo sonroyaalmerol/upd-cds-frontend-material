@@ -44,8 +44,8 @@
 </template>
 
 <script>
-  import ActionsPanel from '@/components/database/ActionsPanel'
-  import AddAccountabilityButton from '@/components/database/AddAccountabilityButton'
+  const ActionsPanel = () => import('@/components/database/ActionsPanel')
+  const AddAccountabilityButton = () => import('@/components/database/AddAccountabilityButton')
   export default {
     components: {
       AddAccountabilityButton,

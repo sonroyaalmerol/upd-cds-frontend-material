@@ -33,8 +33,8 @@
 </template>
 
 <script>
-    import TimePicker from '@/components/general/TimePicker'
-    import DatePicker from '@/components/general/DatePicker'
+    const TimePicker = () => import('@/components/general/TimePicker')
+    const DatePicker = () => import('@/components/general/DatePicker')
     export default {
         components: {
             TimePicker,

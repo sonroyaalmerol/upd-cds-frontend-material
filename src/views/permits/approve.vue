@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import ApplicationRules from '@/components/permits/ApplicationRules'
-import ApprovingList from '@/components/permits/ApprovingList'
+const ApplicationRules = () => import('@/components/permits/ApplicationRules')
+const ApprovingList = () => import('@/components/permits/ApprovingList')
 
 export default {
   components: {

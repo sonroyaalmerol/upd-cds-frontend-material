@@ -200,8 +200,8 @@
 </template>
 
 <script>
-import DatePicker from '@/components/general/DatePicker'
-import AvatarUploader from '@/components/database/AvatarUploader'
+const DatePicker = () => import('@/components/general/DatePicker')
+const AvatarUploader = () => import('@/components/database/AvatarUploader')
   export default {
     components: {
         DatePicker,

@@ -54,7 +54,7 @@
 </template>
 
 <script>
-  import ActionsPanel from '@/components/database/ActionsPanel'
+  const ActionsPanel = () => import('@/components/database/ActionsPanel')
   export default {
     components: {
       ActionsPanel
