@@ -104,9 +104,6 @@
         } else {
           this.expanded.push(value)
         }
-      },
-      test() {
-        console.log("test")
       }
     },
     data () {
