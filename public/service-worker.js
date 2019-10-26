@@ -8,9 +8,9 @@ if (workbox) {
     workbox.precaching.precacheAndRoute([])
     
     workbox.routing.registerRoute(
-        /\.(?:png|gif|jpg|jpeg|svg)$/,
+        /\.(?:png|gif|jpg|jpeg|svg|js|css)$/,
         workbox.strategies.staleWhileRevalidate({
-            cacheName: 'images',
+            cacheName: 'static',
             plugins: [
                 new workbox.expiration.Plugin({
                     maxEntries: 60,
