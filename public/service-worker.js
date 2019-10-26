@@ -1,27 +1,17 @@
 /* eslint-disable no-undef */
 if (workbox) {
     console.log(`Workbox is loaded`)
-    workbox.setConfig({
-        debug: false,
-    })
-    
-    workbox.precaching.precacheAndRoute([])
 
+    // adjust log level for displaying workbox logs
+    workbox.core.setLogLevel(workbox.core.LOG_LEVELS.debug)
+
+    // apply precaching. In the built version, the precacheManifest will
+    // be imported using importScripts (as is workbox itself) and we can 
+    // precache this. This is all we need for precaching
+    workbox.precaching.precacheAndRoute(self.__precacheManifest)
+    
     workbox.routing.registerNavigationRoute('/index.html')
-    
-    workbox.routing.registerRoute(
-        /\.(?:png|gif|jpg|jpeg|svg|js|css)$/,
-        workbox.strategies.staleWhileRevalidate({
-            cacheName: 'static',
-            plugins: [
-                new workbox.expiration.Plugin({
-                    maxEntries: 60,
-                    maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
-                }),
-            ],
-        }),
-    )
-    
+
     workbox.routing.registerRoute(
         new RegExp('https://api.updkalay.com'),
         workbox.strategies.networkFirst({
