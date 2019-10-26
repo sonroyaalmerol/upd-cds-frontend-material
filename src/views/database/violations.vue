@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel>
       <v-row>
         <v-col>
@@ -50,7 +50,7 @@
         </template>
       </v-data-table>
     </v-card>
-  </v-container>
+  </v-container-refresh>
 </template>
 
 <script>
@@ -69,6 +69,13 @@
         } else {
           this.expanded.push(value)
         }
+      },
+      onRefresh: function() {
+        return new Promise(function (resolve) {
+          setTimeout(function () {
+            resolve()
+          }, 1000)
+        })
       }
     },
     data () {

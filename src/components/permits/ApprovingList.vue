@@ -1,9 +1,9 @@
 <template>
   <v-card flat tile>
-    <ApprovingElement />
-    <ApprovingElement />
-    <ApprovingElement />
-    <ApprovingElement />
+    <ApprovingElement :key="0" />
+    <ApprovingElement :key="1" />
+    <ApprovingElement :key="2" />
+    <ApprovingElement :key="3" />
   </v-card>
 </template>
 

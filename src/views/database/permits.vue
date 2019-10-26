@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container-refresh :on-refresh="onRefresh">
     <v-card>
       <v-data-table
         :headers="headers"
@@ -21,11 +21,20 @@
         </template>
       </v-data-table>
     </v-card>
-  </v-container>
+  </v-container-refresh>
 </template>
 
 <script>
   export default {
+    methods: {
+      onRefresh: function() {
+        return new Promise(function (resolve) {
+          setTimeout(function () {
+            resolve()
+          }, 1000)
+        })
+      }
+    },
     data () {
       return {
         search: '',

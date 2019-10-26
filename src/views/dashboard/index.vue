@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container-refresh :on-refresh="onRefresh">
     <v-row>
       <v-col>
         <v-card>
@@ -170,14 +170,20 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </v-container-refresh>
 </template>
 
 <script>
 
 export default {
-  components: {
-    
-  }
+  methods: {
+    onRefresh: function() {
+      return new Promise(function (resolve) {
+        setTimeout(function () {
+          resolve()
+        }, 1000)
+      })
+    }
+  },
 }
 </script>

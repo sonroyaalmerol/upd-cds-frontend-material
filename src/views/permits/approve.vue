@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container-refresh :on-refresh="onRefresh">
     <ApplicationRules /><br>
     <v-card>
       <v-tabs v-model="tab" background-color="transparent" grow>
@@ -26,7 +26,7 @@
         </v-tab-item>
       </v-tabs-items>
     </v-card>
-  </v-container>
+  </v-container-refresh>
 </template>
 
 <script>
@@ -37,6 +37,15 @@ export default {
   components: {
     ApplicationRules,
     ApprovingList
+  },
+  methods: {
+    onRefresh: function() {
+      return new Promise(function (resolve) {
+        setTimeout(function () {
+          resolve()
+        }, 1000)
+      })
+    }
   },
   data () {
     return {
