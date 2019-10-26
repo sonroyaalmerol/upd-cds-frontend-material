@@ -1,11 +1,16 @@
 [v-cloak] {
     display: none;
-}
-html {
+  }
+html, body {
     height: 100%;
+    overscroll-behavior-y: contain;
 }
-body {
+.loader-container {
     height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
     background: #cf6679;
     display: flex;
     align-items: center;
@@ -15,7 +20,6 @@ body {
     position: relative;
     width: 75px;
     height: 100px;
-    z-index: -1;
 }
 .loader__bar {
     position: absolute;
