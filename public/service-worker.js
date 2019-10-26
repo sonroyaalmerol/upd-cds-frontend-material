@@ -63,3 +63,5 @@ workbox.routing.registerRoute(
     ],
     }),
 )
+
+workbox.routing.registerRoute(/.*/, workbox.strategies.networkFirst(), 'GET');
