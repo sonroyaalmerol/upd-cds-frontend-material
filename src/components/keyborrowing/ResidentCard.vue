@@ -13,7 +13,7 @@
       <v-row>
         <v-col>
           <center>
-            <b>{{ localData.name }}</b><br />
+            <div><b>{{ localData.name }}</b></div>
             <div>{{ localData.room }}</div>
             <div class="overline mb-1">{{ localData.upid }}</div>
           </center>
@@ -48,8 +48,10 @@
         }
       }
     },
-    mounted() {
-      this.localData = this.data
+    watch: {
+      data(next) {
+        this.localData = next
+      }
     },
     created() {
       this.localData = this.data
