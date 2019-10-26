@@ -46,7 +46,7 @@
       filteredArray() {
         var x = this.value.filter(
           data => {
-            var searchKey = `${data.name ? data.name : ''} ${data.upid ? data.upid : ''}`
+            var searchKey = `${data.name ? data.name : ''} ${data.upid ? data.upid : ''} ${data.room ? data.room : ''}`
             return !this.search || searchKey.toLowerCase().includes(this.search.toLowerCase())
           }
         )
