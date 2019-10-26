@@ -8,16 +8,16 @@
           </v-toolbar>
           <v-card-text>
             <v-form>
-              <v-text-field label="Username" name="username" prepend-icon="mdi-account" type="text" color="secondary">
+              <v-text-field label="Username" name="username" prepend-icon="mdi-account" type="text" color="primary">
               </v-text-field>
 
               <v-text-field id="password" label="Password" name="password" prepend-icon="mdi-lock" type="password"
-                color="secondary"></v-text-field>
+                color="primary"></v-text-field>
             </v-form>
           </v-card-text>
           <v-card-actions>
             <div class="flex-grow-1"></div>
-            <v-btn color="secondary" x-large text @click.stop="$router.push('register')">Register</v-btn>
+            <v-btn color="primary" x-large text @click.stop="$router.push('register')">Register</v-btn>
             <v-btn color="primary" x-large :to="'/dashboard'">Login</v-btn>
           </v-card-actions>
         </v-card>
