@@ -5,8 +5,11 @@ module.exports = {
   pwa: {
     workboxPluginMode: 'InjectManifest',
     workboxOptions: {
-      swSrc: 'public/service-worker.js'
-    },
-    themeColor: '#cf6679'
+      swSrc: 'src/service-worker.js',
+      exclude: [
+          /\.map$/, 
+          /manifest\.json$/ 
+      ]
+    }
   },
 }
