@@ -1,0 +1,68 @@
+<template>
+  <div>
+    <v-card>
+      <v-container>
+        <v-text-field v-model="search" block append-icon="mdi-account-search" label="Search" single-line hide-details>
+        </v-text-field>
+      </v-container>
+    </v-card>
+    <v-pagination
+      v-model="page"
+      class="my-4"
+      :length="numberOfPages"
+    ></v-pagination>
+    <center>
+      <template v-for="(res, i) in dataToShow">
+        <ResidentCard :data="res" :key="i" />
+      </template>
+    </center>
+    <v-pagination
+      v-model="page"
+      class="my-4"
+      :length="numberOfPages"
+    ></v-pagination>
+  </div>
+</template>
+
+<script>
+  const ResidentCard = () => import('@/components/keyborrowing/ResidentCard')
+
+  export default {
+    props: {
+      value: {
+        type: Array,
+        required: true
+      }
+    },
+    components: {
+      ResidentCard
+    },
+    computed: {
+      dataToShow() {
+        var index = this.page - 1
+        var toShow = this.filteredArray
+        return toShow.slice(index * this.profilePerPage, (index + 1) * this.profilePerPage)
+      },
+      filteredArray() {
+        var x = this.value.filter(
+          data => {
+            var searchKey = `${data.name ? data.name : ''} ${data.upid ? data.upid : ''}`
+            return !this.search || searchKey.toLowerCase().includes(this.search.toLowerCase())
+          }
+        )
+        return x
+      },
+      numberOfPages() {
+        return Math.ceil(this.filteredArray.length/this.profilePerPage)
+      }
+    },
+    data: () => ({
+      show: false,
+      search: '',
+      page: 1,
+      profilePerPage: 10
+    }),
+    methods: {
+    }
+  }
+</script>
