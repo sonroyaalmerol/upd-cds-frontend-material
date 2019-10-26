@@ -5,8 +5,7 @@
         <v-card>
           <v-card-text>
             <center>
-              <br />
-              <h1 class="text--primary">Good job! You have no pending permits!</h1><br />
+              <h1 class="text--primary my-4">Good job! You have no pending permits!</h1>
             </center>
           </v-card-text>
         </v-card>

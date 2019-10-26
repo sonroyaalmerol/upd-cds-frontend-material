@@ -2,7 +2,7 @@
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel>
       <AddAccountabilityButton />
-    </ActionsPanel><br />
+    </ActionsPanel>
     <v-card>
       <v-data-table :headers="headers" :items="accountabilities" :single-expand="singleExpand" :expanded.sync="expanded"
         :search="search" item-key="name" show-expand @click:row="clicked">

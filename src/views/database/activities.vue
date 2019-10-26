@@ -2,7 +2,7 @@
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel>
       <ActivityForm />
-    </ActionsPanel><br />
+    </ActionsPanel>
     <v-card>
       <v-data-table
         :headers="headers"

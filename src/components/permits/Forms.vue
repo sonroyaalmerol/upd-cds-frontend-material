@@ -19,13 +19,11 @@
         <v-text-field v-model="form.location" label="Location" required></v-text-field>
         <v-text-field v-model="form.reason" label="Reason" required></v-text-field>
         <v-text-field v-model="form.notes" label="Remarks"></v-text-field>
-        <br>
-        <br>
-        <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
+        <v-btn :disabled="!valid" color="success" class="mr-4 mt-2" @click="validate">
           Apply Permit
         </v-btn>
 
-        <v-btn color="error" class="mr-4" @click="reset">
+        <v-btn color="error" class="mr-4 mt-2" @click="reset">
           Reset Form
         </v-btn>
       </v-form>

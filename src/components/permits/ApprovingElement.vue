@@ -8,14 +8,15 @@
               Son Roy Almerol
             </v-card-title>
             <v-card-text>
-              <v-chip>
+              <v-chip class="mb-4">
                 <div class="text--primary">
                   10/16/2019 11:59pm
                 </div>
               </v-chip>
-              <br><br>
-              <h3>Test Location<br>
-                Test Reason</h3>
+              <h3>
+                <div>Test Location</div>
+                <div>Test Reason</div>
+              </h3>
             </v-card-text>
           </v-card>
         </v-col>
@@ -23,10 +24,10 @@
           <v-card flat class="mx-auto">
             <v-card-text>
               <div class="text--primary">
-                Athlete/Perfomer: ✘<br>
-                Leave alone: ✔<br>
-                Late Night: ✔<br>
-                Remarks:<br>
+                <div>Athlete/Perfomer: ✘</div>
+                <div>Leave alone: ✔</div>
+                <div>Late Night: ✔</div>
+                <div>Remarks:</div>
               </div>
             </v-card-text>
           </v-card>

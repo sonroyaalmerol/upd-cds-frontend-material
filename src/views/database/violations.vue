@@ -15,7 +15,7 @@
           <v-btn tile block color="primary">Export to CSV</v-btn>
         </v-col>
       </v-row>
-    </ActionsPanel><br />
+    </ActionsPanel>
     <v-card>
       <v-data-table :headers="headers" :items="violations" :single-expand="singleExpand" :expanded.sync="expanded"
         :search="search" item-key="name" show-expand @click:row="clicked">

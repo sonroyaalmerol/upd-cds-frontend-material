@@ -1,5 +1,5 @@
 <template>
-  <v-expansion-panels v-model="panel">
+  <v-expansion-panels class="mb-4" v-model="panel">
     <v-expansion-panel :key="0">
       <v-expansion-panel-header>Actions</v-expansion-panel-header>
       <v-expansion-panel-content>

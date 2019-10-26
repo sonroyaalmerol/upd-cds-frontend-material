@@ -2,7 +2,7 @@
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel>
       <CreateForm />
-    </ActionsPanel><br />
+    </ActionsPanel>
     <v-card>
       <v-data-table :headers="headers" :items="forms" :single-expand="singleExpand" :expanded.sync="expanded"
         :search="search" item-key="name" show-expand @click:row="clicked">

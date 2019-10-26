@@ -1,5 +1,5 @@
 <template>
-  <v-expansion-panels>
+  <v-expansion-panels class="mb-4">
     <v-expansion-panel>
       <v-expansion-panel-header>Permit Rules</v-expansion-panel-header>
       <v-expansion-panel-content>
