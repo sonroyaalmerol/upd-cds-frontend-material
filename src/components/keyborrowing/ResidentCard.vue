@@ -1,29 +1,29 @@
 <template>
-  <v-card class="d-inline-block mx-2 my-3">
+  <v-card class="d-inline-block mx-2 my-2">
     <v-container>
-      <v-row justify="space-between">
+      <v-row>
         <v-col cols="auto">
           <v-img
             height="200"
             width="200"
-            :src="data.image"
+            :src="localData.image"
           ></v-img>
         </v-col>
       </v-row>
-      <v-row justify="space-between">
+      <v-row>
         <v-col>
           <center>
-            <b>{{ data.name }}</b><br />
-            <div>{{ data.room }}</div>
-            <div class="overline mb-1">{{ data.upid }}</div>
+            <b>{{ localData.name }}</b><br />
+            <div>{{ localData.room }}</div>
+            <div class="overline mb-1">{{ localData.upid }}</div>
           </center>
         </v-col>
       </v-row>
       <v-row>
-        <v-btn v-if="data.state" text tile block>
+        <v-btn v-if="localData.state" @click="changeStateKey" :loading="loading" text tile block>
           <v-icon color="green">mdi-key</v-icon>Borrow Key
         </v-btn>
-        <v-btn v-else text tile block>
+        <v-btn v-else @click="changeStateKey" :loading="loading" text tile block>
           <v-icon color="red">mdi-key</v-icon>Return Key
         </v-btn>
       </v-row>
@@ -35,6 +35,35 @@
   export default {
     props: {
       data: Object
+    },
+    data() {
+      return {
+        loading: false,
+        localData: {
+          image: '',
+          name: '',
+          room: '',
+          upid: '',
+          state: true
+        }
+      }
+    },
+    mounted() {
+      this.localData = this.data
+    },
+    created() {
+      this.localData = this.data
+    },
+    methods: {
+      timeout(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      },
+      async changeStateKey() {
+        this.loading = true
+        await this.timeout(1000)
+        this.localData.state = !this.localData.state
+        this.loading = false
+      },
     }
   }
 </script>

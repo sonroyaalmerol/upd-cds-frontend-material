@@ -1,6 +1,6 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
-    <KeyBorrowingList v-model="sampleData" />
+    <KeyBorrowingList v-model="sampleData" :loading="false" />
   </v-container-refresh>
 </template>
 

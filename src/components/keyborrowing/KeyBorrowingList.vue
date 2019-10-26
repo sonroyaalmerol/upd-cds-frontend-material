@@ -11,10 +11,30 @@
       class="my-4"
       :length="numberOfPages"
     ></v-pagination>
-    <center>
+    <center v-if="!loading">
       <template v-for="(res, i) in dataToShow">
         <ResidentCard :data="res" :key="i" />
       </template>
+    </center>
+    <center v-else>
+      <v-card class="d-inline-block mx-2 my-3" :loading="true">
+        <v-container>
+          <v-row justify="space-between">
+            <v-col cols="auto">
+              <v-img
+                height="200"
+                width="200"
+              ></v-img>
+            </v-col>
+          </v-row>
+          <v-row justify="space-between">
+            <v-col>
+            </v-col>
+          </v-row>
+          <v-row>
+          </v-row>
+        </v-container>
+      </v-card>
     </center>
     <v-pagination
       v-model="page"
@@ -32,6 +52,10 @@
       value: {
         type: Array,
         required: true
+      },
+      loading: {
+        type: Boolean,
+        default: false
       }
     },
     components: {
