@@ -106,7 +106,7 @@
 
     <v-content>
       <keep-alive>
-        <router-view class="overflow-y-auto" />
+        <router-view :key="$route.fullPath" />
       </keep-alive>
     </v-content>
 
