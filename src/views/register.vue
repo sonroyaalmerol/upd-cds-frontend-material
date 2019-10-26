@@ -8,18 +8,18 @@
           </v-toolbar>
           <v-card-text>
             <v-form>
-              <v-text-field label="Student Number" name="upid" type="text" color="secondary"></v-text-field>
-              <v-text-field label="Email Address" name="email" type="text" color="secondary"></v-text-field>
-              <v-text-field label="Username" name="username" type="text" color="secondary"></v-text-field>
-              <v-text-field id="password" label="Password" name="password" type="password" color="secondary">
+              <v-text-field label="Student Number" name="upid" type="text" color="primary"></v-text-field>
+              <v-text-field label="Email Address" name="email" type="text" color="primary"></v-text-field>
+              <v-text-field label="Username" name="username" type="text" color="primary"></v-text-field>
+              <v-text-field id="password" label="Password" name="password" type="password" color="primary">
               </v-text-field>
               <v-text-field id="confirmpass" label="Confirm Password" name="confirmpass" type="password"
-                color="secondary"></v-text-field>
+                color="primary"></v-text-field>
             </v-form>
           </v-card-text>
           <v-card-actions>
             <div class="flex-grow-1"></div>
-            <v-btn color="secondary" x-large text @click.stop="$router.push('login')">Back to Login</v-btn>
+            <v-btn color="primary" x-large text @click.stop="$router.push('login')">Back to Login</v-btn>
             <v-btn color="primary" x-large>Register</v-btn>
           </v-card-actions>
         </v-card>
