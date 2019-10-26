@@ -89,6 +89,9 @@
             this.expanded.splice(index, 1);
           }
         } else {
+          if (this.expanded.length > 0 && this.singleExpand) {
+            this.expanded = []
+          }
           this.expanded.push(value)
         }
       },

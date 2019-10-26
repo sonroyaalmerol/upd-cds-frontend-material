@@ -146,7 +146,7 @@
       drawerRight: null,
       right: false,
       left: false,
-      role: 0
+      role: 2
     }),
     watch: {
       networkStatus(next) {

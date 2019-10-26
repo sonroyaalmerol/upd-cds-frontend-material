@@ -1,5 +1,8 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
+    <ActionsPanel>
+      <DMForm />
+    </ActionsPanel><br />
     <v-card>
       <v-data-table :headers="headers" :items="dms" :single-expand="singleExpand" :expanded.sync="expanded"
         :search="search" item-key="name" show-expand @click:row="clicked">
@@ -31,7 +34,14 @@
 </template>
 
 <script>
+  const DMForm = () => import('@/components/database/DMForm')
+  const ActionsPanel = () => import('@/components/database/ActionsPanel')
+
   export default {
+    components: {
+      DMForm,
+      ActionsPanel
+    },
     methods: {
       clicked(value) {
         if (this.expanded.includes(value)) {
@@ -40,6 +50,9 @@
             this.expanded.splice(index, 1);
           }
         } else {
+          if (this.expanded.length > 0 && this.singleExpand) {
+            this.expanded = []
+          }
           this.expanded.push(value)
         }
       },

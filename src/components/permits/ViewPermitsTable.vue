@@ -1,5 +1,5 @@
 <template>
-  <v-data-table :headers="headers" :items="permits" :single-expand="true" :expanded.sync="expanded" :search="search"
+  <v-data-table :headers="headers" :items="permits" :single-expand="singleExpand" :expanded.sync="expanded" :search="search"
     item-key="name" show-expand @click:row="clicked">
     <template v-slot:top>
       <v-toolbar flat>
@@ -33,6 +33,9 @@
             this.expanded.splice(index, 1);
           }
         } else {
+          if (this.expanded.length > 0 && this.singleExpand) {
+            this.expanded = []
+          }
           this.expanded.push(value)
         }
       },
@@ -41,6 +44,7 @@
       return {
         expanded: [],
         search: '',
+        singleExpand: true,
         headers: [{
             text: 'Location',
             value: 'location'

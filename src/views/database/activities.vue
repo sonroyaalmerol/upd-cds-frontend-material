@@ -1,5 +1,8 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
+    <ActionsPanel>
+      <ActivityForm />
+    </ActionsPanel><br />
     <v-card>
       <v-data-table
         :headers="headers"
@@ -27,10 +30,10 @@
           <td :colspan="headers.length">
             <v-row>
               <v-col>
-                <v-btn tile block color="primary">Add IN Entry</v-btn>
+                <ActivityInOut block />
               </v-col>
               <v-col>
-                <v-btn tile block color="primary">Add OUT Entry</v-btn>
+                <ActivityInOut out block />
               </v-col>
               <v-col>
                 <v-btn tile block color="primary">View Entries</v-btn>
@@ -47,7 +50,16 @@
 </template>
 
 <script>
+  const ActivityForm = () => import('@/components/database/ActivityForm')
+  const ActionsPanel = () => import('@/components/database/ActionsPanel')
+  const ActivityInOut = () => import('@/components/database/ActivityInOut')
+
   export default {
+    components: {
+      ActivityForm,
+      ActionsPanel,
+      ActivityInOut
+    },
     methods: {
       clicked(value) {
         if(this.expanded.includes(value)) {

@@ -1,5 +1,8 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
+    <ActionsPanel>
+      <RAForm />
+    </ActionsPanel><br />
     <v-card>
       <v-data-table :headers="headers" :items="ras" :single-expand="singleExpand" :expanded.sync="expanded"
         :search="search" item-key="name" show-expand @click:row="clicked">
@@ -34,7 +37,14 @@
 </template>
 
 <script>
+  const RAForm = () => import('@/components/database/RAForm')
+  const ActionsPanel = () => import('@/components/database/ActionsPanel')
+
   export default {
+    components: {
+      RAForm,
+      ActionsPanel
+    },
     methods: {
       clicked(value) {
         if (this.expanded.includes(value)) {
@@ -43,6 +53,9 @@
             this.expanded.splice(index, 1);
           }
         } else {
+          if (this.expanded.length > 0 && this.singleExpand) {
+            this.expanded = []
+          }
           this.expanded.push(value)
         }
       },

@@ -1,5 +1,8 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
+    <ActionsPanel>
+      <StaffForm />
+    </ActionsPanel><br />
     <v-card>
       <v-data-table :headers="headers" :items="staffs" :single-expand="singleExpand" :expanded.sync="expanded"
         :search="search" item-key="name" show-expand @click:row="clicked">
@@ -28,7 +31,14 @@
 </template>
 
 <script>
+  const StaffForm = () => import('@/components/database/StaffForm')
+  const ActionsPanel = () => import('@/components/database/ActionsPanel')
+
   export default {
+    components: {
+      StaffForm,
+      ActionsPanel
+    },
     methods: {
       clicked(value) {
         if (this.expanded.includes(value)) {
@@ -37,6 +47,9 @@
             this.expanded.splice(index, 1);
           }
         } else {
+          if (this.expanded.length > 0 && this.singleExpand) {
+            this.expanded = []
+          }
           this.expanded.push(value)
         }
       },
