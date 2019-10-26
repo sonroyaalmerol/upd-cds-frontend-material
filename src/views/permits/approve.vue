@@ -16,13 +16,13 @@
 
       <v-tabs-items touchless v-model="tab">
         <v-tab-item :key="`ln`">
-          <ApprovingList :permitType="0" />
+          <ApprovingList v-model="testArray" :permitType="0" />
         </v-tab-item>
         <v-tab-item :key="`on`">
-          <ApprovingList :permitType="1" />
+          <ApprovingList v-model="testArray" :permitType="1" />
         </v-tab-item>
         <v-tab-item :key="`em`">
-          <ApprovingList :permitType="2" />
+          <ApprovingList v-model="testArray" :permitType="2" />
         </v-tab-item>
       </v-tabs-items>
     </v-card>
@@ -49,7 +49,8 @@
     },
     data() {
       return {
-        tab: null
+        tab: null,
+        testArray: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
       }
     }
   }
