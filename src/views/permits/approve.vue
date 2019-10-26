@@ -14,7 +14,7 @@
         </v-tab>
       </v-tabs>
 
-      <v-tabs-items v-model="tab">
+      <v-tabs-items touchless v-model="tab">
         <v-tab-item :key="`ln`">
           <ApprovingList :permitType="0" />
         </v-tab-item>
@@ -30,27 +30,27 @@
 </template>
 
 <script>
-const ApplicationRules = () => import('@/components/permits/ApplicationRules')
-const ApprovingList = () => import('@/components/permits/ApprovingList')
+  const ApplicationRules = () => import('@/components/permits/ApplicationRules')
+  const ApprovingList = () => import('@/components/permits/ApprovingList')
 
-export default {
-  components: {
-    ApplicationRules,
-    ApprovingList
-  },
-  methods: {
-    onRefresh: function() {
-      return new Promise(function (resolve) {
-        setTimeout(function () {
-          resolve()
-        }, 1000)
-      })
-    }
-  },
-  data () {
-    return {
-      tab: null
+  export default {
+    components: {
+      ApplicationRules,
+      ApprovingList
+    },
+    methods: {
+      onRefresh: function () {
+        return new Promise(function (resolve) {
+          setTimeout(function () {
+            resolve()
+          }, 1000)
+        })
+      }
+    },
+    data() {
+      return {
+        tab: null
+      }
     }
   }
-}
 </script>

@@ -3,10 +3,7 @@
     <v-card-text>
       <v-row>
         <v-col>
-          <v-card
-            flat
-            class="mx-auto"
-          >
+          <v-card flat class="mx-auto">
             <v-card-title>
               Son Roy Almerol
             </v-card-title>
@@ -18,15 +15,12 @@
               </v-chip>
               <br><br>
               <h3>Test Location<br>
-              Test Reason</h3>
+                Test Reason</h3>
             </v-card-text>
           </v-card>
         </v-col>
         <v-col>
-          <v-card
-            flat
-            class="mx-auto"
-          >
+          <v-card flat class="mx-auto">
             <v-card-text>
               <div class="text--primary">
                 Athlete/Perfomer: ✘<br>
@@ -41,12 +35,16 @@
       <v-card-actions>
         <v-row>
           <v-col>
-            <v-btn tile block color="green"><v-icon>mdi-check</v-icon></v-btn>
+            <v-btn tile block color="green">
+              <v-icon>mdi-check</v-icon>
+            </v-btn>
           </v-col>
           <v-col>
             <v-dialog v-model="dialog" persistent max-width="600px">
               <template v-slot:activator="{ on }">
-                <v-btn tile block color="blue" v-on="on"><v-icon>mdi-message-bulleted</v-icon></v-btn>
+                <v-btn tile block color="blue" v-on="on">
+                  <v-icon>mdi-message-bulleted</v-icon>
+                </v-btn>
               </template>
               <v-card>
                 <v-card-title>
@@ -54,11 +52,8 @@
                 </v-card-title>
                 <v-card-text>
                   <v-container>
-                    <v-textarea
-                      label="Remarks"
-                      hint="This can be seen by both the admin and the resident."
-                      persistent-hint
-                    ></v-textarea>
+                    <v-textarea label="Remarks" hint="This can be seen by both the admin and the resident."
+                      persistent-hint></v-textarea>
                   </v-container>
                 </v-card-text>
                 <v-card-actions>
@@ -70,7 +65,9 @@
             </v-dialog>
           </v-col>
           <v-col>
-            <v-btn tile block color="red"><v-icon>mdi-close</v-icon></v-btn>
+            <v-btn tile block color="red">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
           </v-col>
         </v-row>
       </v-card-actions>

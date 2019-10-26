@@ -3,13 +3,13 @@
     <ActionsPanel>
       <v-row>
         <v-col>
-          <v-btn tile block color="primary">Add Violation</v-btn>
+          <AddViolationButton block />
         </v-col>
         <v-col>
-          <v-btn tile block color="primary">Review In/Out Entries</v-btn>
+          <v-btn tile block color="primary" :to="'/inoutentries/asd'">Review In/Out Entries</v-btn>
         </v-col>
         <v-col>
-          <v-btn tile block color="primary">Review Permits</v-btn>
+          <v-btn tile block color="primary" :to="'/permits/asd'">Review Permits</v-btn>
         </v-col>
         <v-col>
           <v-btn tile block color="primary">Export to CSV</v-btn>
@@ -17,26 +17,13 @@
       </v-row>
     </ActionsPanel><br />
     <v-card>
-      <v-data-table
-        :headers="headers"
-        :items="violations"
-        :single-expand="singleExpand"
-        :expanded.sync="expanded"
-        :search="search"
-        item-key="name"
-        show-expand
-        @click:row="clicked"
-      >
+      <v-data-table :headers="headers" :items="violations" :single-expand="singleExpand" :expanded.sync="expanded"
+        :search="search" item-key="name" show-expand @click:row="clicked">
         <template v-slot:top>
           <v-toolbar flat>
             <v-spacer></v-spacer>
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-account-search"
-              label="Search"
-              single-line
-              hide-details
-            ></v-text-field>
+            <v-text-field v-model="search" append-icon="mdi-account-search" label="Search" single-line hide-details>
+            </v-text-field>
           </v-toolbar>
         </template>
         <template v-slot:expanded-item="{ headers }">
@@ -55,13 +42,15 @@
 
 <script>
   const ActionsPanel = () => import('@/components/database/ActionsPanel')
+  const AddViolationButton = () => import('@/components/database/AddViolationButton')
   export default {
     components: {
-      ActionsPanel
+      ActionsPanel,
+      AddViolationButton
     },
     methods: {
       clicked(value) {
-        if(this.expanded.includes(value)) {
+        if (this.expanded.includes(value)) {
           var index = this.expanded.indexOf(value);
           if (index > -1) {
             this.expanded.splice(index, 1);
@@ -70,7 +59,7 @@
           this.expanded.push(value)
         }
       },
-      onRefresh: function() {
+      onRefresh: function () {
         return new Promise(function (resolve) {
           setTimeout(function () {
             resolve()
@@ -78,24 +67,33 @@
         })
       }
     },
-    data () {
+    data() {
       return {
         search: '',
         expanded: [],
         singleExpand: false,
-        headers: [
-          { text: 'Type', value: 'type' },
-          { text: 'Details', value: 'details' },
-          { text: 'timestamp', value: 'timestamp' },
-          { text: '', value: 'data-table-expand' },
-        ],
-        violations: [
+        headers: [{
+            text: 'Type',
+            value: 'type'
+          },
           {
-            type: 'Minor Violation',
-            details: 'Key Borrowing Violation',
-            timestamp: '10/14/2019, 12:32:59 PM',
-          }
+            text: 'Details',
+            value: 'details'
+          },
+          {
+            text: 'timestamp',
+            value: 'timestamp'
+          },
+          {
+            text: '',
+            value: 'data-table-expand'
+          },
         ],
+        violations: [{
+          type: 'Minor Violation',
+          details: 'Key Borrowing Violation',
+          timestamp: '10/14/2019, 12:32:59 PM',
+        }],
       }
     },
   }

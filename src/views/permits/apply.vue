@@ -1,5 +1,5 @@
 <template>
-  <v-container-refresh :on-refresh="onRefresh">
+  <v-container>
     <ApplicationRules /><br>
     <v-card>
       <v-tabs v-model="tab" background-color="transparent" grow>
@@ -14,19 +14,19 @@
         </v-tab>
       </v-tabs>
 
-      <v-tabs-items v-model="tab">
+      <v-tabs-items touchless v-model="tab">
         <v-tab-item :key="`ln`">
-          <Forms :permitType="0" />
+          <Forms :permit-type="0" />
         </v-tab-item>
         <v-tab-item :key="`on`">
-          <Forms :permitType="1" />
+          <Forms :permit-type="1" />
         </v-tab-item>
         <v-tab-item :key="`em`">
-          <Forms :permitType="2" />
+          <Forms :permit-type="2" />
         </v-tab-item>
       </v-tabs-items>
     </v-card>
-  </v-container-refresh>
+  </v-container>
 </template>
 
 <script>
@@ -38,16 +38,8 @@
       ApplicationRules,
       Forms
     },
-    methods: {
-      onRefresh: function() {
-        return new Promise(function (resolve) {
-          setTimeout(function () {
-            resolve()
-          }, 1000)
-        })
-      }
-    },
-    data () {
+    methods: {},
+    data() {
       return {
         tab: null
       }

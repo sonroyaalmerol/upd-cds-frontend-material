@@ -71,7 +71,7 @@
       return {
         search: '',
         expanded: [],
-        singleExpand: false,
+        singleExpand: true,
         headers: [
           { text: 'Activity Name', value: 'name' },
           { text: 'Points', value: 'points' },

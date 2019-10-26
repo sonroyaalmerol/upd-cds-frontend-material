@@ -5,7 +5,8 @@
         <v-card>
           <v-card-text>
             <center>
-              <br /><h1 class="text--primary">Good job! You have no pending permits!</h1><br />
+              <br />
+              <h1 class="text--primary">Good job! You have no pending permits!</h1><br />
             </center>
           </v-card-text>
         </v-card>
@@ -124,11 +125,7 @@
               <tbody>
                 <tr>
                   <td>
-                    <v-chip
-                      outlined
-                      class="ma-2"
-                      color="yellow"
-                    >
+                    <v-chip tile class="ma-2" color="warning">
                       Minor Violation
                     </v-chip>
                   </td>
@@ -155,11 +152,7 @@
                 <tr>
                   <td>Payment (First Sem) - 4TH</td>
                   <td>
-                    <v-chip
-                      outlined
-                      class="ma-2"
-                      color="green"
-                    >
+                    <v-chip tile class="ma-2" color="success">
                       Cleared (by: Son Roy Almerol)
                     </v-chip>
                   </td>
@@ -174,16 +167,15 @@
 </template>
 
 <script>
-
-export default {
-  methods: {
-    onRefresh: function() {
-      return new Promise(function (resolve) {
-        setTimeout(function () {
-          resolve()
-        }, 1000)
-      })
-    }
-  },
-}
+  export default {
+    methods: {
+      onRefresh: function () {
+        return new Promise(function (resolve) {
+          setTimeout(function () {
+            resolve()
+          }, 1000)
+        })
+      }
+    },
+  }
 </script>

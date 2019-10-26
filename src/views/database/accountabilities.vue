@@ -4,26 +4,13 @@
       <AddAccountabilityButton />
     </ActionsPanel><br />
     <v-card>
-      <v-data-table
-        :headers="headers"
-        :items="accountabilities"
-        :single-expand="singleExpand"
-        :expanded.sync="expanded"
-        :search="search"
-        item-key="name"
-        show-expand
-        @click:row="clicked"
-      >
+      <v-data-table :headers="headers" :items="accountabilities" :single-expand="singleExpand" :expanded.sync="expanded"
+        :search="search" item-key="name" show-expand @click:row="clicked">
         <template v-slot:top>
           <v-toolbar flat>
             <v-spacer></v-spacer>
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-account-search"
-              label="Search"
-              single-line
-              hide-details
-            ></v-text-field>
+            <v-text-field v-model="search" append-icon="mdi-account-search" label="Search" single-line hide-details>
+            </v-text-field>
           </v-toolbar>
         </template>
         <template v-slot:expanded-item="{ headers }">
@@ -53,7 +40,7 @@
     },
     methods: {
       clicked(value) {
-        if(this.expanded.includes(value)) {
+        if (this.expanded.includes(value)) {
           var index = this.expanded.indexOf(value);
           if (index > -1) {
             this.expanded.splice(index, 1);
@@ -62,7 +49,7 @@
           this.expanded.push(value)
         }
       },
-      onRefresh: function() {
+      onRefresh: function () {
         return new Promise(function (resolve) {
           setTimeout(function () {
             resolve()
@@ -70,24 +57,33 @@
         })
       }
     },
-    data () {
+    data() {
       return {
         search: '',
         expanded: [],
-        singleExpand: false,
-        headers: [
-          { text: 'Reason', value: 'reason' },
-          { text: 'Status', value: 'status' },
-          { text: 'Date of Clearance', value: 'clearanceDate' },
-          { text: '', value: 'data-table-expand' },
-        ],
-        accountabilities: [
+        singleExpand: true,
+        headers: [{
+            text: 'Reason',
+            value: 'reason'
+          },
           {
-            reason: 'Water Fee 100 - MONTH 1',
-            status: 'Not cleared',
-            clearanceDate: 'N/A',
-          }
+            text: 'Status',
+            value: 'status'
+          },
+          {
+            text: 'Date of Clearance',
+            value: 'clearanceDate'
+          },
+          {
+            text: '',
+            value: 'data-table-expand'
+          },
         ],
+        accountabilities: [{
+          reason: 'Water Fee 100 - MONTH 1',
+          status: 'Not cleared',
+          clearanceDate: 'N/A',
+        }],
       }
     },
   }

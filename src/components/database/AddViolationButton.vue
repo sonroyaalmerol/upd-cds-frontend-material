@@ -1,23 +1,22 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on }">
-      <v-btn v-if="batch" tile :block="block" color="primary" v-on="on">Batch Accountability</v-btn>
-      <v-btn v-else tile :block="block" color="primary" v-on="on">Add Accountability</v-btn>
+      <v-btn tile :block="block" color="primary" v-on="on">Add Violation</v-btn>
     </template>
     <v-card>
       <v-card-title>
-        <span v-if="batch" class="headline">Batch Accountability</span>
-        <span v-else class="headline">Add Accountability</span>
+        <span class="headline">Add Violation</span>
       </v-card-title>
       <v-card-text>
         <v-container>
-          <v-textarea v-model="reason" label="Reason/Details"></v-textarea>
+          <v-textarea v-model="details" label="Reason/Details"></v-textarea>
+          <v-switch color="primary" v-model="isMajor" label="Major Violation"></v-switch>
         </v-container>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn text @click="dialog = false">Close</v-btn>
-        <v-btn color="primary" tile @click="dialog = false">Add Accountability</v-btn>
+        <v-btn color="primary" tile @click="dialog = false">Add Violation</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -26,10 +25,6 @@
 <script>
   export default {
     props: {
-      batch: {
-        type: Boolean,
-        default: false
-      },
       block: {
         type: Boolean,
         default: false
@@ -37,7 +32,8 @@
     },
     data: () => ({
       dialog: false,
-      reason: ''
+      details: '',
+      isMajor: false
     }),
   }
 </script>

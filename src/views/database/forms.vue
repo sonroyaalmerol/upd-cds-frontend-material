@@ -1,26 +1,13 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
     <v-card>
-      <v-data-table
-        :headers="headers"
-        :items="forms"
-        :single-expand="singleExpand"
-        :expanded.sync="expanded"
-        :search="search"
-        item-key="name"
-        show-expand
-        @click:row="clicked"
-      >
+      <v-data-table :headers="headers" :items="forms" :single-expand="singleExpand" :expanded.sync="expanded"
+        :search="search" item-key="name" show-expand @click:row="clicked">
         <template v-slot:top>
           <v-toolbar flat>
             <v-spacer></v-spacer>
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-account-search"
-              label="Search"
-              single-line
-              hide-details
-            ></v-text-field>
+            <v-text-field v-model="search" append-icon="mdi-account-search" label="Search" single-line hide-details>
+            </v-text-field>
           </v-toolbar>
         </template>
         <template v-slot:expanded-item="{ headers }">
@@ -50,7 +37,7 @@
   export default {
     methods: {
       clicked(value) {
-        if(this.expanded.includes(value)) {
+        if (this.expanded.includes(value)) {
           var index = this.expanded.indexOf(value);
           if (index > -1) {
             this.expanded.splice(index, 1);
@@ -59,7 +46,7 @@
           this.expanded.push(value)
         }
       },
-      onRefresh: function() {
+      onRefresh: function () {
         return new Promise(function (resolve) {
           setTimeout(function () {
             resolve()
@@ -67,26 +54,38 @@
         })
       }
     },
-    data () {
+    data() {
       return {
         search: '',
         expanded: [],
-        singleExpand: false,
-        headers: [
-          { text: 'Title', value: 'title' },
-          { text: 'Required', value: 'required' },
-          { text: 'Posted By', value: 'postedBy' },
-          { text: 'Timestamp', value: 'timestamp' },
-          { text: '', value: 'data-table-expand' },
-        ],
-        forms: [
+        singleExpand: true,
+        headers: [{
+            text: 'Title',
+            value: 'title'
+          },
           {
-            title: 'Attend Talk on Solid Waste Management',
-            required: 'Required',
-            postedBy: '5cb3e961808c214348087b62',
-            timestamp: '2019-10-14T05:23:02.859Z',
-          }
+            text: 'Required',
+            value: 'required'
+          },
+          {
+            text: 'Posted By',
+            value: 'postedBy'
+          },
+          {
+            text: 'Timestamp',
+            value: 'timestamp'
+          },
+          {
+            text: '',
+            value: 'data-table-expand'
+          },
         ],
+        forms: [{
+          title: 'Attend Talk on Solid Waste Management',
+          required: 'Required',
+          postedBy: '5cb3e961808c214348087b62',
+          timestamp: '2019-10-14T05:23:02.859Z',
+        }],
       }
     },
   }

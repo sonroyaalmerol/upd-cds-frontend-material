@@ -1,29 +1,29 @@
 <template>
-    <v-btn tile :block="block" color="primary" :loading="loading" @click="$refs.file.click()">
-        Batch Profile
-        <input type="file" ref="file" style="display: none" v-on:change="onUpload" />
-    </v-btn>
+  <v-btn tile :block="block" color="primary" :loading="loading" @click="$refs.file.click()">
+    Batch Profile
+    <input type="file" ref="file" style="display: none" v-on:change="onUpload" />
+  </v-btn>
 </template>
 
 <script>
   export default {
     props: {
-        block: {
-            type: Boolean,
-            default: false
-        }
+      block: {
+        type: Boolean,
+        default: false
+      }
     },
-    data () {
+    data() {
       return {
-          csvFile: null,
-          loading: false
+        csvFile: null,
+        loading: false
       }
     },
     methods: {
-        onUpload(e) {
-            var files = e.target.files || e.dataTransfer.files
-            this.csvFile = files[0]
-        }
+      onUpload(e) {
+        var files = e.target.files || e.dataTransfer.files
+        this.csvFile = files[0]
+      }
     }
   }
 </script>
