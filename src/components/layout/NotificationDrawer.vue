@@ -14,7 +14,6 @@
     name: 'App',
     props: {
       value: {
-        type: Boolean,
         required: true
       }
     }

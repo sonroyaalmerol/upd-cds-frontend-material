@@ -19,16 +19,23 @@
     name: 'App',
     data: () => ({
       status: false,
+      wasOffline: false,
       open: false
     }),
     watch: {
       networkStatus(next, prev) {
-        if (prev !== null && prev != next) {
+        if (prev === true && next === false) {
+          this.wasOffline = true
+        }
+        if (this.wasOffline && prev != next) {
           this.open = false
           this.status = next
           this.open = true
         }
       }
+    },
+    activated() {
+      this.open = false
     },
     computed: {
       networkStatus() {

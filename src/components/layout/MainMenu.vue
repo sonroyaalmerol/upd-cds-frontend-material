@@ -38,7 +38,6 @@
     components: {},
     props: {
       value: {
-        type: Boolean,
         required: true
       }
     },
