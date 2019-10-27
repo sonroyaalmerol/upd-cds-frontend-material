@@ -8,6 +8,7 @@
         </v-card-text>
       </v-card>
     </v-navigation-drawer>
+
     <v-app-bar dark app clipped-right color="#fcb69f" :src="require('./assets/header.jpg')">
       <template v-slot:img="{ props }">
         <v-img v-bind="props" :gradient="appBarGradient"></v-img>
@@ -70,39 +71,7 @@
       </template>
     </v-app-bar>
 
-    <!-- NAVIGATION DRAWER -->
-
-    <v-navigation-drawer v-if="$route.path !== '/login' && $route.path !== '/register'" v-model="drawer" app>
-      <v-list class="overflow-y-auto" dense>
-        <template v-for="(item, index) in routes">
-          <v-list-item
-            v-if="item.children.filter((i) => 'meta' in i && !i.hidden && i.meta.roles.includes(role)).length === 1"
-            :key="index" :to="`${(item.path === '/') ? '' : item.path}/${firstNonHidden(item.children).path}`">
-            <v-list-item-action>
-              <v-icon>{{ item.meta.icon }}</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>{{ firstNonHidden(item.children).meta.title }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-group
-            v-else-if="item.children.filter((i) => 'meta' in i && !i.hidden && i.meta.roles.includes(role)).length > 1"
-            :key="index" :prepend-icon="item.meta.icon">
-            <template v-slot:activator>
-              <v-list-item-title>{{ item.meta.title }}</v-list-item-title>
-            </template>
-            <template v-for="(sub, i) in item.children">
-              <template v-if="!sub.hidden">
-                <v-list-item v-if="sub.meta.roles.includes(role)" :key="i"
-                  :to="`${(item.path === '/') ? '' : item.path}/${sub.path}`">
-                  <v-list-item-title v-text="sub.meta.title"></v-list-item-title>
-                </v-list-item>
-              </template>
-            </template>
-          </v-list-group>
-        </template>
-      </v-list>
-    </v-navigation-drawer>
+    <MainMenu v-model="drawer" />
 
     <v-content>
       <keep-alive>
@@ -135,9 +104,13 @@
 </template>
 
 <script>
+  const MainMenu = () => import('@/components/layout/MainMenu')
+
   export default {
     name: 'App',
-    components: {},
+    components: {
+      MainMenu
+    },
     data: () => ({
       drawer: null,
       offline: false,
@@ -163,9 +136,6 @@
       }
     },
     computed: {
-      routes() {
-        return this.$router.options.routes
-      },
       appBarGradient() {
         return 'to top right, rgba(0,0,0,.8), rgba(0,0,0,.8)'
       },
@@ -174,14 +144,6 @@
       }
     },
     methods: {
-      firstNonHidden(array) {
-        for (var x = 0; x < array.length; x++) {
-          if ('hidden' in array[x] && array[x].hidden) {
-            continue
-          }
-          return array[x]
-        }
-      }
     }
   }
 </script>

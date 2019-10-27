@@ -32,7 +32,7 @@ export default new Router({
         {
           path: 'register',
           name: 'Register',
-          component: () => import( /* webpackPrefetch: true */ '@/views/register')
+          component: () => import('@/views/register')
         }
       ]
     },
@@ -48,7 +48,7 @@ export default new Router({
       children: [{
           path: 'approve',
           name: 'Approve Permits',
-          component: () => import( /* webpackPrefetch: true */ '@/views/permits/approve'),
+          component: () => import('@/views/permits/approve'),
           meta: {
             title: 'Approve Permits',
             roles: [1, 2]
@@ -57,7 +57,7 @@ export default new Router({
         {
           path: 'apply',
           name: 'Apply Permits',
-          component: () => import( /* webpackPrefetch: true */ '@/views/permits/apply'),
+          component: () => import('@/views/permits/apply'),
           meta: {
             title: 'Apply Permits',
             roles: [0, 1, 2]
@@ -66,7 +66,7 @@ export default new Router({
         {
           path: 'view',
           name: 'View Permits',
-          component: () => import( /* webpackPrefetch: true */ '@/views/permits/view'),
+          component: () => import('@/views/permits/view'),
           meta: {
             title: 'View Permits',
             roles: [0]
@@ -75,7 +75,7 @@ export default new Router({
         {
           path: ':profileId',
           name: 'Permit Records',
-          component: () => import( /* webpackPrefetch: true */ '@/views/permits/resident'),
+          component: () => import('@/views/permits/resident'),
           meta: {
             title: 'Permit Records',
             roles: [0, 1, 2]
@@ -85,7 +85,7 @@ export default new Router({
         {
           path: '',
           name: 'Permit Records',
-          component: () => import( /* webpackPrefetch: true */ '@/views/permits/resident'),
+          component: () => import('@/views/permits/resident'),
           meta: {
             title: 'Permit Records',
             roles: [0, 1, 2],
@@ -105,7 +105,7 @@ export default new Router({
       children: [{
           path: ':profileId',
           name: 'In/Out Records',
-          component: () => import( /* webpackPrefetch: true */ '@/views/inout/index'),
+          component: () => import('@/views/inout/index'),
           meta: {
             title: 'In/Out Records',
             roles: [0, 1, 2]
@@ -115,7 +115,7 @@ export default new Router({
         {
           path: '',
           name: 'In/Out Records',
-          component: () => import( /* webpackPrefetch: true */ '@/views/inout/index'),
+          component: () => import('@/views/inout/index'),
           meta: {
             title: 'In/Out Records',
             roles: [0],
@@ -135,7 +135,7 @@ export default new Router({
       },
       children: [{
           path: 'users',
-          component: () => import( /* webpackPrefetch: true */ '@/views/database/users'), // Parent router-view
+          component: () => import('@/views/database/users'), // Parent router-view
           name: 'Users Database',
           meta: {
             title: 'Users Database',
@@ -144,7 +144,7 @@ export default new Router({
         },
         {
           path: 'forms',
-          component: () => import( /* webpackPrefetch: true */ '@/views/database/forms'),
+          component: () => import('@/views/database/forms'),
           name: 'Forms Database',
           meta: {
             title: 'Forms Database',
@@ -153,7 +153,7 @@ export default new Router({
         },
         {
           path: 'violations/:residentId',
-          component: () => import( /* webpackPrefetch: true */ '@/views/database/violations'),
+          component: () => import('@/views/database/violations'),
           name: 'Violations',
           meta: {
             title: 'Violations',
@@ -163,7 +163,7 @@ export default new Router({
         },
         {
           path: 'violations',
-          component: () => import( /* webpackPrefetch: true */ '@/views/database/violations'),
+          component: () => import('@/views/database/violations'),
           name: 'Violations',
           meta: {
             title: 'Violations',
@@ -173,7 +173,7 @@ export default new Router({
         },
         {
           path: 'activities/:activityId',
-          component: () => import( /* webpackPrefetch: true */ '@/views/database/activityInOuts'),
+          component: () => import('@/views/database/activityInOuts'),
           name: 'Activities',
           meta: {
             title: 'Activities',
@@ -183,7 +183,7 @@ export default new Router({
         },
         {
           path: 'activities',
-          component: () => import( /* webpackPrefetch: true */ '@/views/database/activities'),
+          component: () => import('@/views/database/activities'),
           name: 'Activities',
           meta: {
             title: 'Activities',
@@ -193,7 +193,7 @@ export default new Router({
         },
         {
           path: 'assistants',
-          component: () => import( /* webpackPrefetch: true */ '@/views/database/ras'),
+          component: () => import('@/views/database/ras'),
           name: 'RA Database',
           meta: {
             title: 'RA Database',
@@ -202,7 +202,7 @@ export default new Router({
         },
         {
           path: 'staffs',
-          component: () => import( /* webpackPrefetch: true */ '@/views/database/staffs'),
+          component: () => import('@/views/database/staffs'),
           name: 'Staff Database',
           meta: {
             title: 'Staff Database',
@@ -211,7 +211,7 @@ export default new Router({
         },
         {
           path: 'managers',
-          component: () => import( /* webpackPrefetch: true */ '@/views/database/managers'),
+          component: () => import('@/views/database/managers'),
           name: 'DM Database',
           meta: {
             title: 'DM Database',
@@ -220,7 +220,7 @@ export default new Router({
         },
         {
           path: 'permits',
-          component: () => import( /* webpackPrefetch: true */ '@/views/database/permits'),
+          component: () => import('@/views/database/permits'),
           name: 'Permits Database',
           meta: {
             title: 'Permits Database',
@@ -229,7 +229,7 @@ export default new Router({
         },
         {
           path: 'accountabilities/:residentId',
-          component: () => import( /* webpackPrefetch: true */ '@/views/database/accountabilities'),
+          component: () => import('@/views/database/accountabilities'),
           name: 'Accountabilties',
           meta: {
             title: 'Accountabilties',
@@ -239,7 +239,7 @@ export default new Router({
         },
         {
           path: 'accountabilities',
-          component: () => import( /* webpackPrefetch: true */ '@/views/database/accountabilities'),
+          component: () => import('@/views/database/accountabilities'),
           name: 'Accountabilties',
           meta: {
             title: 'Accountabilties',
@@ -249,7 +249,7 @@ export default new Router({
         },
         {
           path: 'directives/:assistantId',
-          component: () => import( /* webpackPrefetch: true */ '@/views/database/directives'),
+          component: () => import('@/views/database/directives'),
           name: 'Directives',
           meta: {
             title: 'Directives',
@@ -259,7 +259,7 @@ export default new Router({
         },
         {
           path: 'directives',
-          component: () => import( /* webpackPrefetch: true */ '@/views/database/directives'),
+          component: () => import('@/views/database/directives'),
           name: 'Directives',
           meta: {
             title: 'Directives',
@@ -279,7 +279,7 @@ export default new Router({
       children: [{
         path: 'records',
         name: 'Key Borrowing',
-        component: () => import( /* webpackPrefetch: true */ '@/views/keyborrowing/index'),
+        component: () => import('@/views/keyborrowing/index'),
         meta: {
           title: 'Key Borrowing',
           roles: [1, 2]
