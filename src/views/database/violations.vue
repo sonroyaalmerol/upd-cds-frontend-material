@@ -41,8 +41,8 @@
 </template>
 
 <script>
-  const ActionsPanel = () => import(/* webpackPrefetch: true */ '@/components/database/ActionsPanel')
-  const AddViolationButton = () => import(/* webpackPrefetch: true */ '@/components/database/AddViolationButton')
+  const ActionsPanel = () => import('@/components/database/ActionsPanel')
+  const AddViolationButton = () => import('@/components/database/AddViolationButton')
   export default {
     components: {
       ActionsPanel,

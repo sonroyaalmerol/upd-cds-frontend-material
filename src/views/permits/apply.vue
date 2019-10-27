@@ -30,8 +30,8 @@
 </template>
 
 <script>
-  const ApplicationRules = () => import(/* webpackPrefetch: true */ '@/components/permits/ApplicationRules')
-  const Forms = () => import(/* webpackPrefetch: true */ '@/components/permits/Forms')
+  const ApplicationRules = () => import('@/components/permits/ApplicationRules')
+  const Forms = () => import('@/components/permits/Forms')
 
   export default {
     components: {

@@ -30,8 +30,8 @@
 </template>
 
 <script>
-  const ApplicationRules = () => import(/* webpackPrefetch: true */ '@/components/permits/ApplicationRules')
-  const ViewPermitsTable = () => import(/* webpackPrefetch: true */ '@/components/permits/ViewPermitsTable')
+  const ApplicationRules = () => import('@/components/permits/ApplicationRules')
+  const ViewPermitsTable = () => import('@/components/permits/ViewPermitsTable')
 
   export default {
     components: {

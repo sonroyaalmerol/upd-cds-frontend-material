@@ -1,13 +1,6 @@
 <template>
   <v-app :dark="true">
-    <v-navigation-drawer v-if="$route.path !== '/login' && $route.path !== '/register'" v-model="drawerRight" app
-      clipped right>
-      <v-card hover outlined tile>
-        <v-card-text>
-          No notifications
-        </v-card-text>
-      </v-card>
-    </v-navigation-drawer>
+    <NotificationDrawer v-model="drawerRight" />
 
     <v-app-bar dark app clipped-right color="#fcb69f" :src="require('./assets/header.jpg')">
       <template v-slot:img="{ props }">
@@ -26,38 +19,9 @@
         @click.stop="drawerRight = !drawerRight">
         <v-icon>mdi-bell</v-icon>
       </v-btn>&nbsp;&nbsp;
-      <v-menu v-if="$route.path !== '/login' && $route.path !== '/register'" offset-y>
-        <template v-slot:activator="{ on }">
-          <v-btn color="secondary" fab text dark v-on="on">
-            <v-avatar color="teal" size="48">
-              <img
-                alt="User"
-                src="https://res.cloudinary.com/upd-cds/image/upload/v1555265020/ockzpuwpf5xzgd0030ae.jpg?imageView2/1/w/80/h/80" />
-            </v-avatar>
-          </v-btn>
-        </template>
-        <v-list class="overflow-y-auto">
-          <v-list-item @click.stop="">
-            <v-list-item-title>Edit Student Profile</v-list-item-title>
-          </v-list-item>
-          <v-divider />
-          <v-list-item @click.stop="">
-            <v-list-item-title>Privacy Policy</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click.stop="">
-            <v-list-item-title>Support Development</v-list-item-title>
-          </v-list-item>
-          <v-divider />
-          <v-list-item :to="'/login'">
-            <v-list-item-title>Log Out</v-list-item-title>
-          </v-list-item>
-          <v-divider />
-          <v-list-item @click.stop="$vuetify.theme.dark = !$vuetify.theme.dark">
-            <v-list-item-title v-if="$vuetify.theme.dark">Disable Dark Mode</v-list-item-title>
-            <v-list-item-title v-else>Enable Dark Mode</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+      
+      <UserMenu />
+
       <template v-if="$route.path !== '/login' && $route.path !== '/register'" v-slot:extension>
         <v-toolbar-title dark>
           <v-icon>{{ $route.meta.icon }}</v-icon>
@@ -80,68 +44,31 @@
       </keep-alive>
     </v-content>
 
-    <v-bottom-sheet v-model="offline">
-      <v-sheet class="text-center" height="150px">
-        <v-btn class="mt-6" text dark color="primary" @click="offline = !offline">close</v-btn>
-        <div>You are currently
-          <v-chip class="ma-2" color="red" text-color="white">
-            OFFLINE
-          </v-chip>
-        </div>
-      </v-sheet>
-    </v-bottom-sheet>
-
-    <v-bottom-sheet v-model="online">
-      <v-sheet class="text-center" height="150px">
-        <v-btn class="mt-6" text dark color="primary" @click="online = !online">close</v-btn>
-        <div>You are now back
-          <v-chip class="ma-2" color="green" text-color="white">
-            ONLINE
-          </v-chip>
-        </div>
-      </v-sheet>
-    </v-bottom-sheet>
+    <ConnectionStatus />
   </v-app>
 </template>
 
 <script>
-  const MainMenu = () => import(/* webpackPrefetch: true */ '@/components/layout/MainMenu')
+  const MainMenu = () => import('@/components/layout/MainMenu')
+  const ConnectionStatus = () => import('@/components/layout/ConnectionStatus')
+  const NotificationDrawer = () => import('@/components/layout/NotificationDrawer')
+  const UserMenu = () => import('@/components/layout/UserMenu')
 
   export default {
     name: 'App',
     components: {
-      MainMenu
+      MainMenu,
+      ConnectionStatus,
+      NotificationDrawer,
+      UserMenu
     },
     data: () => ({
       drawer: null,
-      offline: false,
-      online: false,
-      wentOffline: false,
-      drawerRight: null,
-      right: false,
-      left: false,
-      role: 2
+      drawerRight: null
     }),
-    watch: {
-      networkStatus(next) {
-        if (!next) {
-          this.offline = true
-          this.online = false
-          this.wentOffline = true
-        } else {
-          this.offline = false
-          if (this.wentOffline) {
-            this.online = true
-          }
-        }
-      }
-    },
     computed: {
       appBarGradient() {
         return 'to top right, rgba(0,0,0,.8), rgba(0,0,0,.8)'
-      },
-      networkStatus() {
-        return this.isOnline
       }
     },
     methods: {

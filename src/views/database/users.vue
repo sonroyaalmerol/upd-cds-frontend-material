@@ -65,12 +65,12 @@
 </template>
 
 <script>
-  const ProfileForm = () => import(/* webpackPrefetch: true */ '@/components/database/ProfileForm')
+  const ProfileForm = () => import('@/components/database/ProfileForm')
   const PISForm = () => import('@/components/database/PISForm')
-  const ActionsPanel = () => import(/* webpackPrefetch: true */ '@/components/database/ActionsPanel')
+  const ActionsPanel = () => import('@/components/database/ActionsPanel')
   const ConfirmButton = () => import('@/components/general/ConfirmButton')
-  const BatchProfileUploader = () => import(/* webpackPrefetch: true */ '@/components/database/BatchProfileUploader')
-  const AddAccountabilityButton = () => import(/* webpackPrefetch: true */ '@/components/database/AddAccountabilityButton')
+  const BatchProfileUploader = () => import('@/components/database/BatchProfileUploader')
+  const AddAccountabilityButton = () => import('@/components/database/AddAccountabilityButton')
 
   export default {
     components: {

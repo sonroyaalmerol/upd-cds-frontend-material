@@ -50,8 +50,8 @@
 </template>
 
 <script>
-  const ActivityForm = () => import(/* webpackPrefetch: true */ '@/components/database/ActivityForm')
-  const ActionsPanel = () => import(/* webpackPrefetch: true */ '@/components/database/ActionsPanel')
+  const ActivityForm = () => import('@/components/database/ActivityForm')
+  const ActionsPanel = () => import('@/components/database/ActionsPanel')
   const ActivityInOut = () => import('@/components/database/ActivityInOut')
 
   export default {
