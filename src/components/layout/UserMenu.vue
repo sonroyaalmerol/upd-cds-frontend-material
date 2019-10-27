@@ -21,7 +21,7 @@
         <v-list-item-title>Support Development</v-list-item-title>
       </v-list-item>
       <v-divider />
-      <v-list-item :to="'/login'">
+      <v-list-item @click.stop="logout">
         <v-list-item-title>Log Out</v-list-item-title>
       </v-list-item>
       <v-divider />
@@ -37,6 +37,14 @@
   export default {
     name: 'App',
     data: () => ({
+
     }),
+    methods: {
+      logout() {
+        this.$store.dispatch('logout').then(() => {
+          this.$router.push({ path: '/login' })
+        })
+      },
+    }
   }
 </script>

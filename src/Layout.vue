@@ -45,6 +45,7 @@
     </v-content>
 
     <ConnectionStatus />
+    <GlobalAlert />
   </v-app>
 </template>
 
@@ -53,6 +54,7 @@
   const ConnectionStatus = () => import('@/components/layout/ConnectionStatus')
   const NotificationDrawer = () => import('@/components/layout/NotificationDrawer')
   const UserMenu = () => import('@/components/layout/UserMenu')
+  const GlobalAlert = () => import('@/components/general/GlobalAlert')
 
   export default {
     name: 'App',
@@ -60,7 +62,8 @@
       MainMenu,
       ConnectionStatus,
       NotificationDrawer,
-      UserMenu
+      UserMenu,
+      GlobalAlert
     },
     data: () => ({
       drawer: null,

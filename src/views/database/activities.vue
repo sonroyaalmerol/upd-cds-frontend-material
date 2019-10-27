@@ -36,7 +36,7 @@
                 <ActivityInOut out block />
               </v-col>
               <v-col>
-                <v-btn tile block color="primary">View Entries</v-btn>
+                <v-btn tile block color="primary" :to="`/database/activities/asd`">View Entries</v-btn>
               </v-col>
               <v-col>
                 <v-btn color="red" dark tile block>Delete</v-btn>

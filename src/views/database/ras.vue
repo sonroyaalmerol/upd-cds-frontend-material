@@ -20,7 +20,7 @@
                 <v-btn tile block color="primary">Edit RA</v-btn>
               </v-col>
               <v-col>
-                <v-btn tile block color="primary">Directives</v-btn>
+                <v-btn tile block color="primary" :to="`/database/directives/asd`">Directives</v-btn>
               </v-col>
               <v-col>
                 <v-btn color="red" dark tile block>Reset Account</v-btn>

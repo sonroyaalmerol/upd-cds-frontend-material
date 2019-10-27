@@ -101,6 +101,9 @@
             resolve()
           }, 1000)
         })
+      },
+      test() {
+        this.$message('this is a test')
       }
     },
     data() {

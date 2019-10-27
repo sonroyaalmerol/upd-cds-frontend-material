@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-if="$route.path !== '/login' && $route.path !== '/register'" v-model="value" app
+  <v-navigation-drawer v-if="$route.path !== '/login' && $route.path !== '/register'" v-model="localDrawer" app
     clipped right>
     <v-card hover outlined tile>
       <v-card-text>
@@ -16,6 +16,16 @@
       value: {
         required: true
       }
-    }
+    },
+    computed: {
+      localDrawer: {
+        get() {
+          return this.value
+        },
+        set(localDrawer) {
+          this.$emit('input', localDrawer)
+        }
+      }
+    },
   }
 </script>

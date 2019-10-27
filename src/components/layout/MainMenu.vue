@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-if="$route.path !== '/login' && $route.path !== '/register'" v-model="value" app>
+  <v-navigation-drawer v-if="$route.path !== '/login' && $route.path !== '/register'" v-model="localDrawer" app>
     <v-list class="overflow-y-auto" dense>
       <template v-for="(item, index) in routes">
         <v-list-item
@@ -48,6 +48,14 @@
       routes() {
         return this.$router.options.routes
       },
+      localDrawer: {
+        get() {
+          return this.value
+        },
+        set(localDrawer) {
+          this.$emit('input', localDrawer)
+        }
+      }
     },
     methods: {
       firstNonHidden(array) {
