@@ -34,8 +34,8 @@
 </template>
 
 <script>
-  const DMForm = () => import('@/components/database/DMForm')
-  const ActionsPanel = () => import('@/components/database/ActionsPanel')
+  const DMForm = () => import(/* webpackPrefetch: true */ '@/components/database/DMForm')
+  const ActionsPanel = () => import(/* webpackPrefetch: true */ '@/components/database/ActionsPanel')
 
   export default {
     components: {

@@ -37,8 +37,8 @@
 </template>
 
 <script>
-  const CreateForm = () => import('@/components/database/CreateForm')
-  const ActionsPanel = () => import('@/components/database/ActionsPanel')
+  const CreateForm = () => import(/* webpackPrefetch: true */ '@/components/database/CreateForm')
+  const ActionsPanel = () => import(/* webpackPrefetch: true */ '@/components/database/ActionsPanel')
 
   export default {
     components: {

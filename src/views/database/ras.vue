@@ -37,8 +37,8 @@
 </template>
 
 <script>
-  const RAForm = () => import('@/components/database/RAForm')
-  const ActionsPanel = () => import('@/components/database/ActionsPanel')
+  const RAForm = () => import(/* webpackPrefetch: true */ '@/components/database/RAForm')
+  const ActionsPanel = () => import(/* webpackPrefetch: true */ '@/components/database/ActionsPanel')
 
   export default {
     components: {

@@ -22,12 +22,12 @@ export default new Router({
             title: 'Dashboard',
             roles: [0, 1, 2]
           },
-          component: () => import( /* webpackPrefetch: true */ '@/views/dashboard/index')
+          component: () => import(/* webpackPrefetch: true */ '@/views/dashboard/index')
         },
         {
           path: 'login',
           name: 'Login',
-          component: () => import( /* webpackPrefetch: true */ '@/views/login')
+          component: () => import(/* webpackPrefetch: true */ '@/views/login')
         },
         {
           path: 'register',

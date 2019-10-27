@@ -31,8 +31,8 @@
 </template>
 
 <script>
-  const StaffForm = () => import('@/components/database/StaffForm')
-  const ActionsPanel = () => import('@/components/database/ActionsPanel')
+  const StaffForm = () => import(/* webpackPrefetch: true */ '@/components/database/StaffForm')
+  const ActionsPanel = () => import(/* webpackPrefetch: true */ '@/components/database/ActionsPanel')
 
   export default {
     components: {

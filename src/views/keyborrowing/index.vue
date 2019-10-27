@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  const KeyBorrowingList = () => import('@/components/keyborrowing/KeyBorrowingList')
+  const KeyBorrowingList = () => import(/* webpackPrefetch: true */ '@/components/keyborrowing/KeyBorrowingList')
 
   export default {
     components: {

@@ -15,7 +15,7 @@
       </template>
       <v-app-bar-nav-icon dark v-if="$route.path !== '/login' && $route.path !== '/register'"
         @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <img :src="require('./assets/logo.png')" width="50px" />
+      <img alt="Logo" :src="require('./assets/logo.png')" width="50px" />
       <v-toolbar-title dark class="headline">
         <span class="font-weight-light">&nbsp;&nbsp;e</span>
         <span>Kalay</span>
@@ -31,6 +31,7 @@
           <v-btn color="secondary" fab text dark v-on="on">
             <v-avatar color="teal" size="48">
               <img
+                alt="User"
                 src="https://res.cloudinary.com/upd-cds/image/upload/v1555265020/ockzpuwpf5xzgd0030ae.jpg?imageView2/1/w/80/h/80" />
             </v-avatar>
           </v-btn>
@@ -104,7 +105,7 @@
 </template>
 
 <script>
-  const MainMenu = () => import('@/components/layout/MainMenu')
+  const MainMenu = () => import(/* webpackPrefetch: true */ '@/components/layout/MainMenu')
 
   export default {
     name: 'App',
