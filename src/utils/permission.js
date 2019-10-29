@@ -10,7 +10,7 @@ const whiteList = ['/login', '/register']
 router.beforeEach((to, from, next) => {
   if (getToken()) {
     if (to.path === '/login') {
-      next({ path: '/' })
+      next({ path: '/dashboard' })
     } else {
       if (store.getters.roles === null) {
         store.dispatch('getInfo').then(() => {
@@ -18,7 +18,7 @@ router.beforeEach((to, from, next) => {
         }).catch((err) => {
           store.dispatch('fedLogout').then(() => {
             message(err || 'Verification failed, please login again', 'error')
-            next({ path: '/' })
+            next({ path: '/login' })
           })
         })
       } else {
@@ -27,7 +27,7 @@ router.beforeEach((to, from, next) => {
             next()
           } else {
             message('You are not allowed to enter that part.', 'error')
-            next({ path: '/' })
+            next({ path: '/login' })
           }
         } else {
           next()

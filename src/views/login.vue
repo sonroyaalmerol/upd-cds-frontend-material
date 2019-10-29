@@ -46,7 +46,7 @@
             username: '',
             password: ''
           }
-          this.$router.push({ path: this.redirect || '/' })
+          this.$router.push({ path: this.redirect || '/dashboard' })
         }).catch(() => {
           this.loading = false
         })

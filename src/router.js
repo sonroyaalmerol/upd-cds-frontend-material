@@ -10,7 +10,7 @@ export default new Router({
   routes: [{
       path: '/',
       component: Layout,
-      redirect: '/dashboard',
+      redirect: '/login',
       meta: {
         title: 'Dashboard',
         icon: 'mdi-view-dashboard'

@@ -10,15 +10,15 @@
         @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <img alt="Logo" :src="require('./assets/logo.png')" width="50px" />
       <v-toolbar-title dark class="headline">
-        <span class="font-weight-light">&nbsp;&nbsp;e</span>
+        <span class="font-weight-light ms-3">e</span>
         <span>Kalay</span>
         <span class="font-weight-light"> - Centralized Database System</span>
       </v-toolbar-title>
       <div class="flex-grow-1"></div>
-      <v-btn dark v-if="$route.path !== '/login' && $route.path !== '/register'" icon
+      <v-btn class="me-3" dark v-if="$route.path !== '/login' && $route.path !== '/register'" icon
         @click.stop="drawerRight = !drawerRight">
         <v-icon>mdi-bell</v-icon>
-      </v-btn>&nbsp;&nbsp;
+      </v-btn>
       
       <UserMenu />
 
