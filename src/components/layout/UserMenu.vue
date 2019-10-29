@@ -13,18 +13,18 @@
       <v-list-item @click.stop="">
         <v-list-item-title>Edit Student Profile</v-list-item-title>
       </v-list-item>
-      <v-divider />
+      <v-divider class="mb-2" />
       <v-list-item @click.stop="">
         <v-list-item-title>Privacy Policy</v-list-item-title>
       </v-list-item>
       <v-list-item @click.stop="">
         <v-list-item-title>Support Development</v-list-item-title>
       </v-list-item>
-      <v-divider />
+      <v-divider class="mb-2" />
       <v-list-item @click.stop="logout">
         <v-list-item-title>Log Out</v-list-item-title>
       </v-list-item>
-      <v-divider />
+      <v-divider class="mb-2" />
       <v-list-item @click.stop="$vuetify.theme.dark = !$vuetify.theme.dark">
         <v-list-item-title v-if="$vuetify.theme.dark">Disable Dark Mode</v-list-item-title>
         <v-list-item-title v-else>Enable Dark Mode</v-list-item-title>

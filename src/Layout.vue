@@ -71,7 +71,7 @@
     }),
     computed: {
       appBarGradient() {
-        return 'to top right, rgba(0,0,0,.8), rgba(0,0,0,.8)'
+        return 'to top right, rgba(66,66,66,1), rgba(0,0,0,.8)'
       },
       theme() {
         return (this.$vuetify.theme.dark) ? 'dark' : 'light'
