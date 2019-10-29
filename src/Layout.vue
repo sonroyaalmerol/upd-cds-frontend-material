@@ -39,13 +39,13 @@
     <MainMenu v-model="drawer" />
 
     <v-content :style="{background: $vuetify.theme.themes[theme].background}">
+      <GlobalAlert />
       <keep-alive>
         <router-view :key="$route.fullPath" />
       </keep-alive>
     </v-content>
 
     <ConnectionStatus />
-    <GlobalAlert />
   </v-app>
 </template>
 
