@@ -28,7 +28,7 @@
             <v-text-field rounded outlined label="Field Description" :key="index" required></v-text-field>
             <v-row :key="index">
               <v-col>
-                <v-select :items="fieldTypes" label="Field Type"></v-select>
+                <v-select rounded outlined :items="fieldTypes" label="Field Type"></v-select>
               </v-col>
               <v-col>
                 <v-switch color="primary" label="Field Required"></v-switch>
