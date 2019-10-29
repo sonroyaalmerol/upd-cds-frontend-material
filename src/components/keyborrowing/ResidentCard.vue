@@ -20,10 +20,10 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-btn v-if="localData.state" @click="changeStateKey" :loading="loading" text tile block>
+        <v-btn v-if="localData.state" @click="changeStateKey" :loading="loading" text rounded outlined>
           <v-icon color="green">mdi-key</v-icon>Borrow Key
         </v-btn>
-        <v-btn v-else @click="changeStateKey" :loading="loading" text tile block>
+        <v-btn v-else @click="changeStateKey" :loading="loading" text rounded outlined>
           <v-icon color="red">mdi-key</v-icon>Return Key
         </v-btn>
       </v-row>
