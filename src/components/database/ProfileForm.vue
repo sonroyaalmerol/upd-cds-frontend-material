@@ -1,10 +1,10 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="800px">
     <template v-slot:activator="{ on }">
-      <v-btn v-if="profile" tile :block="block" color="primary" v-on="on">Update Profile</v-btn>
-      <v-btn v-else tile :block="block" color="primary" v-on="on">Add New Profile</v-btn>
+      <v-btn v-if="profile" rounded :block="block" color="primary" v-on="on">Update Profile</v-btn>
+      <v-btn v-else rounded :block="block" color="primary" v-on="on">Add New Profile</v-btn>
     </template>
-    <v-card>
+    <v-card flat outlined>
       <v-card-title>
         <span v-if="profile" class="headline">Update Profile</span>
         <span v-else class="headline">Add New Profile</span>
@@ -18,22 +18,22 @@
               </center>
             </v-col>
           </v-row>
-          <v-text-field v-model="residentForm.upid" :counter="10" label="Student Number" required></v-text-field>
-          <v-text-field v-model="residentForm.krhid" :counter="10" label="KRH ID Number" required></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.upid" :counter="10" label="Student Number" required></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.krhid" :counter="10" label="KRH ID Number" required></v-text-field>
           <v-row>
             <v-col>
-              <v-text-field v-model="residentForm.firstName" :counter="10" label="First Name" required></v-text-field>
+              <v-text-field rounded outlined v-model="residentForm.firstName" :counter="10" label="First Name" required></v-text-field>
             </v-col>
             <v-col>
-              <v-text-field v-model="residentForm.lastName" :counter="10" label="Last Name" required></v-text-field>
+              <v-text-field rounded outlined v-model="residentForm.lastName" :counter="10" label="Last Name" required></v-text-field>
             </v-col>
           </v-row>
           <v-row>
             <v-col>
-              <v-text-field v-model="residentForm.college" label="College"></v-text-field>
+              <v-text-field rounded outlined v-model="residentForm.college" label="College"></v-text-field>
             </v-col>
             <v-col>
-              <v-text-field v-model="residentForm.degree" label="Degree Program"></v-text-field>
+              <v-text-field rounded outlined v-model="residentForm.degree" label="Degree Program"></v-text-field>
             </v-col>
           </v-row>
           <v-row>
@@ -45,9 +45,9 @@
               <v-switch color="primary" v-model="residentForm.isCouncil" label="House Council Member"></v-switch>
             </v-col>
           </v-row>
-          <v-text-field v-model="residentForm.contact" label="Resident Contact Number"></v-text-field>
-          <v-text-field v-model="residentForm.emergency" label="Person to contact in case of emerency"></v-text-field>
-          <v-text-field v-model="residentForm.emergencyContact" label="Emergency Contact Number"></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.contact" label="Resident Contact Number"></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.emergency" label="Person to contact in case of emerency"></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.emergencyContact" label="Emergency Contact Number"></v-text-field>
           <v-radio-group v-model="residentForm.sex" label="Sex" row>
             <v-radio color="blue" label="Male" value="Male"></v-radio>
             <v-radio color="red" label="Female" value="Female"></v-radio>
@@ -88,15 +88,15 @@
                                 }]" label="Corridor"></v-select>
             </v-col>
             <v-col>
-              <v-text-field v-model="residentForm.room" label="Room Number"></v-text-field>
+              <v-text-field rounded outlined v-model="residentForm.room" label="Room Number"></v-text-field>
             </v-col>
           </v-row>
           <v-row>
             <v-col>
-              <v-text-field v-model="residentForm.religion" label="Religion"></v-text-field>
+              <v-text-field rounded outlined v-model="residentForm.religion" label="Religion"></v-text-field>
             </v-col>
             <v-col>
-              <v-text-field v-model="residentForm.civilStatus" label="Civil Status"></v-text-field>
+              <v-text-field rounded outlined v-model="residentForm.civilStatus" label="Civil Status"></v-text-field>
             </v-col>
           </v-row>
           <v-row>
@@ -104,7 +104,7 @@
               <DatePicker v-model="residentForm.birthday" label="Birthday" />
             </v-col>
             <v-col>
-              <v-text-field v-model="residentForm.stsBracket" label="STS Bracket"></v-text-field>
+              <v-text-field rounded outlined v-model="residentForm.stsBracket" label="STS Bracket"></v-text-field>
             </v-col>
           </v-row>
           <v-textarea v-model="residentForm.homeAddress" label="Home Address"></v-textarea>
@@ -117,9 +117,9 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text @click="dialog = false">Close</v-btn>
-        <v-btn v-if="profile" color="primary" tile @click="dialog = false">Update Profile</v-btn>
-        <v-btn v-else color="primary" tile @click="dialog = false">Add New Profile</v-btn>
+        <v-btn rounded text @click="dialog = false">Close</v-btn>
+        <v-btn v-if="profile" color="primary" rounded @click="dialog = false">Update Profile</v-btn>
+        <v-btn v-else color="primary" rounded @click="dialog = false">Add New Profile</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

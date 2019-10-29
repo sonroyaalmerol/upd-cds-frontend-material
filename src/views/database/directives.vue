@@ -3,13 +3,13 @@
     <ActionsPanel>
       <AddDirectivesButton />
     </ActionsPanel>
-    <v-card>
+    <v-card flat>
       <v-data-table :headers="headers" :items="directives" :single-expand="singleExpand" :expanded.sync="expanded"
         :search="search" item-key="details" show-expand @click:row="clicked">
         <template v-slot:top>
           <v-toolbar flat>
             <v-spacer></v-spacer>
-            <v-text-field v-model="search" append-icon="mdi-account-search" label="Search" single-line hide-details>
+            <v-text-field rounded outlined v-model="search" append-icon="mdi-account-search" label="Search" single-line hide-details>
             </v-text-field>
           </v-toolbar>
         </template>
@@ -17,10 +17,10 @@
           <td :colspan="headers.length">
             <v-row>
               <v-col>
-                <v-btn tile block color="primary">Accomplish</v-btn>
+                <v-btn rounded block color="primary">Accomplish</v-btn>
               </v-col>
               <v-col>
-                <v-btn tile block color="error">Delete</v-btn>
+                <v-btn rounded block color="error">Delete</v-btn>
               </v-col>
             </v-row>
           </td>

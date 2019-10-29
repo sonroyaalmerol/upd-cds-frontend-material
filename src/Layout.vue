@@ -1,8 +1,8 @@
 <template>
-  <v-app :dark="true">
+  <v-app :dark="true" :style="{background: $vuetify.theme.themes[theme].background}">
     <NotificationDrawer v-model="drawerRight" />
 
-    <v-app-bar dark app clipped-right color="#fcb69f" :src="require('./assets/header.jpg')">
+    <v-app-bar dark app clipped-right flat color="#fcb69f" :src="require('./assets/header.jpg')">
       <template v-slot:img="{ props }">
         <v-img v-bind="props" :gradient="appBarGradient"></v-img>
       </template>
@@ -38,7 +38,7 @@
 
     <MainMenu v-model="drawer" />
 
-    <v-content>
+    <v-content :style="{background: $vuetify.theme.themes[theme].background}">
       <keep-alive>
         <router-view :key="$route.fullPath" />
       </keep-alive>
@@ -72,6 +72,9 @@
     computed: {
       appBarGradient() {
         return 'to top right, rgba(0,0,0,.8), rgba(0,0,0,.8)'
+      },
+      theme() {
+        return (this.$vuetify.theme.dark) ? 'dark' : 'light'
       }
     },
     methods: {

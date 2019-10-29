@@ -1,10 +1,10 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="800px">
     <template v-slot:activator="{ on }">
-      <v-btn v-if="profile" tile :block="block" color="primary" v-on="on">Update DM</v-btn>
-      <v-btn v-else tile :block="block" color="primary" v-on="on">Add New Dormitory Manager</v-btn>
+      <v-btn v-if="profile" rounded :block="block" color="primary" v-on="on">Update DM</v-btn>
+      <v-btn v-else rounded :block="block" color="primary" v-on="on">Add New Dormitory Manager</v-btn>
     </template>
-    <v-card>
+    <v-card flat outlined>
       <v-card-title>
         <span v-if="profile" class="headline">Update Dormitory Manager</span>
         <span v-else class="headline">Add New Dormitory Manager</span>
@@ -18,13 +18,13 @@
               </center>
             </v-col>
           </v-row>
-          <v-text-field v-model="dmForm.krhid" :counter="10" label="KRH ID Number" required></v-text-field>
+          <v-text-field rounded outlined v-model="dmForm.krhid" :counter="10" label="KRH ID Number" required></v-text-field>
           <v-row>
             <v-col>
-              <v-text-field v-model="dmForm.firstName" :counter="10" label="First Name" required></v-text-field>
+              <v-text-field rounded outlined v-model="dmForm.firstName" :counter="10" label="First Name" required></v-text-field>
             </v-col>
             <v-col>
-              <v-text-field v-model="dmForm.lastName" :counter="10" label="Last Name" required></v-text-field>
+              <v-text-field rounded outlined v-model="dmForm.lastName" :counter="10" label="Last Name" required></v-text-field>
             </v-col>
           </v-row>
           <DatePicker v-model="dmForm.birthday" label="Birthday" />
@@ -32,9 +32,9 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text @click="dialog = false">Close</v-btn>
-        <v-btn v-if="profile" color="primary" tile @click="dialog = false">Update DM</v-btn>
-        <v-btn v-else color="primary" tile @click="dialog = false">Add New DM</v-btn>
+        <v-btn rounded text @click="dialog = false">Close</v-btn>
+        <v-btn v-if="profile" color="primary" rounded @click="dialog = false">Update DM</v-btn>
+        <v-btn v-else color="primary" rounded @click="dialog = false">Add New DM</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

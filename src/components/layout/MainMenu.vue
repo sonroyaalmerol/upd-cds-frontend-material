@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer v-if="$route.path !== '/login' && $route.path !== '/register'" v-model="localDrawer" app>
-    <v-list class="overflow-y-auto" dense>
+    <v-list rounded class="overflow-y-auto" dense>
       <template v-for="(item, index) in routes">
         <v-list-item
           v-if="item.children.filter((i) => 'meta' in i && !i.hidden && i.meta.roles.includes(role)).length === 1"

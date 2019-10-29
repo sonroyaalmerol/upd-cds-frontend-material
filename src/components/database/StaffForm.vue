@@ -1,10 +1,10 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="800px">
     <template v-slot:activator="{ on }">
-      <v-btn v-if="profile" tile :block="block" color="primary" v-on="on">Update Staff</v-btn>
-      <v-btn v-else tile :block="block" color="primary" v-on="on">Add New Staff</v-btn>
+      <v-btn v-if="profile" rounded :block="block" color="primary" v-on="on">Update Staff</v-btn>
+      <v-btn v-else rounded :block="block" color="primary" v-on="on">Add New Staff</v-btn>
     </template>
-    <v-card>
+    <v-card flat outlined>
       <v-card-title>
         <span v-if="profile" class="headline">Update Staff</span>
         <span v-else class="headline">Add New Staff</span>
@@ -18,24 +18,24 @@
               </center>
             </v-col>
           </v-row>
-          <v-text-field v-model="staffForm.krhid" :counter="10" label="KRH ID Number" required></v-text-field>
+          <v-text-field rounded outlined v-model="staffForm.krhid" :counter="10" label="KRH ID Number" required></v-text-field>
           <v-row>
             <v-col>
-              <v-text-field v-model="staffForm.firstName" :counter="10" label="First Name" required></v-text-field>
+              <v-text-field rounded outlined v-model="staffForm.firstName" :counter="10" label="First Name" required></v-text-field>
             </v-col>
             <v-col>
-              <v-text-field v-model="staffForm.lastName" :counter="10" label="Last Name" required></v-text-field>
+              <v-text-field rounded outlined v-model="staffForm.lastName" :counter="10" label="Last Name" required></v-text-field>
             </v-col>
           </v-row>
-          <v-text-field v-model="staffForm.position" label="Position"></v-text-field>
+          <v-text-field rounded outlined v-model="staffForm.position" label="Position"></v-text-field>
           <DatePicker v-model="staffForm.birthday" label="Birthday" />
         </v-container>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text @click="dialog = false">Close</v-btn>
-        <v-btn v-if="profile" color="primary" tile @click="dialog = false">Update Staff</v-btn>
-        <v-btn v-else color="primary" tile @click="dialog = false">Add New Staff</v-btn>
+        <v-btn rounded text @click="dialog = false">Close</v-btn>
+        <v-btn v-if="profile" color="primary" rounded @click="dialog = false">Update Staff</v-btn>
+        <v-btn v-else color="primary" rounded @click="dialog = false">Add New Staff</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

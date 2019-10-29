@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-card>
+    <v-card flat>
       <v-container>
-        <v-text-field v-model="search" block append-icon="mdi-account-search" label="Search" single-line hide-details>
+        <v-text-field rounded outlined v-model="search" block append-icon="mdi-account-search" label="Search" single-line hide-details>
         </v-text-field>
       </v-container>
     </v-card>
@@ -17,7 +17,7 @@
       </template>
     </center>
     <center v-else>
-      <v-card class="d-inline-block mx-2 my-3" :loading="true">
+      <v-card flat outlined class="d-inline-block mx-2 my-3" :loading="true">
         <v-container>
           <v-row justify="space-between">
             <v-col cols="auto">

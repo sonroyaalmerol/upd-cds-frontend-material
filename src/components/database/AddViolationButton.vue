@@ -1,9 +1,9 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on }">
-      <v-btn tile :block="block" color="primary" v-on="on">Add Violation</v-btn>
+      <v-btn rounded :block="block" color="primary" v-on="on">Add Violation</v-btn>
     </template>
-    <v-card>
+    <v-card flat outlined>
       <v-card-title>
         <span class="headline">Add Violation</span>
       </v-card-title>
@@ -15,8 +15,8 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text @click="dialog = false">Close</v-btn>
-        <v-btn color="primary" tile @click="dialog = false">Add Violation</v-btn>
+        <v-btn rounded text @click="dialog = false">Close</v-btn>
+        <v-btn color="primary" rounded @click="dialog = false">Add Violation</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

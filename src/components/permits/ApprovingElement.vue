@@ -1,5 +1,5 @@
 <template>
-  <v-card hover outlined tile>
+  <v-card flat outlined class="mb-4">
     <v-card-text>
       <v-row>
         <v-col>
@@ -36,18 +36,18 @@
       <v-card-actions>
         <v-row>
           <v-col>
-            <v-btn tile dark block color="green">
+            <v-btn rounded dark block color="green">
               <v-icon>mdi-check</v-icon>
             </v-btn>
           </v-col>
           <v-col>
             <v-dialog v-model="dialog" persistent max-width="600px">
               <template v-slot:activator="{ on }">
-                <v-btn tile dark block color="blue" v-on="on">
+                <v-btn rounded dark block color="blue" v-on="on">
                   <v-icon>mdi-message-bulleted</v-icon>
                 </v-btn>
               </template>
-              <v-card>
+              <v-card flat outlined>
                 <v-card-title>
                   <span class="headline">Remarks</span>
                 </v-card-title>
@@ -66,7 +66,7 @@
             </v-dialog>
           </v-col>
           <v-col>
-            <v-btn tile dark block color="red">
+            <v-btn rounded dark block color="red">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-col>

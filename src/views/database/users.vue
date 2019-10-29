@@ -12,23 +12,23 @@
           <AddAccountabilityButton batch block />
         </v-col>
         <v-col>
-          <v-btn tile block color="primary">Export Violations</v-btn>
+          <v-btn rounded block color="primary">Export Violations</v-btn>
         </v-col>
         <v-col>
-          <v-btn tile block color="primary">Export Accountabilities</v-btn>
+          <v-btn rounded block color="primary">Export Accountabilities</v-btn>
         </v-col>
         <v-col>
-          <v-btn tile block color="red" disabled>Clear Database</v-btn>
+          <v-btn rounded block color="red" disabled>Clear Database</v-btn>
         </v-col>
       </v-row>
     </ActionsPanel>
-    <v-card>
+    <v-card flat>
       <v-data-table :headers="headers" :items="users" :single-expand="singleExpand" :expanded.sync="expanded"
         :search="search" item-key="upid" show-expand @click:row="clicked">
         <template v-slot:top>
           <v-toolbar flat>
             <v-spacer></v-spacer>
-            <v-text-field v-model="search" append-icon="mdi-account-search" label="Search" single-line hide-details>
+            <v-text-field rounded outlined v-model="search" append-icon="mdi-account-search" label="Search" single-line hide-details>
             </v-text-field>
           </v-toolbar>
         </template>
@@ -36,13 +36,13 @@
           <td :colspan="headers.length">
             <v-row>
               <v-col>
-                <v-btn tile block color="primary" :to="'/permits/asd'">View Permit Records</v-btn>
+                <v-btn rounded block color="primary" :to="'/permits/asd'">View Permit Records</v-btn>
               </v-col>
               <v-col>
-                <v-btn tile block color="primary" :to="'/database/violations/asd'">Violations</v-btn>
+                <v-btn rounded block color="primary" :to="'/database/violations/asd'">Violations</v-btn>
               </v-col>
               <v-col>
-                <v-btn tile block color="primary" :to="'/database/accountabilities/asd'">Accountabilities</v-btn>
+                <v-btn rounded block color="primary" :to="'/database/accountabilities/asd'">Accountabilities</v-btn>
               </v-col>
               <v-col>
                 <ProfileForm block :profile="null" />

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card :loading="loading" flat tile>
+    <v-card flat tile :loading="loading">
       <template v-for="(res, i) in dataToShow">
         <ApprovingElement :data="res" :key="i" />
       </template>

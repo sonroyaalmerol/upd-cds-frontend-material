@@ -3,7 +3,7 @@
     <ActionsPanel>
       <ActivityForm />
     </ActionsPanel>
-    <v-card>
+    <v-card flat>
       <v-data-table
         :headers="headers"
         :items="activities"
@@ -18,6 +18,8 @@
           <v-toolbar flat>
             <v-spacer></v-spacer>
             <v-text-field
+              rounded
+              outlined
               v-model="search"
               append-icon="mdi-account-search"
               label="Search"
@@ -36,10 +38,10 @@
                 <ActivityInOut out block />
               </v-col>
               <v-col>
-                <v-btn tile block color="primary" :to="`/database/activities/asd`">View Entries</v-btn>
+                <v-btn rounded block color="primary" :to="`/database/activities/asd`">View Entries</v-btn>
               </v-col>
               <v-col>
-                <v-btn color="red" dark tile block>Delete</v-btn>
+                <v-btn color="red" dark rounded block>Delete</v-btn>
               </v-col>
             </v-row>
           </td>

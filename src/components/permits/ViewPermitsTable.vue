@@ -4,7 +4,7 @@
     <template v-slot:top>
       <v-toolbar flat>
         <v-spacer></v-spacer>
-        <v-text-field v-model="search" append-icon="mdi-account-search" label="Search" single-line hide-details>
+        <v-text-field rounded outlined v-model="search" append-icon="mdi-account-search" label="Search" single-line hide-details>
         </v-text-field>
       </v-toolbar>
     </template>

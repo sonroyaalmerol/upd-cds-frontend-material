@@ -3,13 +3,13 @@
     <ActionsPanel>
       <RAForm />
     </ActionsPanel>
-    <v-card>
+    <v-card flat>
       <v-data-table :headers="headers" :items="ras" :single-expand="singleExpand" :expanded.sync="expanded"
         :search="search" item-key="name" show-expand @click:row="clicked">
         <template v-slot:top>
           <v-toolbar flat>
             <v-spacer></v-spacer>
-            <v-text-field v-model="search" append-icon="mdi-account-search" label="Search" single-line hide-details>
+            <v-text-field rounded outlined v-model="search" append-icon="mdi-account-search" label="Search" single-line hide-details>
             </v-text-field>
           </v-toolbar>
         </template>
@@ -17,16 +17,16 @@
           <td :colspan="headers.length">
             <v-row>
               <v-col>
-                <v-btn tile block color="primary">Edit RA</v-btn>
+                <v-btn rounded block color="primary">Edit RA</v-btn>
               </v-col>
               <v-col>
-                <v-btn tile block color="primary" :to="`/database/directives/asd`">Directives</v-btn>
+                <v-btn rounded block color="primary" :to="`/database/directives/asd`">Directives</v-btn>
               </v-col>
               <v-col>
-                <v-btn color="red" dark tile block>Reset Account</v-btn>
+                <v-btn color="red" dark rounded block>Reset Account</v-btn>
               </v-col>
               <v-col>
-                <v-btn color="red" dark tile block>Checkout</v-btn>
+                <v-btn color="red" dark rounded block>Checkout</v-btn>
               </v-col>
             </v-row>
           </td>

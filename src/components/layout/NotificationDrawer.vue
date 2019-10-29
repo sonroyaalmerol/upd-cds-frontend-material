@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer v-if="$route.path !== '/login' && $route.path !== '/register'" v-model="localDrawer" app
     clipped right>
-    <v-card hover outlined tile>
+    <v-card flat hover outlined tile>
       <v-card-text>
         No notifications
       </v-card-text>

@@ -2,7 +2,7 @@
   <v-container-refresh :on-refresh="onRefresh">
     <v-row>
       <v-col>
-        <v-card>
+        <v-card flat hover outlined>
           <v-card-text>
             <center>
               <h1 class="text--primary my-4">Good job! You have no pending permits!</h1>
@@ -13,7 +13,7 @@
     </v-row>
     <v-row>
       <v-col>
-        <v-card>
+        <v-card flat hover outlined>
           <v-card-text>
             <div>Late Night Permits</div>
             <p class="display-1 text--primary">
@@ -24,7 +24,7 @@
         </v-card>
       </v-col>
       <v-col>
-        <v-card>
+        <v-card flat hover outlined>
           <v-card-text>
             <div>Overnight Permits</div>
             <p class="display-1 text--primary">
@@ -35,7 +35,7 @@
         </v-card>
       </v-col>
       <v-col>
-        <v-card>
+        <v-card flat hover outlined>
           <v-card-text>
             <div>Early Morning Permits</div>
             <p class="display-1 text--primary">
@@ -48,7 +48,7 @@
     </v-row>
     <v-row>
       <v-col>
-        <v-card>
+        <v-card flat hover outlined>
           <v-simple-table>
             <template v-slot:default>
               <thead>
@@ -68,7 +68,7 @@
         </v-card>
       </v-col>
       <v-col>
-        <v-card>
+        <v-card flat hover outlined>
           <v-simple-table>
             <template v-slot:default>
               <thead>
@@ -88,7 +88,7 @@
         </v-card>
       </v-col>
       <v-col>
-        <v-card>
+        <v-card flat hover outlined>
           <v-simple-table>
             <template v-slot:default>
               <thead>
@@ -110,7 +110,7 @@
     </v-row>
     <v-row>
       <v-col>
-        <v-card>
+        <v-card flat hover outlined>
           <v-card-title>Violations</v-card-title>
           <v-simple-table>
             <template v-slot:default>
@@ -137,7 +137,7 @@
         </v-card>
       </v-col>
       <v-col>
-        <v-card>
+        <v-card flat hover outlined>
           <v-card-title>Accountabilities</v-card-title>
           <v-simple-table>
             <template v-slot:default>

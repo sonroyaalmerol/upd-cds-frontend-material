@@ -1,7 +1,7 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
     <ApplicationRules />
-    <v-card>
+    <v-card flat hover outlined>
       <v-tabs v-model="tab" background-color="transparent" grow>
         <v-tab :key="`ln`">
           Late Night

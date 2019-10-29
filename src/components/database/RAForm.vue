@@ -1,10 +1,10 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="800px">
     <template v-slot:activator="{ on }">
-      <v-btn v-if="profile" tile :block="block" color="primary" v-on="on">Update RA</v-btn>
-      <v-btn v-else tile :block="block" color="primary" v-on="on">Add New Resident Assistant</v-btn>
+      <v-btn v-if="profile" rounded :block="block" color="primary" v-on="on">Update RA</v-btn>
+      <v-btn v-else rounded :block="block" color="primary" v-on="on">Add New Resident Assistant</v-btn>
     </template>
-    <v-card>
+    <v-card flat outlined>
       <v-card-title>
         <span v-if="profile" class="headline">Update Resident Assistant</span>
         <span v-else class="headline">Add New Resident Assistant</span>
@@ -18,19 +18,19 @@
               </center>
             </v-col>
           </v-row>
-          <v-text-field v-model="raForm.upid" :counter="10" label="Student Number" required></v-text-field>
-          <v-text-field v-model="raForm.krhid" :counter="10" label="KRH ID Number" required></v-text-field>
+          <v-text-field rounded outlined v-model="raForm.upid" :counter="10" label="Student Number" required></v-text-field>
+          <v-text-field rounded outlined v-model="raForm.krhid" :counter="10" label="KRH ID Number" required></v-text-field>
           <v-row>
             <v-col>
-              <v-text-field v-model="raForm.firstName" :counter="10" label="First Name" required></v-text-field>
+              <v-text-field rounded outlined v-model="raForm.firstName" :counter="10" label="First Name" required></v-text-field>
             </v-col>
             <v-col>
-              <v-text-field v-model="raForm.lastName" :counter="10" label="Last Name" required></v-text-field>
+              <v-text-field rounded outlined v-model="raForm.lastName" :counter="10" label="Last Name" required></v-text-field>
             </v-col>
           </v-row>
-          <v-text-field v-model="raForm.contact" label="Resident Contact Number"></v-text-field>
-          <v-text-field v-model="raForm.emergency" label="Person to contact in case of emerency"></v-text-field>
-          <v-text-field v-model="raForm.emergencyContact" label="Emergency Contact Number"></v-text-field>
+          <v-text-field rounded outlined v-model="raForm.contact" label="Resident Contact Number"></v-text-field>
+          <v-text-field rounded outlined v-model="raForm.emergency" label="Person to contact in case of emerency"></v-text-field>
+          <v-text-field rounded outlined v-model="raForm.emergencyContact" label="Emergency Contact Number"></v-text-field>
           <v-radio-group v-model="raForm.sex" label="Sex" row>
             <v-radio color="blue" label="Male" value="Male"></v-radio>
             <v-radio color="red" label="Female" value="Female"></v-radio>
@@ -71,7 +71,7 @@
                                 }]" label="Corridor"></v-select>
             </v-col>
             <v-col>
-              <v-text-field v-model="raForm.room" label="Room Number"></v-text-field>
+              <v-text-field rounded outlined v-model="raForm.room" label="Room Number"></v-text-field>
             </v-col>
           </v-row>
           <DatePicker v-model="raForm.birthday" label="Birthday" />
@@ -79,9 +79,9 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text @click="dialog = false">Close</v-btn>
-        <v-btn v-if="profile" color="primary" tile @click="dialog = false">Update RA</v-btn>
-        <v-btn v-else color="primary" tile @click="dialog = false">Add New RA</v-btn>
+        <v-btn rounded text @click="dialog = false">Close</v-btn>
+        <v-btn v-if="profile" color="primary" rounded @click="dialog = false">Update RA</v-btn>
+        <v-btn v-else color="primary" rounded @click="dialog = false">Add New RA</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

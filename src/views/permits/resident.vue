@@ -1,11 +1,11 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
-    <v-card>
+    <v-card flat hover outlined>
       <v-data-table :headers="headers" :items="permits" :search="search" item-key="name">
         <template v-slot:top>
           <v-toolbar flat>
             <v-spacer></v-spacer>
-            <v-text-field v-model="search" append-icon="mdi-account-search" label="Search" single-line hide-details>
+            <v-text-field rounded outlined v-model="search" append-icon="mdi-account-search" label="Search" single-line hide-details>
             </v-text-field>
           </v-toolbar>
         </template>

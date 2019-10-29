@@ -1,20 +1,20 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="800px">
     <template v-slot:activator="{ on }">
-      <v-btn v-if="profile" tile :block="block" color="primary" v-on="on">Update Form</v-btn>
-      <v-btn v-else tile :block="block" color="primary" v-on="on">Create New Form</v-btn>
+      <v-btn v-if="profile" rounded :block="block" color="primary" v-on="on">Update Form</v-btn>
+      <v-btn v-else rounded :block="block" color="primary" v-on="on">Create New Form</v-btn>
     </template>
-    <v-card>
+    <v-card flat outlined>
       <v-card-title>
         <span v-if="profile" class="headline">Update Form</span>
         <span v-else class="headline">Create New Form</span>
       </v-card-title>
       <v-card-text>
         <v-container>
-          <v-text-field v-model="form.title" label="Title" required></v-text-field>
+          <v-text-field rounded outlined v-model="form.title" label="Title" required></v-text-field>
           <v-row>
             <v-col>
-              <v-text-field v-model="form.numberOfFields" type="number" label="Number of Fields" append-outer-icon="mdi-plus" @click:append-outer="increment" prepend-icon="mdi-minus" @click:prepend="decrement"></v-text-field>
+              <v-text-field rounded outlined v-model="form.numberOfFields" type="number" label="Number of Fields" append-outer-icon="mdi-plus" @click:append-outer="increment" prepend-icon="mdi-minus" @click:prepend="decrement"></v-text-field>
             </v-col>
             <v-col>
               <v-switch color="primary" v-model="form.isRequired" label="Response Required">
@@ -24,8 +24,8 @@
           <v-divider />
           <template v-for="index in form.numberOfFields">
             <br :key="index" />
-            <v-text-field label="Field Name" :key="index" required></v-text-field>
-            <v-text-field label="Field Description" :key="index" required></v-text-field>
+            <v-text-field rounded outlined label="Field Name" :key="index" required></v-text-field>
+            <v-text-field rounded outlined label="Field Description" :key="index" required></v-text-field>
             <v-row :key="index">
               <v-col>
                 <v-select :items="fieldTypes" label="Field Type"></v-select>
@@ -40,9 +40,9 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text @click="dialog = false">Close</v-btn>
-        <v-btn v-if="profile" color="primary" tile @click="dialog = false">Update Form</v-btn>
-        <v-btn v-else color="primary" tile @click="dialog = false">Create New Form</v-btn>
+        <v-btn rounded text @click="dialog = false">Close</v-btn>
+        <v-btn v-if="profile" color="primary" rounded @click="dialog = false">Update Form</v-btn>
+        <v-btn v-else color="primary" rounded @click="dialog = false">Create New Form</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

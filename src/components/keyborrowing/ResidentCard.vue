@@ -1,5 +1,5 @@
 <template>
-  <v-card class="d-inline-block mx-2 my-2">
+  <v-card flat hover outlined class="d-inline-block mx-2 my-2">
     <v-container>
       <v-row>
         <v-col cols="auto">

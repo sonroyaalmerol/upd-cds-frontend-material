@@ -1,13 +1,13 @@
 <template>
   <v-dialog ref="dialog" v-model="modal" :return-value.sync="localPicker" persistent width="290px">
     <template v-slot:activator="{ on }">
-      <v-text-field v-model="localPicker" :label="label" prepend-icon="mdi-clock" readonly v-on="on" required>
+      <v-text-field rounded outlined v-model="localPicker" :label="label" prepend-icon="mdi-clock" readonly v-on="on" required>
       </v-text-field>
     </template>
     <v-time-picker v-if="modal" v-model="localPicker" full-width>
       <v-spacer></v-spacer>
-      <v-btn text color="primary" @click="modal = false">Cancel</v-btn>
-      <v-btn text color="primary" @click="$refs.dialog.save(localPicker)">OK</v-btn>
+      <v-btn rounded text color="primary" @click="modal = false">Cancel</v-btn>
+      <v-btn rounded text color="primary" @click="$refs.dialog.save(localPicker)">OK</v-btn>
     </v-time-picker>
   </v-dialog>
 </template>

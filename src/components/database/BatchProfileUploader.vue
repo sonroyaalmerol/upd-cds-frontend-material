@@ -1,5 +1,5 @@
 <template>
-  <v-btn tile :block="block" color="primary" :loading="loading" @click="$refs.file.click()">
+  <v-btn rounded :block="block" color="primary" :loading="loading" @click="$refs.file.click()">
     Batch Profile
     <input type="file" ref="file" style="display: none" v-on:change="onUpload" />
   </v-btn>

@@ -1,8 +1,8 @@
 <template>
-  <v-card flat>
+  <v-card flat outlined>
     <v-card-text>
       <v-form ref="form" v-model="valid" lazy-validation>
-        <v-text-field v-model="form.upid" :counter="10" :rules="upidRules" label="Student Number" required>
+        <v-text-field rounded outlined v-model="form.upid" :counter="10" :rules="upidRules" label="Student Number" required>
         </v-text-field>
 
         <v-row>
@@ -16,14 +16,14 @@
           </v-col>
         </v-row>
 
-        <v-text-field v-model="form.location" label="Location" required></v-text-field>
-        <v-text-field v-model="form.reason" label="Reason" required></v-text-field>
-        <v-text-field v-model="form.notes" label="Remarks"></v-text-field>
-        <v-btn :disabled="!valid" color="success" class="mr-4 mt-2" @click="validate">
+        <v-text-field rounded outlined v-model="form.location" label="Location" required></v-text-field>
+        <v-text-field rounded outlined v-model="form.reason" label="Reason" required></v-text-field>
+        <v-text-field rounded outlined v-model="form.notes" label="Remarks"></v-text-field>
+        <v-btn rounded :disabled="!valid" color="success" class="mr-4 mt-2" @click="validate">
           Apply Permit
         </v-btn>
 
-        <v-btn color="error" class="mr-4 mt-2" @click="reset">
+        <v-btn rounded color="error" class="mr-4 mt-2" @click="reset">
           Reset Form
         </v-btn>
       </v-form>

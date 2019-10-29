@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <ApplicationRules />
-    <v-card>
+    <v-card flat>
       <v-tabs v-model="tab" background-color="transparent" grow>
         <v-tab :key="`ln`">
           Late Night

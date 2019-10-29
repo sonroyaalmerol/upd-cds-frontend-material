@@ -9,7 +9,7 @@
         </v-avatar>
       </v-btn>
     </template>
-    <v-list class="overflow-y-auto">
+    <v-list rounded class="overflow-y-auto">
       <v-list-item @click.stop="">
         <v-list-item-title>Edit Student Profile</v-list-item-title>
       </v-list-item>
