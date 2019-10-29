@@ -7,6 +7,7 @@
       </v-container>
     </v-card>
     <v-pagination
+      circle
       v-model="page"
       class="my-4"
       :length="numberOfPages"
@@ -37,6 +38,7 @@
       </v-card>
     </center>
     <v-pagination
+      circle
       v-model="page"
       class="my-4"
       :length="numberOfPages"

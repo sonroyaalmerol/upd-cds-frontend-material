@@ -1,5 +1,5 @@
 <template>
-  <v-card flat hover outlined class="d-inline-block mx-2 my-2">
+  <v-card flat outlined class="d-inline-block mx-2 my-2">
     <v-container>
       <v-row>
         <v-col cols="auto">
@@ -20,10 +20,10 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-btn v-if="localData.state" @click="changeStateKey" :loading="loading" text rounded outlined>
+        <v-btn v-if="localData.state" @click="changeStateKey" :loading="loading" class="mx-auto" text rounded outlined>
           <v-icon color="green">mdi-key</v-icon>Borrow Key
         </v-btn>
-        <v-btn v-else @click="changeStateKey" :loading="loading" text rounded outlined>
+        <v-btn v-else @click="changeStateKey" :loading="loading" class="mx-auto" text rounded outlined>
           <v-icon color="red">mdi-key</v-icon>Return Key
         </v-btn>
       </v-row>

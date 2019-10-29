@@ -81,3 +81,9 @@
     }
   }
 </script>
+
+<style>
+.v-expansion-panel::before {
+  box-shadow: none;
+}
+</style>
