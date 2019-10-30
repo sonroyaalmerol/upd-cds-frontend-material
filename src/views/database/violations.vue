@@ -16,7 +16,7 @@
         </v-col>
       </v-row>
     </ActionsPanel>
-    <v-card flat hover outlined>
+    <v-card flat>
       <v-data-table :headers="headers" :items="violations" :single-expand="singleExpand" :expanded.sync="expanded"
         :search="search" item-key="name" show-expand @click:row="clicked">
         <template v-slot:top>

@@ -30,10 +30,10 @@
     computed: {
       localPicker: {
         get() {
-          return this.value
+          return format(new Date(this.value), 'HH:mm')
         },
         set(localPicker) {
-          this.$emit('input', localPicker)
+          this.$emit('input', parse(localPicker, 'HH:mm', new Date()))
         }
       },
       computedTimeFormatted () {

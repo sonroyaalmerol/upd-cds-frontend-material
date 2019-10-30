@@ -1,7 +1,7 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
     <ApplicationRules />
-    <v-card flat hover outlined>
+    <v-card flat>
       <v-tabs v-model="tab" background-color="transparent" grow>
         <v-tab :key="`ln`">
           Late Night
@@ -16,13 +16,13 @@
 
       <v-tabs-items touchless v-model="tab">
         <v-tab-item :key="`ln`">
-          <ViewPermitsTable :permit-type="0" />
+          <ViewPermitsTable :permit-type="0" ref="lnTable" />
         </v-tab-item>
         <v-tab-item :key="`on`">
-          <ViewPermitsTable :permit-type="1" />
+          <ViewPermitsTable :permit-type="1" ref="onTable" />
         </v-tab-item>
         <v-tab-item :key="`em`">
-          <ViewPermitsTable :permit-type="2" />
+          <ViewPermitsTable :permit-type="2" ref="emTable" />
         </v-tab-item>
       </v-tabs-items>
     </v-card>
@@ -40,11 +40,17 @@
     },
     methods: {
       onRefresh: function () {
-        return new Promise(function (resolve) {
-          setTimeout(function () {
-            resolve()
-          }, 1000)
-        })
+        var promises = []
+        if (this.$refs.lnTable) {
+          promises.push(this.$refs.lnTable.fetchData())
+        }
+        if (this.$refs.onTable) {
+          promises.push(this.$refs.onTable.fetchData())
+        }
+        if (this.$refs.emTable) {
+          promises.push(this.$refs.emTable.fetchData())
+        }
+        return Promise.all(promises)
       }
     },
     data() {

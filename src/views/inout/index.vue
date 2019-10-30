@@ -1,6 +1,6 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
-    <v-card flat hover outlined>
+    <v-card flat>
       <v-data-table :headers="headers" :items="inoutentries" item-key="name">
       </v-data-table>
     </v-card>

@@ -5,7 +5,7 @@
         <v-avatar color="teal" size="48">
           <img
             alt="User"
-            src="https://res.cloudinary.com/upd-cds/image/upload/v1555265020/ockzpuwpf5xzgd0030ae.jpg?imageView2/1/w/80/h/80" />
+            :src="avatar" />
         </v-avatar>
       </v-btn>
     </template>
@@ -34,8 +34,15 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     name: 'App',
+    computed: {
+      ...mapGetters([
+        'avatar'
+      ])
+    },
     data: () => ({
 
     }),

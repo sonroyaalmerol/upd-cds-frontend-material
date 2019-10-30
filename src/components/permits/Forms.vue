@@ -7,12 +7,12 @@
 
         <v-row>
           <v-col>
-            <DatePicker v-if="permitType === 1" v-model="initForm.dataOne" label="Start Date" />
-            <DatePicker v-else v-model="initForm.dataOne" label="Date" />
+            <DatePicker v-if="permitType === 1" v-model="form.dataOne" label="Start Date" />
+            <DatePicker v-else v-model="form.dataOne" label="Date" />
           </v-col>
           <v-col>
-            <DatePicker v-if="permitType === 1" v-model="initForm.dataTwo" label="End Date" />
-            <TimePicker v-else v-model="initForm.dataTwo" label="Time" />
+            <DatePicker v-if="permitType === 1" v-model="form.dataTwo" label="End Date" />
+            <TimePicker v-else v-model="form.dataTwo" label="Time" />
           </v-col>
         </v-row>
 
@@ -36,7 +36,7 @@
   const DatePicker = () => import('@/components/general/DatePicker')
   import { mapGetters } from 'vuex'
   import { applyPermit } from '@/utils/ekalayapi'
-  import { isBefore, setMilliseconds, setSeconds, setMinutes, setHours, parse } from 'date-fns'
+  import { isBefore, setMilliseconds, setSeconds, setMinutes, setHours } from 'date-fns'
 
   export default {
     components: {
@@ -54,11 +54,6 @@
     },
     data() {
       return {
-        initForm: {
-          dataOne: null,
-          dataOne2: null,
-          dataTwo: null,
-        },
         form: {
           dataOne: null,
           dataOne2: null,
@@ -85,44 +80,26 @@
           this.snackbar = true
         }
       },
-      stringToTime(str) {
-        return parse(str, 'HH:mm', new Date())
-      },
-      stringToDate(str) {
-        return parse(str, 'yyyy-MM-dd', new Date())
-      },
       defaults() {
         this.form.location = ''
         this.form.reason = ''
         this.form.notes = ''
         this.form.upid = ''
-        var nDate = new Date()
+        this.form.dataOne = new Date()
         if (this.permitType === 2) {
-          nDate.setDate(nDate.getDate() + 1)
+          this.form.dataOne.setDate(this.form.dataOne.getDate() + 1)
         }
-        this.initForm.dataOne = nDate.toISOString().substr(0, 10)
-        this.initForm.dataOne2 = this.initForm.dataOne
+        this.form.dataOne2 = this.form.dataOne
+        this.form.dataTwo = new Date()
         if (this.permitType === 0) {
-          this.initForm.dataTwo = '23:59'
+          this.form.dataTwo = this.form.dataTwo.setHours(23, 59, 59, 99)
         } else if (this.permitType === 2) {
-          this.initForm.dataTwo = '4:00'
+          this.form.dataTwo = this.form.dataTwo.setHours(0, 1, 0, 0)
         }
-
-        this.form.dataOne = this.initForm.dataOne
-        this.form.dataOne2 = this.initForm.dataOne2
-        this.form.dataTwo = this.initForm.dataTwo
       },
       onSubmit() {
         this.form.permitType = this.permitType
         this.submitting = true
-
-        if (this.permitType === 0  || this.permitType === 2) {
-          this.form.dataOne = this.stringToDate(this.initForm.dataOne)
-          this.form.dataTwo = this.stringToTime(this.initForm.dataTwo)
-        } else {
-          this.form.dataOne = this.stringToDate(this.initForm.dataOne)
-          this.form.dataTwo = this.stringToDate(this.initForm.dataTwo)
-        }
 
         applyPermit(this.form).then(() => {
           if (this.roles !== 0) {

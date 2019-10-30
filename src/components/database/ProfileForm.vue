@@ -4,7 +4,7 @@
       <v-btn v-if="profile" rounded :block="block" color="primary" v-on="on">Update Profile</v-btn>
       <v-btn v-else rounded :block="block" color="primary" v-on="on">Add New Profile</v-btn>
     </template>
-    <v-card flat outlined>
+    <v-card flat outlined :loading="loading">
       <v-card-title>
         <span v-if="profile" class="headline">Update Profile</span>
         <span v-else class="headline">Add New Profile</span>
@@ -14,18 +14,18 @@
           <v-row>
             <v-col>
               <center>
-                <AvatarUploader v-model="residentForm.displayPhoto" />
+                <AvatarUploader v-model="photo" @done="updateProfile" />
               </center>
             </v-col>
           </v-row>
           <v-text-field rounded outlined v-model="residentForm.upid" :counter="10" label="Student Number" required></v-text-field>
-          <v-text-field rounded outlined v-model="residentForm.krhid" :counter="10" label="KRH ID Number" required></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.krhid" :counter="12" label="KRH ID Number" required></v-text-field>
           <v-row>
             <v-col>
-              <v-text-field rounded outlined v-model="residentForm.firstName" :counter="10" label="First Name" required></v-text-field>
+              <v-text-field rounded outlined v-model="residentForm.firstName" label="First Name" required></v-text-field>
             </v-col>
             <v-col>
-              <v-text-field rounded outlined v-model="residentForm.lastName" :counter="10" label="Last Name" required></v-text-field>
+              <v-text-field rounded outlined v-model="residentForm.lastName" label="Last Name" required></v-text-field>
             </v-col>
           </v-row>
           <v-row>
@@ -118,14 +118,16 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn rounded text @click="dialog = false">Close</v-btn>
-        <v-btn v-if="profile" color="primary" rounded @click="dialog = false">Update Profile</v-btn>
-        <v-btn v-else color="primary" rounded @click="dialog = false">Add New Profile</v-btn>
+        <v-btn v-if="profile" color="primary" rounded @click="updateProfile">Update Profile</v-btn>
+        <v-btn v-else color="primary" rounded @click="createProfile">Add New Profile</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+  import { addResident, updateResident } from '@/utils/ekalayapi'
+
   const DatePicker = () => import('@/components/general/DatePicker')
   const AvatarUploader = () => import('@/components/database/AvatarUploader')
   export default {
@@ -146,6 +148,26 @@
     created() {
       if (this.profile) {
         this.residentForm = this.profile
+        this.photo.displayPhoto = this.residentForm.displayPhoto
+        this.photo.displayPhotoId = this.residentForm.displayPhotoId
+      }
+    },
+    computed: {
+      photoWatcher() {
+        return this.photo.displayPhoto
+      }
+    },
+    watch: {
+      photoWatcher() {
+        if (this.dialog) {
+          this.residentForm.displayPhoto = this.photo.displayPhoto
+          this.residentForm.displayPhotoId = this.photo.displayPhotoId
+          this.loading = true
+          updateResident(this.residentForm, this.residentForm._id).then(() => {
+            this.$message('Successfully updated display photo!', 'success')
+            this.loading = false
+          })
+        }
       }
     },
     data: () => ({
@@ -177,7 +199,69 @@
         isCouncil: false,
         displayPhoto: '',
         displayPhotoId: ''
-      }
+      },
+      photo: {
+        displayPhoto: '',
+        displayPhotoId: ''
+      },
+      loading: false
     }),
+    methods: {
+      reset: function () {
+        this.residentForm = {
+          upid: '',
+          krhid: '',
+          firstName: '',
+          lastName: '',
+          college: '',
+          degree: '',
+          contact: '',
+          emergency: '',
+          emergencyContact: '',
+          sex: '',
+          room: '',
+          religion: '',
+          civilStatus: '',
+          birthday: '',
+          stsBracket: '',
+          corridor: '',
+          homeAddress: '',
+          mmAddress: '',
+          foodAllergies: '',
+          medicineAllergies: '',
+          diagnosedHealthCondition: '',
+          recurringSymptoms: '',
+          isAthletePerformer: false,
+          isCouncil: false,
+          displayPhoto: '',
+          displayPhotoId: ''
+        }
+      },
+      createProfile: function () {
+        this.loading = true
+        addResident(this.residentForm).then(() => {
+          this.$message('Successfully added resident profile!', 'success')
+          this.dialog = false
+          this.reset()
+          this.loading = false
+        })
+      },
+      updateProfile: function () {
+        this.loading = true
+        updateResident(this.residentForm, this.residentForm._id).then(() => {
+          /* const index = this.residents.findIndex((resident) => { return resident._id == res._id })
+          const name = this.residents[index].name
+          const username = this.residents[index].username
+          // add here for future profile statics that is not in profile
+          this.residents[index] = res
+          this.residents[index].name = name
+          this.residents[index].username = username */
+          this.$message('Successfully updated resident profile!', 'success')
+          this.dialog = false
+          this.reset()
+          this.loading = false
+        })
+      }
+    }
   }
 </script>

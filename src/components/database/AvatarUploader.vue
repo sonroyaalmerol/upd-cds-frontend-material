@@ -1,7 +1,7 @@
 <template>
   <v-btn color="primary" fab dark :width="205" :height="205" :loading="loading" @click="$refs.file.click()">
-    <v-avatar v-if="value" :size="200">
-      <img :src="value" />
+    <v-avatar v-if="localValue.displayPhoto" :size="200">
+      <img :src="localValue.displayPhoto" :alt="localValue.displayPhotoId" />
     </v-avatar>
     <v-icon v-else :size="50" dark>mdi-cloud-upload</v-icon>
     <input type="file" ref="file" style="display: none" v-on:change="onUpload" />
@@ -9,10 +9,12 @@
 </template>
 
 <script>
+  import { uploadImage } from '@/utils/ekalayapi'
+
   export default {
     props: {
       value: {
-        type: String,
+        type: Object,
         required: true
       }
     },
@@ -22,10 +24,34 @@
         loading: false
       }
     },
+    computed: {
+      localValue: {
+        get() {
+          return this.value
+        },
+        set(localValue) {
+          this.$emit('input', localValue)
+        }
+      },
+    },
     methods: {
       onUpload(e) {
         var files = e.target.files || e.dataTransfer.files
         this.imageFile = files[0]
+
+        var data = new FormData()
+        data.append('image', this.imageFile, this.imageFile.name)
+
+        const config = {
+          headers: { 'content-type': 'multipart/form-data' }
+        }
+        
+        this.loading = true
+        uploadImage(data, config).then((res) => {
+          this.loading = false
+          this.localValue.displayPhoto = res.secure_url
+          this.localValue.displayPhotoId = res.public_id
+        })
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn v-if="!confirm" dark rounded :block="block" :color="color" @click="checkStatus">
+    <v-btn v-if="!confirm" dark rounded :block="block" :color="color" @click="checkStatus" :loading="loading">
       <slot />
     </v-btn>
     <v-tooltip v-else top>
@@ -20,6 +20,10 @@
     props: {
       color: String,
       block: {
+        type: Boolean,
+        default: false
+      },
+      loading: {
         type: Boolean,
         default: false
       }

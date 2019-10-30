@@ -13,6 +13,8 @@
 </template>
 
 <script>
+  import { format, parse } from 'date-fns'
+
   export default {
     props: {
       value: {
@@ -28,10 +30,10 @@
     computed: {
       localPicker: {
         get() {
-          return this.value
+          return format(new Date(this.value), 'yyyy-MM-dd')
         },
         set(localPicker) {
-          this.$emit('input', localPicker)
+          this.$emit('input', parse(localPicker, 'yyyy-MM-dd', new Date()))
         }
       },
       computedDateFormatted () {

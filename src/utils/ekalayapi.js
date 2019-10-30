@@ -35,6 +35,15 @@ export function getInfo() {
   })
 }
 
+export function uploadImage(data, config) {
+  return request({
+    url: '/images',
+    method: 'post',
+    data,
+    config
+  })
+}
+
 export function getProfile(role, id) {
   var which = ''
   switch (role) {

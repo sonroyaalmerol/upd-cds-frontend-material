@@ -6,7 +6,7 @@
           <BatchProfileUploader block />
         </v-col>
         <v-col>
-          <ProfileForm :profile="null" block />
+          <ProfileForm block />
         </v-col>
         <v-col>
           <AddAccountabilityButton batch block />
@@ -23,8 +23,8 @@
       </v-row>
     </ActionsPanel>
     <v-card flat>
-      <v-data-table :headers="headers" :items="users" :single-expand="singleExpand" :expanded.sync="expanded"
-        :search="search" item-key="upid" show-expand @click:row="clicked">
+      <v-data-table :headers="headers" :items="residents" :single-expand="singleExpand" :expanded.sync="expanded"
+        :search="search" item-key="_id" show-expand @click:row="clicked" :loading="loading">
         <template v-slot:top>
           <v-toolbar flat>
             <v-spacer></v-spacer>
@@ -32,29 +32,29 @@
             </v-text-field>
           </v-toolbar>
         </template>
-        <template v-slot:expanded-item="{ headers }">
+        <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length">
             <v-row>
               <v-col>
-                <v-btn rounded block color="primary" :to="'/permits/asd'">View Permit Records</v-btn>
+                <v-btn :key="item._id" rounded block color="primary" :to="`/permits/${item._id}`">View Permit Records</v-btn>
               </v-col>
               <v-col>
-                <v-btn rounded block color="primary" :to="'/database/violations/asd'">Violations</v-btn>
+                <v-btn :key="item._id" rounded block color="primary" :to="`/database/violations/${item._id}`">Violations</v-btn>
               </v-col>
               <v-col>
-                <v-btn rounded block color="primary" :to="'/database/accountabilities/asd'">Accountabilities</v-btn>
+                <v-btn :key="item._id" rounded block color="primary" :to="`/database/accountabilities/${item._id}`">Accountabilities</v-btn>
               </v-col>
               <v-col>
-                <ProfileForm block :profile="null" />
+                <ProfileForm :key="item._id" block :profile="item" />
               </v-col>
               <v-col>
-                <PISForm block :pisId="'asdasd'" />
+                <PISForm :key="item._id" block :pisId="item._pis" />
+              </v-col>
+              <v-col v-if="item.userId">
+                <ConfirmButton :key="item._id" block color="red" @action="resetAcc(item)" :loading="resetting">Reset Account</ConfirmButton>
               </v-col>
               <v-col>
-                <ConfirmButton block color="red" @action="test()">Reset Account</ConfirmButton>
-              </v-col>
-              <v-col>
-                <ConfirmButton block color="red" @action="test()">Checkout</ConfirmButton>
+                <ConfirmButton :key="item._id" block color="red" @action="checkoutAcc(item)" :loading="checkingout">Checkout</ConfirmButton>
               </v-col>
             </v-row>
           </td>
@@ -65,6 +65,7 @@
 </template>
 
 <script>
+  import { residents, deleteUserById, deleteResident } from '@/utils/ekalayapi'
   const ProfileForm = () => import('@/components/database/ProfileForm')
   const PISForm = () => import('@/components/database/PISForm')
   const ActionsPanel = () => import('@/components/database/ActionsPanel')
@@ -80,31 +81,6 @@
       ActionsPanel,
       BatchProfileUploader,
       AddAccountabilityButton
-    },
-    methods: {
-      clicked(value) {
-        if (this.expanded.includes(value)) {
-          var index = this.expanded.indexOf(value);
-          if (index > -1) {
-            this.expanded.splice(index, 1);
-          }
-        } else {
-          if (this.expanded.length > 0 && this.singleExpand) {
-            this.expanded = []
-          }
-          this.expanded.push(value)
-        }
-      },
-      onRefresh: function () {
-        return new Promise(function (resolve) {
-          setTimeout(function () {
-            resolve()
-          }, 1000)
-        })
-      },
-      test() {
-        this.$message('this is a test')
-      }
     },
     data() {
       return {
@@ -132,20 +108,88 @@
             value: 'data-table-expand'
           },
         ],
-        users: [{
-            upid: '2015-12584',
-            name: 'Son Roy Almerol',
-            username: 'saalmerol',
-            inout: 'IN',
-          },
-          {
-            upid: '2015-12583',
-            name: 'Test Developer',
-            username: 'sonroyaalmerol',
-            inout: 'IN',
-          },
-        ]
+        loading: true,
+        resetting: false,
+        checkingout: false,
+        residents: []
       }
     },
+    created() {
+      this.fetchData()
+    },
+    methods: {
+      clicked(value) {
+        if (this.expanded.includes(value)) {
+          var index = this.expanded.indexOf(value);
+          if (index > -1) {
+            this.expanded.splice(index, 1);
+          }
+        } else {
+          if (this.expanded.length > 0 && this.singleExpand) {
+            this.expanded = []
+          }
+          this.expanded.push(value)
+        }
+      },
+      onRefresh: function () {
+        return this.fetchData()
+      },
+      test() {
+        this.$message('this is a test')
+      },
+      fetchMore: function(resident) {
+        return new Promise((resolve) => {
+          var toOutput = resident
+          toOutput.name = `${resident.firstName} ${resident.lastName}`
+          if (toOutput._inout) {
+            if (toOutput._inout.status) {
+              // in
+              toOutput.inout = 'IN'
+            } else {
+              // out
+              toOutput.inout = 'OUT'
+            }
+          } else {
+            toOutput.inout = 'N/A'
+          }
+          if (resident._user) {
+            toOutput.username = resident._user.username
+            toOutput.userId = resident._user._id
+          } else {
+            toOutput.username = 'N/A'
+            toOutput.userId = null
+          }
+          this.residents.push(toOutput)
+          resolve()
+        })
+      },
+      fetchData: async function() {
+        this.loading = true
+        this.residents = []
+        var response = await residents()
+        const promises = response.map(this.fetchMore)
+        await Promise.all(promises)
+        this.loading = false
+      },
+      resetAcc: function(acc) {
+        this.resetting = true
+        deleteUserById(acc.userId).then(() => {
+          this.resetting = false
+          this.$message('Successfully deleted user! He/she can now register again to gain access of his/her account once again.', 'success')
+          var index = this.residents.findIndex((val) => val === acc)
+          this.residents[index].name = 'Unregistered User'
+          this.residents[index].username = 'N/A'
+          this.residents[index].userId - null
+        })
+      },
+      checkoutAcc: function(acc) {
+        this.checkingout = true
+        deleteResident(acc._id).then(() => {
+          this.checkingout = false
+          this.$message('Successfully checked out resident!', 'success')
+          this.residents = this.residents.filter((val) => val !== acc)
+        })
+      }
+    }
   }
 </script>

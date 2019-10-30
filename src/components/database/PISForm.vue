@@ -4,7 +4,7 @@
       <v-btn v-if="pisId" rounded :block="block" color="primary" v-on="on">Update PIS</v-btn>
       <v-btn v-else rounded :block="block" color="primary" v-on="on">Add New PIS</v-btn>
     </template>
-    <v-card flat outlined>
+    <v-card flat outlined :loading="loading">
       <v-card-title>
         <span v-if="pisId" class="headline">Update PIS</span>
         <span v-else class="headline">Add New PIS</span>
@@ -29,14 +29,16 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn rounded text @click="dialog = false">Close</v-btn>
-        <v-btn v-if="pisId" color="primary" rounded @click="dialog = false">Update PIS</v-btn>
-        <v-btn v-else color="primary" rounded @click="dialog = false">Add New PIS</v-btn>
+        <v-btn v-if="pisId" color="primary" rounded @click="updatePIS">Update PIS</v-btn>
+        <v-btn v-else color="primary" rounded @click="addPIS">Add New PIS</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+  import { addPIS as add, updatePIS as update, getPISById } from '@/utils/ekalayapi'
+
   export default {
     props: {
       pisId: {
@@ -63,6 +65,34 @@
         remarks: '',
         _resident: ''
       },
+      loading: false,
     }),
+    created() {
+      if (this.pisId) {
+        this.loading = true
+        getPISById(this.pisId).then((res) => {
+          this.loading = false
+          this.pisForm = res
+        })
+      }
+    },
+    methods: {
+      addPIS() {
+        this.loading = true
+        add(this.pisForm).then(() => {
+          this.$message('Successfully added PIS!', 'success')
+          this.dialog = false
+          this.loading = false
+        })
+      },
+      updatePIS() {
+        this.loading = true
+        update(this.pisForm, this.pisForm._id).then(() => {
+          this.$message('Successfully updated PIS!', 'success')
+          this.dialog = false
+          this.loading = false
+        })
+      }
+    }
   }
 </script>

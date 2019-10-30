@@ -1,9 +1,16 @@
 <template>
   <div>
     <v-card flat tile :loading="loading">
-      <template v-for="(res, i) in dataToShow">
-        <ApprovingElement :data="res" :key="i" />
+      <template v-if="value.length">
+        <template v-for="(res, i) in dataToShow">
+          <ApprovingElement :data="res" :key="i" />
+        </template>
       </template>
+      <v-card v-else flat tile>
+        <v-card-text>
+          <center class="my-4">No pending permits found!</center>
+        </v-card-text>
+      </v-card>
     </v-card>
     <v-pagination
       circle
