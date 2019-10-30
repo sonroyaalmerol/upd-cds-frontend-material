@@ -1,10 +1,10 @@
 <template>
   <v-dialog ref="dialog" v-model="modal" :return-value.sync="localPicker" persistent width="290px">
     <template v-slot:activator="{ on }">
-      <v-text-field rounded outlined clearable v-model="localPicker" :label="label" prepend-icon="mdi-clock" readonly v-on="on" required>
+      <v-text-field rounded outlined clearable v-model="computedTimeFormatted" :label="label" prepend-icon="mdi-clock" readonly v-on="on" required>
       </v-text-field>
     </template>
-    <v-time-picker v-if="modal" v-model="localPicker" full-width>
+    <v-time-picker v-if="modal" v-model="localPicker" full-width ampm-in-title>
       <v-spacer></v-spacer>
       <v-btn rounded text color="primary" @click="modal = false">Cancel</v-btn>
       <v-btn rounded text color="primary" @click="$refs.dialog.save(localPicker)">OK</v-btn>
@@ -13,6 +13,8 @@
 </template>
 
 <script>
+  import { format, parse } from 'date-fns'
+
   export default {
     props: {
       value: {
@@ -33,6 +35,9 @@
         set(localPicker) {
           this.$emit('input', localPicker)
         }
+      },
+      computedTimeFormatted () {
+        return format(parse(this.localPicker, 'HH:mm', new Date()), 'hh:mm b')
       }
     }
   }

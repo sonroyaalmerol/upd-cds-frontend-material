@@ -1,12 +1,12 @@
 <template>
-  <div class="text-center">
+  <div>
     <v-btn v-if="!confirm" dark rounded :block="block" :color="color" @click="checkStatus">
       <slot />
     </v-btn>
     <v-tooltip v-else top>
       <template v-slot:activator="{ on }">
-        <v-btn dark rounded block :color="'warning'" @click="checkStatus" v-on="on">
-          Confirm
+        <v-btn dark rounded :block="block" :color="'warning'" @click="checkStatus" v-on="on">
+          <slot />
         </v-btn>
       </template>
       <span>

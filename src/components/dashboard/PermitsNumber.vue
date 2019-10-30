@@ -5,12 +5,15 @@
       <p class="display-1 text--primary">
         {{ value }}
       </p>
-      <p>more permits to approve</p>
+      <p v-if="roles !== 0">more permits to approve</p>
+      <p v-else>applied permits</p>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     props: {
       permitType: {
@@ -24,6 +27,9 @@
       loading: Boolean
     },
     computed: {
+      ...mapGetters([
+        'roles'
+      ]),
       permitName() {
         var x = ''
         switch (this.permitType) {

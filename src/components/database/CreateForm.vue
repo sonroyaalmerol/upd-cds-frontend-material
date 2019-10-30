@@ -87,10 +87,10 @@
           text: 'Multiple Choice (one answer)',
           value: 1
         },
-        {
+        /* {
           text: 'Multiple Choice (multiple answers)',
           value: 2
-        }
+        } */
       ]
     }),
     methods: {

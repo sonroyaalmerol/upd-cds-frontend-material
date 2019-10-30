@@ -42,7 +42,6 @@
       }
     },
     data: () => ({
-      show: false,
       page: 1,
       permitsPerPage: 5
     }),

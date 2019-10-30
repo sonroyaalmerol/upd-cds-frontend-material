@@ -1,6 +1,6 @@
 <template>
   <v-data-table :headers="headers" :items="permits" :single-expand="singleExpand" :expanded.sync="expanded" :search="search"
-    item-key="name" show-expand @click:row="clicked">
+    item-key="_id" show-expand @click:row="clicked">
     <template v-slot:top>
       <v-toolbar flat>
         <v-spacer></v-spacer>
@@ -8,11 +8,11 @@
         </v-text-field>
       </v-toolbar>
     </template>
-    <template v-slot:expanded-item="{ headers }">
+    <template v-slot:expanded-item="{ headers, item }">
       <td :colspan="headers.length">
         <v-row>
           <v-col>
-            <v-btn tile dark color="red">Delete</v-btn>
+            <ConfirmButton color="red" @action="deletePermit(item)">Delete</ConfirmButton>
           </v-col>
         </v-row>
       </td>
@@ -21,24 +21,24 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+  import { format, parseISO } from 'date-fns'
+  import { permits, deletePermit } from '@/utils/ekalayapi'
+
+  const ConfirmButton = () => import('@/components/general/ConfirmButton')
+
   export default {
+    components: {
+      ConfirmButton
+    },
     props: {
       permitType: Number
     },
-    methods: {
-      clicked(value) {
-        if (this.expanded.includes(value)) {
-          var index = this.expanded.indexOf(value);
-          if (index > -1) {
-            this.expanded.splice(index, 1);
-          }
-        } else {
-          if (this.expanded.length > 0 && this.singleExpand) {
-            this.expanded = []
-          }
-          this.expanded.push(value)
-        }
-      },
+    computed: {
+      ...mapGetters([
+        'roles',
+        'isAthletePerformer'
+      ])
     },
     data() {
       return {
@@ -55,7 +55,7 @@
           },
           {
             text: 'Date/Time',
-            value: 'dateTime'
+            value: 'dataOne'
           },
           {
             text: 'Approved by RA',
@@ -70,13 +70,61 @@
             value: 'data-table-expand'
           },
         ],
-        permits: [{
-          location: 'CS Atrium',
-          reason: 'To study',
-          dateTime: 'October 18, 2019 - October 19, 2019',
-          approvedRA: '✔',
-          approvedDM: '✔',
-        }]
+        loading: true,
+        permits: []
+      }
+    },
+    created() {
+      this.fetchData()
+    },
+    methods: {
+      clicked(value) {
+        if (this.expanded.includes(value)) {
+          var index = this.expanded.indexOf(value);
+          if (index > -1) {
+            this.expanded.splice(index, 1);
+          }
+        } else {
+          if (this.expanded.length > 0 && this.singleExpand) {
+            this.expanded = []
+          }
+          this.expanded.push(value)
+        }
+      },
+      async sortPermits(permit) {
+        permit.approvedRA = `${this.integerToSymbols(permit.approvedRA)}${permit.remarksRA ? ' | ' + permit.remarksRA : ''}`
+        permit.approvedDM = `${this.integerToSymbols(permit.approvedDM)}${permit.remarksDM ? ' | ' + permit.remarksDM : ''}`
+        if (permit.permitType === 0) {
+          permit.dataOne = format(parseISO(permit.dataTwo), 'h:mm a') + ', ' + format(parseISO(permit.dataOne), 'MM/dd/yyyy')
+        } else if (permit.permitType === 1) {
+          permit.dataOne = format(parseISO(permit.dataOne), 'MMMM d, yyyy') + ' - ' + format(parseISO(permit.dataTwo), 'MMMM d, yyyy')
+        } else if (permit.permitType === 2) {
+          permit.dataOne = format(parseISO(permit.dataTwo), 'h:mm a') + ', ' + format(parseISO(permit.dataOne), 'MMMM d, yyyy')
+        }
+      },
+      integerToSymbols(bool) {
+        if (bool === 1) {
+          return '✔'
+        } else if (bool === 0) {
+          return '✘'
+        } else {
+          return 'Not yet processed.'
+        }
+      },
+      fetchData: async function() {
+        this.permits = await permits(this.permitType)
+        Promise.all(this.permits.map(this.sortPermits)).then(() => {
+          this.loading = false
+        })
+        this.loading = false
+      },
+      deletePermit(permit) {
+        var id = permit._id
+
+        deletePermit(id).then(() => {
+          this.$message('Successfully deleted permit!', 'success')
+          this.permits = this.permits.filter((val) => val !== permit)
+        })
       }
     }
   }

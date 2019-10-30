@@ -3,7 +3,7 @@
     <v-list rounded class="overflow-y-auto" dense>
       <template v-for="(item, index) in routes">
         <v-list-item
-          v-if="item.children.filter((i) => 'meta' in i && !i.hidden && i.meta.roles.includes(role)).length === 1"
+          v-if="item.children.filter((i) => 'meta' in i && !i.hidden && i.meta.roles.includes(roles)).length === 1"
           :key="index" :to="`${(item.path === '/') ? '' : item.path}/${firstNonHidden(item.children).path}`">
           <v-list-item-action>
             <v-icon>{{ item.meta.icon }}</v-icon>
@@ -13,14 +13,14 @@
           </v-list-item-content>
         </v-list-item>
         <v-list-group
-          v-else-if="item.children.filter((i) => 'meta' in i && !i.hidden && i.meta.roles.includes(role)).length > 1"
+          v-else-if="item.children.filter((i) => 'meta' in i && !i.hidden && i.meta.roles.includes(roles)).length > 1"
           :key="index" :prepend-icon="item.meta.icon">
           <template v-slot:activator>
             <v-list-item-title>{{ item.meta.title }}</v-list-item-title>
           </template>
           <template v-for="(sub, i) in item.children">
             <template v-if="!sub.hidden">
-              <v-list-item v-if="sub.meta.roles.includes(role)" :key="i"
+              <v-list-item v-if="sub.meta.roles.includes(roles)" :key="i"
                 :to="`${(item.path === '/') ? '' : item.path}/${sub.path}`">
                 <v-list-item-title v-text="sub.meta.title"></v-list-item-title>
               </v-list-item>
@@ -33,6 +33,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     name: 'App',
     components: {},
@@ -41,10 +43,10 @@
         required: true
       }
     },
-    data: () => ({
-      role: 2
-    }),
     computed: {
+      ...mapGetters([
+        'roles'
+      ]),
       routes() {
         return this.$router.options.routes
       },

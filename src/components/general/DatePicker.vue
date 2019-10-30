@@ -1,7 +1,7 @@
 <template>
   <v-dialog ref="dialog" v-model="modal" :return-value.sync="localPicker" persistent width="290px">
     <template v-slot:activator="{ on }">
-      <v-text-field rounded outlined clearable v-model="localPicker" :label="label" prepend-icon="mdi-calendar" readonly v-on="on" required>
+      <v-text-field rounded outlined clearable v-model="computedDateFormatted" :label="label" prepend-icon="mdi-calendar" readonly v-on="on" required>
       </v-text-field>
     </template>
     <v-date-picker v-model="localPicker" scrollable>
@@ -22,7 +22,7 @@
     },
     data() {
       return {
-        modal: false,
+        modal: false
       }
     },
     computed: {
@@ -33,6 +33,17 @@
         set(localPicker) {
           this.$emit('input', localPicker)
         }
+      },
+      computedDateFormatted () {
+        return this.formatDate(this.localPicker)
+      }
+    },
+    methods: {
+      formatDate (date) {
+        if (!date) return null
+
+        const [year, month, day] = date.split('-')
+        return `${month}/${day}/${year}`
       }
     }
   }

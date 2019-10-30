@@ -39,7 +39,9 @@
       </v-col>
     </v-row>
     <v-row v-else-if="roles === 1">
-      <DirectivesTable :value="directives" :loading="directivesLoading" />
+      <v-col>
+        <DirectivesTable :value="directives" :loading="directivesLoading" />
+      </v-col>
     </v-row>
   </v-container-refresh>
 </template>
