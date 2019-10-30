@@ -1,5 +1,5 @@
 <template>
-  <v-card flat outlined>
+  <v-card flat outlined :loading="loading">
     <v-card-title>{{ permitName }} Permits</v-card-title>
     <v-simple-table>
       <template v-slot:default>
@@ -10,9 +10,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Test</td>
-            <td>Testing Reason</td>
+          <tr v-for="permit in value" :key="permit._id">
+            <td>{{ permit.location }}</td>
+            <td>{{ permit.reason }}</td>
           </tr>
         </tbody>
       </template>
@@ -26,7 +26,12 @@
       permitType: {
         type: Number,
         required: true
-      }
+      },
+      value: {
+        type: Array,
+        required: true
+      },
+      loading: Boolean
     },
     computed: {
       permitName() {

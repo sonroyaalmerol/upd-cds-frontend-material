@@ -1,5 +1,5 @@
 <template>
-  <v-card flat outlined>
+  <v-card flat outlined :loading="loading">
     <v-card-title>Directives</v-card-title>
     <v-simple-table>
       <template v-slot:default>
@@ -10,10 +10,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>test</td>
+          <tr v-for="directive in value" :key="directive._id">
+            <td>{{ directive.details }}</td>
             <td>
-              <v-chip tile class="ma-2" color="error">
+              <v-chip v-if="directive.done" tile class="ma-2" color="success">
+                Accomplished
+              </v-chip>
+              <v-chip v-else tile class="ma-2" color="error">
                 Not yet accomplished
               </v-chip>
             </td>
@@ -26,6 +29,12 @@
 
 <script>
   export default {
-
+    props: {
+      value: {
+        type: Array,
+        required: true
+      },
+      loading: Boolean
+    }
   }
 </script>

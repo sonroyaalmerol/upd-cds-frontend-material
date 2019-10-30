@@ -54,7 +54,7 @@
           </v-radio-group>
           <v-row>
             <v-col>
-              <v-select v-model="residentForm.corridor" :items="[{
+              <v-select rounded outlined v-model="residentForm.corridor" :items="[{
                                     text: 'Basement Boys',
                                     value: 'BB'
                                 },
@@ -107,12 +107,12 @@
               <v-text-field rounded outlined v-model="residentForm.stsBracket" label="STS Bracket"></v-text-field>
             </v-col>
           </v-row>
-          <v-textarea v-model="residentForm.homeAddress" label="Home Address"></v-textarea>
-          <v-textarea v-model="residentForm.mmAddress" label="Metro Manila Address"></v-textarea>
-          <v-textarea v-model="residentForm.foodAllergies" label="Food Allergies"></v-textarea>
-          <v-textarea v-model="residentForm.medicineAllergies" label="Medicine Allergies"></v-textarea>
-          <v-textarea v-model="residentForm.diagnosedHealthCondition" label="Diagnosed Health Condition"></v-textarea>
-          <v-textarea v-model="residentForm.recurringSymptoms" label="Recurring Symptoms"></v-textarea>
+          <v-textarea rounded outlined v-model="residentForm.homeAddress" label="Home Address"></v-textarea>
+          <v-textarea rounded outlined v-model="residentForm.mmAddress" label="Metro Manila Address"></v-textarea>
+          <v-textarea rounded outlined v-model="residentForm.foodAllergies" label="Food Allergies"></v-textarea>
+          <v-textarea rounded outlined v-model="residentForm.medicineAllergies" label="Medicine Allergies"></v-textarea>
+          <v-textarea rounded outlined v-model="residentForm.diagnosedHealthCondition" label="Diagnosed Health Condition"></v-textarea>
+          <v-textarea rounded outlined v-model="residentForm.recurringSymptoms" label="Recurring Symptoms"></v-textarea>
         </v-container>
       </v-card-text>
       <v-card-actions>

@@ -1,5 +1,5 @@
 <template>
-  <v-card flat outlined>
+  <v-card flat outlined :loading="loading">
     <v-card-text>
       <div>{{ permitName }} Permits</div>
       <p class="display-1 text--primary">
@@ -20,7 +20,8 @@
       value: {
         type: Number,
         required: true
-      }
+      },
+      loading: Boolean
     },
     computed: {
       permitName() {

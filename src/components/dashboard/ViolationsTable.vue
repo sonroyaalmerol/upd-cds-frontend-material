@@ -1,5 +1,5 @@
 <template>
-  <v-card flat outlined>
+  <v-card flat outlined :loading="loading">
     <v-card-title>Violations</v-card-title>
     <v-simple-table>
       <template v-slot:default>
@@ -11,14 +11,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr v-for="violation in value" :key="violation._id">
             <td>
-              <v-chip tile class="ma-2" color="warning">
+              <v-chip v-if="violation.ismajor" tile class="ma-2" color="error">
+                Major Violation
+              </v-chip>
+              <v-chip v-else tile class="ma-2" color="warning">
                 Minor Violation
               </v-chip>
             </td>
-            <td>Late Night Violation (8/29/2019, 12:13:30 AM)</td>
-            <td>8/29/2019, 12:13:31 AM</td>
+            <td>{{ violation.details }}</td>
+            <td>{{ violation.timestamp }}</td>
           </tr>
         </tbody>
       </template>
@@ -28,6 +31,12 @@
 
 <script>
   export default {
-
+    props: {
+      value: {
+        type: Array,
+        required: true
+      },
+      loading: Boolean
+    }
   }
 </script>

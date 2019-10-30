@@ -1,5 +1,5 @@
 <template>
-  <v-card flat outlined>
+  <v-card flat outlined :loading="loading">
     <v-card-title>Accountabilities</v-card-title>
     <v-simple-table>
       <template v-slot:default>
@@ -10,11 +10,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Payment (First Sem) - 4TH</td>
+          <tr v-for="accountability in value" :key="accountability._id">
+            <td>{{ accountability.reason }}</td>
             <td>
-              <v-chip tile class="ma-2" color="success">
-                Cleared (by: Son Roy Almerol)
+              <v-chip v-if="accountability.cleared" tile class="ma-2" color="success">
+                Cleared (by: {{ accountability.clearedBy }})
+              </v-chip>
+              <v-chip v-else tile class="ma-2" color="error">
+                Not cleared
               </v-chip>
             </td>
           </tr>
@@ -26,6 +29,12 @@
 
 <script>
   export default {
-
+    props: {
+      value: {
+        type: Array,
+        required: true
+      },
+      loading: Boolean
+    }
   }
 </script>
