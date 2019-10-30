@@ -1,9 +1,13 @@
 <template>
-  <v-expansion-panels class="mb-4">
-    <v-expansion-panel>
-      <v-expansion-panel-header>Permit Rules</v-expansion-panel-header>
-      <v-expansion-panel-content>
-        <v-alert type="info" color="primary" elevation="0" outlined prominent>
+  <v-card flat outlined class="mx-auto mb-4">
+    <v-btn text block @click="show = !show">
+      Permit Rules<v-spacer></v-spacer>
+      <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+    </v-btn>
+
+    <v-expand-transition>
+      <div v-show="show">
+        <v-card-text>
           <b>General Rules</b>
           <ul>
             <li>The cut-off time for the online permits is 4:00 pm.</li>
@@ -24,14 +28,19 @@
           <ul>
             <li>This can only cover a maximum of 5 consecutive days.</li>
           </ul>
-        </v-alert>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
-  </v-expansion-panels>
+        </v-card-text>
+      </div>
+    </v-expand-transition>
+  </v-card>
 </template>
 
 <script>
   export default {
+    data() {
+      return {
+        show: false
+      }
+    },
     components: {
 
     }

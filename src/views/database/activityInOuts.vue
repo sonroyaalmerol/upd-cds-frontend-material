@@ -1,7 +1,9 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel>
-      <v-btn rounded color="primary">Export CSV</v-btn>
+      <v-col>
+        <v-btn rounded color="primary">Export CSV</v-btn>
+      </v-col>
     </ActionsPanel>
     <v-card flat>
       <v-data-table :headers="headers" :items="activityInOuts" :single-expand="singleExpand" :expanded.sync="expanded"

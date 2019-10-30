@@ -1,7 +1,9 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel>
-      <ActivityForm />
+      <v-col>
+        <ActivityForm />
+      </v-col>
     </ActionsPanel>
     <v-card flat>
       <v-data-table

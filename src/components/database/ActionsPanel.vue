@@ -1,19 +1,25 @@
 <template>
-  <v-expansion-panels class="mb-4" v-model="panel">
-    <v-expansion-panel :key="0">
-      <v-expansion-panel-header>Actions</v-expansion-panel-header>
-      <v-expansion-panel-content>
-        <slot />
-      </v-expansion-panel-content>
-    </v-expansion-panel>
-  </v-expansion-panels>
+  <v-card flat outlined class="mx-auto mb-4">
+    <v-btn text block @click="panel = !panel">
+      Actions<v-spacer></v-spacer>
+      <v-icon>{{ panel ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+    </v-btn>
+    
+    <v-expand-transition>
+      <div v-show="panel">
+        <v-card-text>
+          <slot />
+        </v-card-text>
+      </div>
+    </v-expand-transition>
+  </v-card>
 </template>
 
 <script>
   export default {
     data() {
       return {
-        panel: null
+        panel: false
       }
     },
     computed: {
@@ -22,9 +28,8 @@
       }
     },
     created() {
-      this.panel = 0
-      if (this.isMobileDevice) {
-        this.panel = null
+      if (!this.isMobileDevice) {
+        this.panel = true
       }
     },
     methods: {

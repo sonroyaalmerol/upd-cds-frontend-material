@@ -1,7 +1,9 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel>
-      <AddDirectivesButton />
+      <v-col>
+        <AddDirectivesButton />
+      </v-col>
     </ActionsPanel>
     <v-card flat>
       <v-data-table :headers="headers" :items="directives" :single-expand="singleExpand" :expanded.sync="expanded"

@@ -2,171 +2,67 @@
   <v-container-refresh :on-refresh="onRefresh">
     <v-row>
       <v-col>
-        <v-card flat outlined>
-          <v-card-text>
-            <center>
-              <h1 class="text--primary my-4">Good job! You have no pending permits!</h1>
-            </center>
-          </v-card-text>
-        </v-card>
+        <Banner />
       </v-col>
     </v-row>
     <v-row>
       <v-col>
-        <v-card flat outlined>
-          <v-card-text>
-            <div>Late Night Permits</div>
-            <p class="display-1 text--primary">
-              0
-            </p>
-            <p>more permits to approve</p>
-          </v-card-text>
-        </v-card>
+        <PermitsNumber :permit-type="0" :value="0" />
       </v-col>
       <v-col>
-        <v-card flat outlined>
-          <v-card-text>
-            <div>Overnight Permits</div>
-            <p class="display-1 text--primary">
-              0
-            </p>
-            <p>more permits to approve</p>
-          </v-card-text>
-        </v-card>
+        <PermitsNumber :permit-type="1" :value="0" />
       </v-col>
       <v-col>
-        <v-card flat outlined>
-          <v-card-text>
-            <div>Early Morning Permits</div>
-            <p class="display-1 text--primary">
-              0
-            </p>
-            <p>more permits to approve</p>
-          </v-card-text>
-        </v-card>
+        <PermitsNumber :permit-type="2" :value="0" />
       </v-col>
     </v-row>
     <v-row>
       <v-col>
-        <v-card flat outlined>
-          <v-simple-table>
-            <template v-slot:default>
-              <thead>
-                <tr>
-                  <th class="text-left">Location</th>
-                  <th class="text-left">Reason</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Test</td>
-                  <td>Testing Reason</td>
-                </tr>
-              </tbody>
-            </template>
-          </v-simple-table>
-        </v-card>
+        <PermitsTable :permit-type="0" />
       </v-col>
       <v-col>
-        <v-card flat outlined>
-          <v-simple-table>
-            <template v-slot:default>
-              <thead>
-                <tr>
-                  <th class="text-left">Location</th>
-                  <th class="text-left">Reason</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Test</td>
-                  <td>Testing Reason</td>
-                </tr>
-              </tbody>
-            </template>
-          </v-simple-table>
-        </v-card>
+        <PermitsTable :permit-type="1" />
       </v-col>
       <v-col>
-        <v-card flat outlined>
-          <v-simple-table>
-            <template v-slot:default>
-              <thead>
-                <tr>
-                  <th class="text-left">Location</th>
-                  <th class="text-left">Reason</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Test</td>
-                  <td>Testing Reason</td>
-                </tr>
-              </tbody>
-            </template>
-          </v-simple-table>
-        </v-card>
+        <PermitsTable :permit-type="2" />
       </v-col>
     </v-row>
     <v-row>
       <v-col>
-        <v-card flat outlined>
-          <v-card-title>Violations</v-card-title>
-          <v-simple-table>
-            <template v-slot:default>
-              <thead>
-                <tr>
-                  <th class="text-left">Type</th>
-                  <th class="text-left">Details</th>
-                  <th class="text-left">Timestamp</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <v-chip tile class="ma-2" color="warning">
-                      Minor Violation
-                    </v-chip>
-                  </td>
-                  <td>Late Night Violation (8/29/2019, 12:13:30 AM)</td>
-                  <td>8/29/2019, 12:13:31 AM</td>
-                </tr>
-              </tbody>
-            </template>
-          </v-simple-table>
-        </v-card>
+        <ViolationsTable />
       </v-col>
       <v-col>
-        <v-card flat outlined>
-          <v-card-title>Accountabilities</v-card-title>
-          <v-simple-table>
-            <template v-slot:default>
-              <thead>
-                <tr>
-                  <th class="text-left">Reason</th>
-                  <th class="text-left">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Payment (First Sem) - 4TH</td>
-                  <td>
-                    <v-chip tile class="ma-2" color="success">
-                      Cleared (by: Son Roy Almerol)
-                    </v-chip>
-                  </td>
-                </tr>
-              </tbody>
-            </template>
-          </v-simple-table>
-        </v-card>
+        <AccountabilitiesTable />
       </v-col>
     </v-row>
   </v-container-refresh>
 </template>
 
 <script>
+  const AccountabilitiesTable = () => import('@/components/dashboard/AccountabilitiesTable')
+  const Banner = () => import('@/components/dashboard/Banner')
+  const PermitsNumber = () => import('@/components/dashboard/PermitsNumber')
+  const PermitsTable = () => import('@/components/dashboard/PermitsTable')
+  const ViolationsTable = () => import('@/components/dashboard/ViolationsTable')
+
+  import { mapGetters } from 'vuex'
+
   export default {
+    components: {
+      AccountabilitiesTable,
+      Banner,
+      PermitsNumber,
+      PermitsTable,
+      ViolationsTable
+    },
+    computed: {
+      ...mapGetters([
+        'first_name',
+        'last_name',
+        'roles',
+        'profileid'
+      ])
+    },
     methods: {
       onRefresh: function () {
         return new Promise(function (resolve) {

@@ -1,7 +1,9 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel>
-      <AddAccountabilityButton />
+      <v-col>
+        <AddAccountabilityButton />
+      </v-col>
     </ActionsPanel>
     <v-card flat>
       <v-data-table :headers="headers" :items="accountabilities" :single-expand="singleExpand" :expanded.sync="expanded"

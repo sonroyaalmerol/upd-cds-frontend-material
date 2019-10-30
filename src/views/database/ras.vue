@@ -1,7 +1,9 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel>
-      <RAForm />
+      <v-col>
+        <RAForm />
+      </v-col>
     </ActionsPanel>
     <v-card flat>
       <v-data-table :headers="headers" :items="ras" :single-expand="singleExpand" :expanded.sync="expanded"

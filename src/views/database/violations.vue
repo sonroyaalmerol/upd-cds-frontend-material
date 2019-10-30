@@ -1,20 +1,18 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel>
-      <v-row>
-        <v-col>
-          <AddViolationButton block />
-        </v-col>
-        <v-col>
-          <v-btn rounded block color="primary" :to="'/inoutentries/asd'">Review In/Out Entries</v-btn>
-        </v-col>
-        <v-col>
-          <v-btn rounded block color="primary" :to="'/permits/asd'">Review Permits</v-btn>
-        </v-col>
-        <v-col>
-          <v-btn rounded block color="primary">Export to CSV</v-btn>
-        </v-col>
-      </v-row>
+      <v-col>
+        <AddViolationButton block />
+      </v-col>
+      <v-col>
+        <v-btn rounded block color="primary" :to="'/inoutentries/asd'">Review In/Out Entries</v-btn>
+      </v-col>
+      <v-col>
+        <v-btn rounded block color="primary" :to="'/permits/asd'">Review Permits</v-btn>
+      </v-col>
+      <v-col>
+        <v-btn rounded block color="primary">Export to CSV</v-btn>
+      </v-col>
     </ActionsPanel>
     <v-card flat hover outlined>
       <v-data-table :headers="headers" :items="violations" :single-expand="singleExpand" :expanded.sync="expanded"
