@@ -53,6 +53,7 @@
             ismajor: false,
             _resident: ''
           }
+          this.$emit('done')
           this.dialog = false
           this.loading = false
         })

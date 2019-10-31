@@ -3,7 +3,7 @@
     <ActionsPanel v-if="roles !== 0">
       <v-row>
         <v-col>
-          <AddViolationButton block :residentId="resident._id" />
+          <AddViolationButton block :residentId="resident._id" @done="fetchData()" />
         </v-col>
         <v-col>
           <v-btn rounded block color="primary" :to="`/inoutentries/${resident._id}`">Review In/Out Entries</v-btn>

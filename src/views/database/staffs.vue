@@ -2,7 +2,7 @@
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel v-if="roles === 2">
       <v-col>
-        <StaffForm />
+        <StaffForm @done="fetchData()" />
       </v-col>
     </ActionsPanel>
     <v-card flat>
@@ -19,7 +19,7 @@
           <td :colspan="headers.length">
             <v-row>
               <v-col>
-                <StaffForm :key="item._id" :profile="item" block />
+                <StaffForm :key="item._id" :profile="item" block @done="fetchData()" />
               </v-col>
               <v-col>
                 <ConfirmButton :key="item._id" color="red" block @action="deleteStaff(item)" :loading="deleting">Checkout</ConfirmButton>

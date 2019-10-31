@@ -2,7 +2,7 @@
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel v-if="roles !== 0">
       <v-col>
-        <CreateForm />
+        <CreateForm @done="fetchData()" />
       </v-col>
     </ActionsPanel>
     <v-card flat>
@@ -19,7 +19,7 @@
           <td :colspan="headers.length">
             <v-row>
               <v-col>
-                <CreateForm block :form="item" />
+                <CreateForm block :form="item" @done="fetchData()" />
               </v-col>
               <v-col>
                 <v-btn rounded block color="primary">Download Responses</v-btn>

@@ -147,7 +147,8 @@
     },
     computed: {
       ...mapGetters([
-        'profileid'
+        'profileid',
+        'roles'
       ]),
       dialog: {
         get() {
@@ -227,7 +228,10 @@
     }),
     methods: {
       async fetchProfile() {
-        this.residentForm = await getResidentById(this.profileid)
+        var tempForm = await getResidentById(this.profileid)
+        if (tempForm) {
+          this.residentForm = tempForm
+        }
       },
       updateProfile: function () {
         this.loading = true

@@ -69,6 +69,7 @@
         Promise.all(promises).then((res) => {
           batchAccountability(res).then(() => {
             this.$message('Successfully added accountability to all residents!', 'success')
+            this.$emit('done')
             this.dialog = false
             this.loading = false
           })
@@ -86,6 +87,7 @@
             clearedBy: '',
             _resident: ''
           }
+          this.$emit('done')
           this.dialog = false
           this.loading = false
         })

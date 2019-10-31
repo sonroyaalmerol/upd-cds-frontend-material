@@ -156,6 +156,7 @@
           this.$message('Successfully created form!', 'success')
           this.dialog = false
           this.loading = false
+          this.$emit('done')
         })
       },
       updateForm() {
@@ -164,6 +165,7 @@
           this.$message('Successfully updated form!', 'success')
           this.dialog = false
           this.loading = false
+          this.$emit('done')
         })
       },
     }

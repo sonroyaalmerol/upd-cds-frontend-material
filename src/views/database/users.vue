@@ -3,10 +3,10 @@
     <ActionsPanel v-if="roles !== 0">
       <v-row>
         <v-col>
-          <BatchProfileUploader block disabled/>
+          <BatchProfileUploader block disabled />
         </v-col>
         <v-col>
-          <ProfileForm block />
+          <ProfileForm block @done="fetchData()"/>
         </v-col>
         <v-col>
           <AddAccountabilityButton batch block :residents="residents" />
@@ -45,7 +45,7 @@
                 <v-btn :key="item._id" rounded block color="primary" :to="`/database/accountabilities/${item._id}`">Accountabilities</v-btn>
               </v-col>
               <v-col>
-                <ProfileForm :key="item._id" block :profile="item" />
+                <ProfileForm :key="item._id" block :profile="item" @done="fetchData()" />
               </v-col>
               <v-col>
                 <PISForm :key="item._id" block :pisId="item._pis" />

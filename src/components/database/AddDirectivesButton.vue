@@ -54,6 +54,7 @@
             doneOn: null,
             _assistant: ''
           }
+          this.$emit('done')
           this.loading = false
           this.dialog = false
         })

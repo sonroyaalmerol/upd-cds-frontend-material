@@ -119,6 +119,7 @@
           this.dialog = false
           this.reset()
           this.loading = false
+          this.$emit('done')
         })
       },
       updateProfile: function () {
@@ -135,6 +136,7 @@
           this.dialog = false
           this.reset()
           this.loading = false
+          this.$emit('done')
         })
       }
     }

@@ -88,6 +88,7 @@
             points: 0,
             category: 1
           }
+          this.$emit('done')
           this.loading = false
           this.dialog = false
         })

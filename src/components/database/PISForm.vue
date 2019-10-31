@@ -83,6 +83,7 @@
           this.$message('Successfully added PIS!', 'success')
           this.dialog = false
           this.loading = false
+          this.$emit('done')
         })
       },
       updatePIS() {
@@ -91,6 +92,7 @@
           this.$message('Successfully updated PIS!', 'success')
           this.dialog = false
           this.loading = false
+          this.$emit('done')
         })
       }
     }

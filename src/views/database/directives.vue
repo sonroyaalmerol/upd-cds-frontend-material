@@ -2,7 +2,7 @@
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel v-if="roles === 2">
       <v-col>
-        <AddDirectivesButton :assistantId="assistant._id" />
+        <AddDirectivesButton :assistantId="assistant._id" @done="fetchData()" />
       </v-col>
     </ActionsPanel>
     <v-card flat>

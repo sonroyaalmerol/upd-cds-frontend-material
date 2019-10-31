@@ -35,6 +35,21 @@ export function getInfo() {
   })
 }
 
+export function getDarkMode() {
+  return request({
+    url: '/setting/color',
+    method: 'get'
+  })
+}
+
+export function setDarkMode(data) {
+  return request({
+    url: '/setting/color',
+    method: 'post',
+    data
+  })
+}
+
 export function uploadImage(data, config) {
   return request({
     url: '/images',

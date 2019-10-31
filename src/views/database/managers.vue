@@ -2,7 +2,7 @@
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel>
       <v-col>
-        <DMForm />
+        <DMForm @done="fetchData()" />
       </v-col>
     </ActionsPanel>
     <v-card flat>
@@ -19,7 +19,7 @@
           <td :colspan="headers.length">
             <v-row>
               <v-col>
-                <DMForm :key="item._id" block :profile="item" />
+                <DMForm :key="item._id" block :profile="item" @done="fetchData()" />
               </v-col>
               <v-col>
                 <ConfirmButton :key="item._id" color="red" block :loading="resetting" @action="deleteUser(item)">Reset Account</ConfirmButton>

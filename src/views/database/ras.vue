@@ -2,7 +2,7 @@
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel v-if="roles === 2">
       <v-col>
-        <RAForm />
+        <RAForm @done="fetchData()" />
       </v-col>
     </ActionsPanel>
     <v-card flat>
@@ -19,7 +19,7 @@
           <td :colspan="headers.length">
             <v-row>
               <v-col v-if="(item.userId === uid) || roles === 2">
-                <RAForm :key="item._id" :profile="item" block />
+                <RAForm :key="item._id" :profile="item" block @done="fetchData()" />
               </v-col>
               <v-col v-if="roles === 2" :key="item._id">
                 <v-btn rounded block color="primary" :to="`/database/directives/${item._id}`">Directives</v-btn>

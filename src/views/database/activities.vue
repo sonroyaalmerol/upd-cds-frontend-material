@@ -2,7 +2,7 @@
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel v-if="roles !== 0">
       <v-col>
-        <ActivityForm />
+        <ActivityForm @done="fetchData()" />
       </v-col>
     </ActionsPanel>
     <v-card flat>

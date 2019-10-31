@@ -2,7 +2,7 @@
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel v-if="roles !== 0">
       <v-col>
-        <AddAccountabilityButton :residentId="resident._id"/>
+        <AddAccountabilityButton :residentId="resident._id" @done="fetchData()"/>
       </v-col>
     </ActionsPanel>
     <v-card flat>

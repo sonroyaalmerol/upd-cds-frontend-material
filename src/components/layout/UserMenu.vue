@@ -31,7 +31,7 @@
         <v-list-item-title>Log Out</v-list-item-title>
       </v-list-item>
       <v-divider class="mb-2" />
-      <v-list-item @click.stop="$vuetify.theme.dark = !$vuetify.theme.dark">
+      <v-list-item @click.stop="toggleDarkMode">
         <v-list-item-title v-if="$vuetify.theme.dark">Disable Dark Mode</v-list-item-title>
         <v-list-item-title v-else>Enable Dark Mode</v-list-item-title>
       </v-list-item>
@@ -41,6 +41,8 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import { getDarkMode, setDarkMode } from '@/utils/ekalayapi'
+
   const PrivacyPolicy = () => import('@/components/layout/PrivacyPolicy')
   const SupportDevelopment = () => import('@/components/layout/SupportDevelopment')
   const ProfileForm = () => import('@/components/layout/ProfileForm')
@@ -71,6 +73,16 @@
         return this.upid
       }
     },
+    created() {
+      getDarkMode().then((res) => {
+        this.$vuetify.theme.dark = res
+      })
+    },
+    activated() {
+      getDarkMode().then((res) => {
+        this.$vuetify.theme.dark = res
+      })
+    },
     data: () => ({
       privacy: false,
       support: false,
@@ -82,6 +94,11 @@
           this.$router.push({ path: '/login' })
         })
       },
+      toggleDarkMode() {
+        setDarkMode({ darkMode: !this.$vuetify.theme.dark }).then(() => {
+          this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+        })
+      }
     }
   }
 </script>
