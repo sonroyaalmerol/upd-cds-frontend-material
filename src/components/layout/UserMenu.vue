@@ -9,15 +9,21 @@
         </v-avatar>
       </v-btn>
     </template>
+    <PrivacyPolicy v-model="privacy" />
+    <SupportDevelopment v-model="support" />
+    <ProfileForm v-model="profile" />
     <v-list rounded class="overflow-y-auto">
-      <v-list-item @click.stop="">
+      <v-list-item>
+        <v-list-item-title>{{ first_name }} {{ last_name }} ({{ role }})</v-list-item-title>
+      </v-list-item>
+      <v-list-item @click.stop="profile = true">
         <v-list-item-title>Edit Student Profile</v-list-item-title>
       </v-list-item>
       <v-divider class="mb-2" />
-      <v-list-item @click.stop="">
+      <v-list-item @click.stop="privacy = true">
         <v-list-item-title>Privacy Policy</v-list-item-title>
       </v-list-item>
-      <v-list-item @click.stop="">
+      <v-list-item @click.stop="support = true">
         <v-list-item-title>Support Development</v-list-item-title>
       </v-list-item>
       <v-divider class="mb-2" />
@@ -35,16 +41,40 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  const PrivacyPolicy = () => import('@/components/layout/PrivacyPolicy')
+  const SupportDevelopment = () => import('@/components/layout/SupportDevelopment')
+  const ProfileForm = () => import('@/components/layout/ProfileForm')
 
   export default {
+    components: {
+      PrivacyPolicy,
+      SupportDevelopment,
+      ProfileForm
+    },
     name: 'App',
     computed: {
       ...mapGetters([
-        'avatar'
-      ])
+        'avatar',
+        'first_name',
+        'last_name',
+        'roles'
+      ]),
+      role() {
+        switch (this.roles) {
+          case 0:
+            return this.upid
+          case 1:
+            return 'Resident Assistant'
+          case 2:
+            return 'Dorm Manager'
+        }
+        return this.upid
+      }
     },
     data: () => ({
-
+      privacy: false,
+      support: false,
+      profile: false
     }),
     methods: {
       logout() {

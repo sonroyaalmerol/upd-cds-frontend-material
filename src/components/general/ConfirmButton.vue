@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn v-if="!confirm" dark rounded :block="block" :color="color" @click="checkStatus" :loading="loading">
+    <v-btn v-if="!confirm" :dark="!disabled" rounded :block="block" :color="color" @click="checkStatus" :loading="loading" :disabled="disabled">
       <slot />
     </v-btn>
     <v-tooltip v-else top>
@@ -23,6 +23,10 @@
         default: false
       },
       loading: {
+        type: Boolean,
+        default: false
+      },
+      disabled: {
         type: Boolean,
         default: false
       }

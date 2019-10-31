@@ -1,8 +1,8 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
-    <ActionsPanel>
+    <ActionsPanel v-if="roles !== 0">
       <v-col>
-        <v-btn rounded color="primary">Export CSV</v-btn>
+        <v-btn rounded color="primary" disabled>Export CSV</v-btn>
       </v-col>
     </ActionsPanel>
     <v-card flat>

@@ -25,11 +25,11 @@
                 <v-btn rounded block color="primary">Download Responses</v-btn>
               </v-col>
               <v-col>
-                <ConfirmButton v-if="item.closed" block color="success" @action="openForm(item)" :loading="changingStatus">Go Live</ConfirmButton>
-                <ConfirmButton v-else block color="error" @action="closeForm(item)" :loading="changingStatus">Close Form</ConfirmButton>
+                <ConfirmButton :key="item._id" v-if="item.closed" block color="success" @action="openForm(item)" :loading="changingStatus">Go Live</ConfirmButton>
+                <ConfirmButton :key="item._id" v-else block color="error" @action="closeForm(item)" :loading="changingStatus">Close Form</ConfirmButton>
               </v-col>
               <v-col>
-                <ConfirmButton color="red" block @action="deleteForm(item)" :loading="deletingForm">Delete Form</ConfirmButton>
+                <ConfirmButton :key="item._id" color="red" block @action="deleteForm(item)" :loading="deletingForm">Delete Form</ConfirmButton>
               </v-col>
             </v-row>
           </td>

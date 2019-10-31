@@ -1,7 +1,7 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
     <v-card flat>
-      <v-data-table :headers="headers" :items="inoutentries" item-key="name" :loading="loading" disable-filtering disable-pagination disable-sort hide-default-footer>
+      <v-data-table :headers="headers" :items="inoutentries" item-key="_id" :loading="loading" disable-filtering disable-pagination disable-sort hide-default-footer>
         <template v-slot:item.timestamp="{ value }">
           {{ parseTimestamp(value) }}
         </template>
@@ -19,6 +19,7 @@
         v-model="page"
         class="my-4"
         :length="numberOfPages"
+        :total-visible="6"
       ></v-pagination>
     </v-card>
   </v-container-refresh>

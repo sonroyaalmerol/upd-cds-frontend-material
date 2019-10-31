@@ -12,13 +12,13 @@
           <v-btn rounded block color="primary" :to="`/permits/${resident._id}`">Review Permits</v-btn>
         </v-col>
         <v-col>
-          <v-btn rounded block color="primary">Export to CSV</v-btn>
+          <v-btn rounded block color="primary" disabled>Export to CSV</v-btn>
         </v-col>
       </v-row>
     </ActionsPanel>
     <v-card flat>
       <v-data-table :headers="headers" :items="violations" :single-expand="singleExpand" :expanded.sync="expanded"
-        :search="search" item-key="_id" show-expand @click:row="clicked">
+        :search="search" item-key="_id" :show-expand="roles !== 0" @click:row="clicked">
         <template v-slot:top>
           <v-toolbar flat>
             <v-spacer></v-spacer>
@@ -26,11 +26,11 @@
             </v-text-field>
           </v-toolbar>
         </template>
-        <template v-slot:expanded-item="{ headers, item }">
+        <template v-if="roles !== 0" v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length">
             <v-row>
               <v-col>
-                <ConfirmButton color="red" block @action="deleteViolation(item)" :loading="deleting">Delete</ConfirmButton>
+                <ConfirmButton :key="item._id" color="red" block @action="deleteViolation(item)" :loading="deleting">Delete</ConfirmButton>
               </v-col>
             </v-row>
           </td>

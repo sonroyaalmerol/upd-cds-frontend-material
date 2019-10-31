@@ -11,6 +11,7 @@
       v-model="page"
       class="my-4"
       :length="numberOfPages"
+      :total-visible="6"
     ></v-pagination>
     <center v-if="!loading">
       <template v-for="(res, i) in dataToShow">
@@ -42,6 +43,7 @@
       v-model="page"
       class="my-4"
       :length="numberOfPages"
+      :total-visible="6"
     ></v-pagination>
   </div>
 </template>

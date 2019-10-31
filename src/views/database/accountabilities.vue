@@ -7,7 +7,7 @@
     </ActionsPanel>
     <v-card flat>
       <v-data-table :headers="headers" :items="accountabilities" :single-expand="singleExpand" :expanded.sync="expanded"
-        :search="search" item-key="_id" show-expand @click:row="clicked" :loading="loading">
+        :search="search" item-key="_id" :show-expand="roles !== 0" @click:row="clicked" :loading="loading">
         <template v-slot:top>
           <v-toolbar flat>
             <v-spacer></v-spacer>
@@ -15,14 +15,14 @@
             </v-text-field>
           </v-toolbar>
         </template>
-        <template v-slot:expanded-item="{ headers, item }">
+        <template v-if="roles !== 0" v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length">
             <v-row>
               <v-col>
-                <ConfirmButton color="green" block @action="clearAccountability(item)">Clear</ConfirmButton>
+                <ConfirmButton :key="item._id" color="green" block @action="clearAccountability(item)">Clear</ConfirmButton>
               </v-col>
               <v-col>
-                <ConfirmButton color="red" block @action="deleteAccountability(item)">Delete</ConfirmButton>
+                <ConfirmButton :key="item._id" color="red" block @action="deleteAccountability(item)">Delete</ConfirmButton>
               </v-col>
             </v-row>
           </td>

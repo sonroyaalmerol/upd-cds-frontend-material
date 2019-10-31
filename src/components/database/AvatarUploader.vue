@@ -1,10 +1,10 @@
 <template>
-  <v-btn color="primary" fab dark :width="205" :height="205" :loading="loading" @click="$refs.file.click()">
+  <v-btn color="primary" fab dark :width="205" :height="205" :loading="loading" :disabled="disabled" @click="$refs.file.click()">
     <v-avatar v-if="localValue.displayPhoto" :size="200">
       <img :src="croppedImage" :alt="localValue.displayPhotoId" />
     </v-avatar>
     <v-icon v-else :size="50" dark>mdi-cloud-upload</v-icon>
-    <input type="file" ref="file" style="display: none" v-on:change="onUpload" />
+    <input type="file" ref="file" style="display: none" v-on:change="onUpload" :disabled="disabled" />
   </v-btn>
 </template>
 
@@ -16,6 +16,10 @@
       value: {
         type: Object,
         required: true
+      },
+      disabled: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
