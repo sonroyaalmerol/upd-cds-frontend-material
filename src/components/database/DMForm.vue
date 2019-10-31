@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="800px">
+  <v-dialog style="-webkit-overflow-scrolling: touch" v-model="dialog" persistent max-width="800px">
     <template v-slot:activator="{ on }">
       <v-btn v-if="profile" rounded :block="block" color="primary" v-on="on">Update DM</v-btn>
       <v-btn v-else rounded :block="block" color="primary" v-on="on">Add New Dormitory Manager</v-btn>

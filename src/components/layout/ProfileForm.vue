@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="800px">
+  <v-dialog style="-webkit-overflow-scrolling: touch" v-model="dialog" persistent max-width="800px">
     <v-card flat outlined :loading="loading">
       <v-card-title>
         <span class="headline">Update Profile</span>

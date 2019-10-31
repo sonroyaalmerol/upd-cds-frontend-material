@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="600px">
+  <v-dialog style="-webkit-overflow-scrolling: touch" v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on }">
       <v-btn v-if="batch" rounded :block="block" color="primary" v-on="on">Batch Accountability</v-btn>
       <v-btn v-else rounded :block="block" color="primary" v-on="on">Add Accountability</v-btn>

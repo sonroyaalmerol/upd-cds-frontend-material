@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="800px">
+  <v-dialog style="-webkit-overflow-scrolling: touch" v-model="dialog" persistent max-width="800px">
     <template v-slot:activator="{ on }">
       <v-btn v-if="out" rounded :block="block" color="primary" v-on="on">Add Out Entry</v-btn>
       <v-btn v-else rounded :block="block" color="primary" v-on="on">Add In Entry</v-btn>

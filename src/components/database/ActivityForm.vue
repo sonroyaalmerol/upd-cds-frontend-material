@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="800px">
+  <v-dialog style="-webkit-overflow-scrolling: touch" v-model="dialog" persistent max-width="800px">
     <template v-slot:activator="{ on }">
       <v-btn  rounded :block="block" color="primary" v-on="on">Create new Activity</v-btn>
     </template>

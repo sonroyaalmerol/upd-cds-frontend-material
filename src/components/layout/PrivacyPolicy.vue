@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="localShow" width="600px">
+  <v-dialog style="-webkit-overflow-scrolling: touch" v-model="localShow" width="600px">
     <v-card>
       <v-card-title>
         <span class="headline">Privacy Policy</span>

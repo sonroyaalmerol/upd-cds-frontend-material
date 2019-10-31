@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="600px">
+  <v-dialog style="-webkit-overflow-scrolling: touch" v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on }">
       <v-btn rounded :block="block" color="primary" v-on="on">Add Directive</v-btn>
     </template>
