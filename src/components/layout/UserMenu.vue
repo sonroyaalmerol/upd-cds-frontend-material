@@ -16,7 +16,7 @@
       <v-list-item>
         <v-list-item-title>{{ first_name }} {{ last_name }} ({{ role }})</v-list-item-title>
       </v-list-item>
-      <v-list-item @click.stop="profile = true">
+      <v-list-item v-if="roles === 0" @click.stop="profile = true">
         <v-list-item-title>Edit Student Profile</v-list-item-title>
       </v-list-item>
       <v-divider class="mb-2" />
