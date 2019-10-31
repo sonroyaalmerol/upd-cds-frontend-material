@@ -1,21 +1,21 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
-    <ActionsPanel>
+    <ActionsPanel v-if="roles !== 0">
       <v-row>
         <v-col>
-          <BatchProfileUploader block />
+          <BatchProfileUploader block disabled/>
         </v-col>
         <v-col>
           <ProfileForm block />
         </v-col>
         <v-col>
-          <AddAccountabilityButton batch block />
+          <AddAccountabilityButton batch block :residents="residents" />
         </v-col>
         <v-col>
-          <v-btn rounded block color="primary">Export Violations</v-btn>
+          <v-btn rounded block color="primary" disabled>Export Violations</v-btn>
         </v-col>
         <v-col>
-          <v-btn rounded block color="primary">Export Accountabilities</v-btn>
+          <v-btn rounded block color="primary" disabled>Export Accountabilities</v-btn>
         </v-col>
         <v-col>
           <v-btn rounded block color="red" disabled>Clear Database</v-btn>
@@ -59,6 +59,17 @@
             </v-row>
           </td>
         </template>
+        <template v-slot:item.inout="{ value }">
+          <v-chip v-if="value === 'IN'" tile class="ma-2" color="success">
+            IN
+          </v-chip>
+          <v-chip v-else-if="value === 'OUT'" tile class="ma-2" color="error">
+            OUT
+          </v-chip>
+          <v-chip v-else tile class="ma-2" color="warning">
+            N/A
+          </v-chip>
+        </template>
       </v-data-table>
     </v-card>
   </v-container-refresh>
@@ -66,6 +77,8 @@
 
 <script>
   import { residents, deleteUserById, deleteResident } from '@/utils/ekalayapi'
+  import { mapGetters } from 'vuex'
+
   const ProfileForm = () => import('@/components/database/ProfileForm')
   const PISForm = () => import('@/components/database/PISForm')
   const ActionsPanel = () => import('@/components/database/ActionsPanel')
@@ -108,7 +121,7 @@
             value: 'data-table-expand'
           },
         ],
-        loading: true,
+        loading: false,
         resetting: false,
         checkingout: false,
         residents: []
@@ -116,6 +129,11 @@
     },
     created() {
       this.fetchData()
+    },
+    computed: {
+      ...mapGetters([
+        'roles'
+      ]),
     },
     methods: {
       clicked(value) {

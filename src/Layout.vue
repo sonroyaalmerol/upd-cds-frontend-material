@@ -41,7 +41,7 @@
     <v-content :style="{background: $vuetify.theme.themes[theme].background}">
       <GlobalAlert />
       <keep-alive>
-        <router-view :key="$route.fullPath" />
+        <router-view :key="`${$route.fullPath}-${token}`" />
       </keep-alive>
     </v-content>
 
@@ -50,6 +50,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   const MainMenu = () => import('@/components/layout/MainMenu')
   const ConnectionStatus = () => import('@/components/layout/ConnectionStatus')
   const NotificationDrawer = () => import('@/components/layout/NotificationDrawer')
@@ -70,6 +72,9 @@
       drawerRight: null
     }),
     computed: {
+      ...mapGetters([
+        'token'
+      ]),
       appBarGradient() {
         return 'to top right, rgba(66,66,66,1), rgba(0,0,0,.8)'
       },

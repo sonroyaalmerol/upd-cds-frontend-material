@@ -14,7 +14,7 @@
               <v-text-field v-model="registrationForm.password" rounded outlined id="password" label="Password" name="password" type="password" color="primary">
               </v-text-field>
               <v-text-field v-model="registrationForm.confirmpass" rounded outlined id="confirmpass" label="Confirm Password" name="confirmpass" type="password"
-                color="primary"></v-text-field>
+                color="primary" @keyup.enter.native="handleRegistration"></v-text-field>
             </v-form>
           </v-card-text>
           <v-card-actions>
@@ -56,6 +56,14 @@
             registerDm(dmDetails).then(() => {
               this.registerload = false
               this.$message('Successfully registered account! You may now login.', 'success')
+              this.registrationForm = {
+                username: '',
+                password: '',
+                confirmpass: '',
+                email: '',
+                upid: ''
+              }
+              this.$router.push({ path: '/login' })
             }).catch(() => {
               this.registerload = false
             })
@@ -64,6 +72,14 @@
             register(this.registrationForm).then(() => {
               this.registerload = false
               this.$message('Successfully registered account! You may now login.', 'success')
+              this.registrationForm = {
+                username: '',
+                password: '',
+                confirmpass: '',
+                email: '',
+                upid: ''
+              }
+              this.$router.push({ path: '/login' })
             }).catch(() => {
               this.registerload = false
             })

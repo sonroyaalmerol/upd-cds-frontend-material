@@ -30,20 +30,20 @@
             ></v-text-field>
           </v-toolbar>
         </template>
-        <template v-slot:expanded-item="{ headers }">
+        <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length">
             <v-row>
               <v-col>
-                <ActivityInOut block />
+                <ActivityInOut block :activityId="item._id" />
               </v-col>
               <v-col>
-                <ActivityInOut out block />
+                <ActivityInOut out block :activityId="item._id" />
               </v-col>
               <v-col>
-                <v-btn rounded block color="primary" :to="`/database/activities/asd`">View Entries</v-btn>
+                <v-btn rounded block color="primary" :to="`/database/activities/${item._id}`">View Entries</v-btn>
               </v-col>
               <v-col>
-                <v-btn color="red" dark rounded block>Delete</v-btn>
+                <ConfirmButton color="red" block @action="deleteActivity(item)" :loading="deleting">Delete</ConfirmButton>
               </v-col>
             </v-row>
           </td>
@@ -54,15 +54,20 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+  import { activities, deleteActivity } from '@/utils/ekalayapi'
+
   const ActivityForm = () => import('@/components/database/ActivityForm')
   const ActionsPanel = () => import('@/components/database/ActionsPanel')
   const ActivityInOut = () => import('@/components/database/ActivityInOut')
+  const ConfirmButton = () => import('@/components/general/ConfirmButton')
 
   export default {
     components: {
       ActivityForm,
       ActionsPanel,
-      ActivityInOut
+      ActivityInOut,
+      ConfirmButton
     },
     methods: {
       clicked(value) {
@@ -76,12 +81,57 @@
         }
       },
       onRefresh: function() {
-        return new Promise(function (resolve) {
-          setTimeout(function () {
-            resolve()
-          }, 1000)
+        return this.fetchData()
+      },
+      fetchData: async function() {
+        this.loading = true
+        this.activities = await activities()
+        this.loading = false
+      },
+      deleteActivity(activity) {
+        this.deleting = true
+        deleteActivity(activity._id).then(() => {
+          this.deleting = false
+          this.$message('Successfully deleted activity!', 'success')
+          this.activities = this.activities.filter((val) => val !== activity)
         })
       }
+    },
+    computed: {
+      ...mapGetters([
+        'roles',
+        'uid',
+        'profileid',
+        'isCouncil'
+      ]),
+    },
+    created() {
+      if (this.roles === 0) {
+        this.headers = [
+          { text: 'Activity Name', value: 'name' },
+          { text: 'Points', value: 'points' },
+          { text: 'Category', value: 'category' },
+          { text: 'Attended', value: 'attended' }
+        ]
+        if (this.isCouncil) {
+          this.headers.push({ text: '', value: 'data-table-expand' })
+        }
+      }
+      this.fetchData()
+    },
+    activated() {
+      if (this.roles === 0) {
+        this.headers = [
+          { text: 'Activity Name', value: 'name' },
+          { text: 'Points', value: 'points' },
+          { text: 'Category', value: 'category' },
+          { text: 'Attended', value: 'attended' }
+        ]
+        if (this.isCouncil) {
+          this.headers.push({ text: '', value: 'data-table-expand' })
+        }
+      }
+      this.fetchData()
     },
     data () {
       return {
@@ -94,13 +144,9 @@
           { text: 'Category', value: 'category' },
           { text: '', value: 'data-table-expand' },
         ],
-        activities: [
-          {
-            name: 'General Assembly 1',
-            points: '10',
-            category: 'General Assembly',
-          }
-        ],
+        activities: [],
+        loading: false,
+        deleting: false
       }
     },
   }

@@ -11,7 +11,8 @@
       </v-card-title>
       <v-card-text>
         <v-container>
-          <v-text-field rounded outlined @keyup.enter.native="submitID" v-model="krhid" label="Barcode ID" required></v-text-field>
+          <v-text-field v-if="!out" ref="krhidIn" rounded outlined @keyup.enter.native="handleIn" v-model="krhid" label="Barcode ID" required></v-text-field>
+          <v-text-field v-else ref="krhidOut" rounded outlined @keyup.enter.native="handleOut" v-model="krhid" label="Barcode ID" required></v-text-field>
         </v-container>
       </v-card-text>
       <v-card-actions>
@@ -23,13 +24,15 @@
 </template>
 
 <script>
+  import { activityInEntry, activityOutEntry } from '@/utils/ekalayapi'
+
   export default {
     components: {
     },
     props: {
-      profile: {
-        type: Object,
-        default: null
+      activityId: {
+        type: String,
+        required: true
       },
       block: {
         type: Boolean,
@@ -41,15 +44,39 @@
       }
     },
     created() {
+
     },
     data: () => ({
       dialog: false,
       krhid: ''
     }),
     methods: {
-      submitID() {
-        this.krhid = ''
-      }
+      handleIn() {
+        var krhid = this.krhid
+        var _activity = this.activityId
+        var timestamp = new Date()
+        activityInEntry({ _activity, krhid, timestamp }).then(() => {
+          this.krhid = ''
+          this.$refs.krhidIn.$el.focus()
+          this.$message(`IN entry added for ${krhid} (${timestamp})`, 'success')
+        }).catch(() => {
+          this.krhid = ''
+          this.$refs.krhidIn.$el.focus()
+        })
+      },
+      handleOut() {
+        var _activity = this.activityId
+        var krhid = this.krhid
+        var timestamp = new Date()
+        activityOutEntry({ _activity, krhid, timestamp }).then(() => {
+          this.krhid = ''
+          this.$refs.krhidOut.$el.focus()
+          this.$message(`OUT entry added for ${krhid} (${timestamp})`, 'success')
+        }).catch(() => {
+          this.krhid = ''
+          this.$refs.krhidOut.$el.focus()
+        })
+      },
     }
   }
 </script>

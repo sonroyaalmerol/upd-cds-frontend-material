@@ -70,7 +70,7 @@
             value: 'data-table-expand'
           },
         ],
-        loading: true,
+        loading: false,
         permits: []
       }
     },
@@ -112,11 +112,13 @@
         }
       },
       fetchData: async function() {
+        this.loading = true
         this.permits = await permits(this.permitType)
         Promise.all(this.permits.map(this.sortPermits)).then(() => {
           this.loading = false
+        }).catch(() => {
+          this.loading = false
         })
-        this.loading = false
       },
       deletePermit(permit) {
         var id = permit._id

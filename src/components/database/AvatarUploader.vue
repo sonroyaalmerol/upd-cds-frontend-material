@@ -1,7 +1,7 @@
 <template>
   <v-btn color="primary" fab dark :width="205" :height="205" :loading="loading" @click="$refs.file.click()">
     <v-avatar v-if="localValue.displayPhoto" :size="200">
-      <img :src="localValue.displayPhoto" :alt="localValue.displayPhotoId" />
+      <img :src="croppedImage" :alt="localValue.displayPhotoId" />
     </v-avatar>
     <v-icon v-else :size="50" dark>mdi-cloud-upload</v-icon>
     <input type="file" ref="file" style="display: none" v-on:change="onUpload" />
@@ -33,6 +33,9 @@
           this.$emit('input', localValue)
         }
       },
+      croppedImage() {
+        return this.localValue.displayPhoto.replace('upd-cds/image/upload/', 'upd-cds/image/upload/w_400,h_400,c_fill,g_face/')
+      }
     },
     methods: {
       onUpload(e) {

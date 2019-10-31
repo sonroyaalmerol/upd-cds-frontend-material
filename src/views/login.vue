@@ -12,7 +12,7 @@
               </v-text-field>
 
               <v-text-field rounded outlined id="password" label="Password" name="password" v-model="loginForm.password" prepend-icon="mdi-lock" type="password"
-                color="primary"></v-text-field>
+                color="primary" @keyup.enter.native="handleLogin"></v-text-field>
             </v-form>
           </v-card-text>
           <v-card-actions>

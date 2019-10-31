@@ -9,8 +9,7 @@
           <slot />
         </v-btn>
       </template>
-      <span>
-        <slot /></span>
+      <span>Confirm Action</span>
     </v-tooltip>
   </div>
 </template>

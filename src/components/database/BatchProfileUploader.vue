@@ -1,5 +1,5 @@
 <template>
-  <v-btn rounded :block="block" color="primary" :loading="loading" @click="$refs.file.click()">
+  <v-btn rounded :block="block" color="primary" :loading="loading" @click="$refs.file.click()" :disabled="disabled">
     Batch Profile
     <input type="file" ref="file" style="display: none" v-on:change="onUpload" />
   </v-btn>
@@ -9,6 +9,10 @@
   export default {
     props: {
       block: {
+        type: Boolean,
+        default: false
+      },
+      disabled: {
         type: Boolean,
         default: false
       }

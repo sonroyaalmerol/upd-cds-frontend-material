@@ -6,8 +6,8 @@
       </v-col>
     </ActionsPanel>
     <v-card flat>
-      <v-data-table :headers="headers" :items="activityInOuts" :single-expand="singleExpand" :expanded.sync="expanded"
-        :search="search" item-key="name" show-expand @click:row="clicked">
+      <v-data-table :headers="headers" :items="inOutEntries" :single-expand="singleExpand" :expanded.sync="expanded"
+        :search="search" item-key="_id" show-expand @click:row="clicked" :loading="loading">
         <template v-slot:top>
           <v-toolbar flat>
             <v-spacer></v-spacer>
@@ -19,13 +19,19 @@
           <td :colspan="headers.length">
             <v-row>
               <v-col>
-                <v-btn rounded block color="primary">Confirm</v-btn>
+                <v-btn rounded block color="primary" disabled>Confirm</v-btn>
               </v-col>
               <v-col>
-                <v-btn rounded block color="primary">Manual Add Out</v-btn>
+                <v-btn rounded block color="primary" disabled>Manual Add Out</v-btn>
               </v-col>
             </v-row>
           </td>
+        </template>
+        <template v-slot:item.in="{ value }">
+          {{ parseTimestamp(value) }}
+        </template>
+        <template v-slot:item.out="{ value }">
+          {{ parseTimestamp(value) }}
         </template>
       </v-data-table>
     </v-card>
@@ -33,13 +39,36 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+  import { activityInOuts, getActivity } from '@/utils/ekalayapi'
+  import { format, parseISO } from 'date-fns'
+
   const ActionsPanel = () => import('@/components/database/ActionsPanel')
 
   export default {
     components: {
       ActionsPanel
     },
+    computed: {
+      ...mapGetters([
+        'roles',
+        'uid',
+        'profileid',
+        'first_name',
+        'last_name'
+      ]),
+    },
+    created() {
+      if (this.$route.params.activityId && this.roles !== 0) {
+        this.fetchData()
+      } else {
+        this.$router.push({ path: `/database/activities` })
+      }
+    },
     methods: {
+      parseTimestamp(timestamp) {
+        return timestamp ? format(parseISO(timestamp), 'MMMM d, yyyy | h:mm a') : 'N/A'
+      },
       clicked(value) {
         if (this.expanded.includes(value)) {
           var index = this.expanded.indexOf(value);
@@ -54,12 +83,18 @@
         }
       },
       onRefresh: function () {
-        return new Promise(function (resolve) {
-          setTimeout(function () {
-            resolve()
-          }, 1000)
-        })
-      }
+        return this.fetchData()
+      },
+      fetchData: async function() {
+        this.loading = true
+        try {
+          this.inOutEntries = await activityInOuts(this.$route.params.activityId)
+          this.activity = await getActivity(this.$route.params.activityId)
+        } catch (err) {
+          this.$message('Activity ID not found. Please try again!', 'error')
+        }
+        this.loading = false
+      },
     },
     data() {
       return {
@@ -68,38 +103,32 @@
         singleExpand: true,
         headers: [{
             text: 'Student Number',
-            value: 'upid'
+            value: '_profile.upid'
           },
           {
-            text: 'Name',
-            value: 'name'
+            text: 'First Name',
+            value: '_profile.firstName'
+          },
+          {
+            text: 'Last Name',
+            value: '_profile.lastName'
           },
           {
             text: 'In Timestamp',
-            value: 'inTimestamp'
+            value: 'in'
           },
           {
             text: 'Out Timestamp',
-            value: 'outTimestamp'
+            value: 'out'
           },
           {
             text: '',
             value: 'data-table-expand'
           },
         ],
-        activityInOuts: [{
-            upid: '2015-12584',
-            name: 'Son Roy Almerol',
-            inTimestamp: '8/5/2019, 10:04:42 PM',
-            outTimestamp: '8/5/2019, 10:04:48 PM'
-          },
-          {
-            upid: '2015-12583',
-            name: 'Test Developer',
-            inTimestamp: '8/5/2019, 10:09:40 PM',
-            outTimestamp: 'N/A'
-          },
-        ],
+        inOutEntries: [],
+        activity: {},
+        loading: false
       }
     },
   }

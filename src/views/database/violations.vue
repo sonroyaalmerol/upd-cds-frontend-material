@@ -1,15 +1,15 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
-    <ActionsPanel>
+    <ActionsPanel v-if="roles !== 0">
       <v-row>
         <v-col>
-          <AddViolationButton block />
+          <AddViolationButton block :residentId="resident._id" />
         </v-col>
         <v-col>
-          <v-btn rounded block color="primary" :to="'/inoutentries/asd'">Review In/Out Entries</v-btn>
+          <v-btn rounded block color="primary" :to="`/inoutentries/${resident._id}`">Review In/Out Entries</v-btn>
         </v-col>
         <v-col>
-          <v-btn rounded block color="primary" :to="'/permits/asd'">Review Permits</v-btn>
+          <v-btn rounded block color="primary" :to="`/permits/${resident._id}`">Review Permits</v-btn>
         </v-col>
         <v-col>
           <v-btn rounded block color="primary">Export to CSV</v-btn>
@@ -18,7 +18,7 @@
     </ActionsPanel>
     <v-card flat>
       <v-data-table :headers="headers" :items="violations" :single-expand="singleExpand" :expanded.sync="expanded"
-        :search="search" item-key="name" show-expand @click:row="clicked">
+        :search="search" item-key="_id" show-expand @click:row="clicked">
         <template v-slot:top>
           <v-toolbar flat>
             <v-spacer></v-spacer>
@@ -26,14 +26,25 @@
             </v-text-field>
           </v-toolbar>
         </template>
-        <template v-slot:expanded-item="{ headers }">
+        <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length">
             <v-row>
               <v-col>
-                <v-btn color="red" dark rounded block>Delete</v-btn>
+                <ConfirmButton color="red" block @action="deleteViolation(item)" :loading="deleting">Delete</ConfirmButton>
               </v-col>
             </v-row>
           </td>
+        </template>
+        <template v-slot:item.ismajor="{ value }">
+          <v-chip v-if="value" tile class="ma-2" color="error">
+            Major Violation
+          </v-chip>
+          <v-chip v-else tile class="ma-2" color="warning">
+            Minor Violation
+          </v-chip>
+        </template>
+        <template v-slot:item.timestamp="{ value }">
+          {{ parseTimestamp(value) }}
         </template>
       </v-data-table>
     </v-card>
@@ -41,14 +52,45 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+  import { violations, getResidentById, deleteViolation } from '@/utils/ekalayapi'
+  import { format, parseISO } from 'date-fns'
+
   const ActionsPanel = () => import('@/components/database/ActionsPanel')
   const AddViolationButton = () => import('@/components/database/AddViolationButton')
+  const ConfirmButton = () => import('@/components/general/ConfirmButton')
+
   export default {
+    created() {
+      if ((this.roles === 0 && this.profileid === this.$route.params.residentId) || this.roles !== 0) {
+        this.fetchData()
+      } else {
+        this.$router.push({ path: `/database/violations/${this.profileid}` })
+      }
+    },
+    activated() {
+      if ((this.roles === 0 && this.profileid === this.$route.params.residentId) || this.roles !== 0) {
+        this.fetchData()
+      } else {
+        this.$router.push({ path: `/database/violations/${this.profileid}` })
+      }
+    },
     components: {
       ActionsPanel,
-      AddViolationButton
+      AddViolationButton,
+      ConfirmButton
+    },
+    computed: {
+      ...mapGetters([
+        'roles',
+        'uid',
+        'profileid'
+      ]),
     },
     methods: {
+      parseTimestamp(timestamp) {
+        return format(parseISO(timestamp), 'MMMM d, yyyy | h:mm a')
+      },
       clicked(value) {
         if (this.expanded.includes(value)) {
           var index = this.expanded.indexOf(value);
@@ -63,12 +105,29 @@
         }
       },
       onRefresh: function () {
-        return new Promise(function (resolve) {
-          setTimeout(function () {
-            resolve()
-          }, 1000)
+        return this.fetchData()
+      },
+      fetchData: async function() {
+        this.loading = true
+        try {
+          var promiseVio = violations(this.$route.params.residentId)
+          var promiseResident = getResidentById(this.$route.params.residentId)
+          const res = await Promise.all([promiseVio, promiseResident])
+          this.violations = res[0]
+          this.resident = res[1]
+        } catch (err) {
+          this.$message('Resident ID not found. Please try again!', 'error')
+        }
+        this.loading = false
+      },
+      deleteViolation(violation) {
+        this.deleting = true
+        deleteViolation(violation._id).then(() => {
+          this.$message('Successfully deleted violation!', 'success')
+          this.violations = this.violations.filter((val) => val !== violation)
+          this.deleting = false
         })
-      }
+      },
     },
     data() {
       return {
@@ -77,7 +136,7 @@
         singleExpand: false,
         headers: [{
             text: 'Type',
-            value: 'type'
+            value: 'ismajor'
           },
           {
             text: 'Details',
@@ -92,11 +151,10 @@
             value: 'data-table-expand'
           },
         ],
-        violations: [{
-          type: 'Minor Violation',
-          details: 'Key Borrowing Violation',
-          timestamp: '10/14/2019, 12:32:59 PM',
-        }],
+        violations: [],
+        loading: false,
+        resident: {},
+        deleting: false
       }
     },
   }

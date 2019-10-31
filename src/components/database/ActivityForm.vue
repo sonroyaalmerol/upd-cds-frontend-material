@@ -1,20 +1,18 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="800px">
     <template v-slot:activator="{ on }">
-      <v-btn v-if="profile" rounded :block="block" color="primary" v-on="on">Update Activity</v-btn>
-      <v-btn v-else rounded :block="block" color="primary" v-on="on">Create new Activity</v-btn>
+      <v-btn  rounded :block="block" color="primary" v-on="on">Create new Activity</v-btn>
     </template>
-    <v-card flat outlined>
+    <v-card flat outlined :loading="loading">
       <v-card-title>
-        <span v-if="profile" class="headline">Update Activity</span>
-        <span v-else class="headline">Create new Activity</span>
+        <span class="headline">Create new Activity</span>
       </v-card-title>
       <v-card-text>
         <v-container>
           <v-text-field rounded outlined v-model="activityForm.name" :counter="10" label="Activity Name" required></v-text-field>
           <v-row>
             <v-col>
-              <v-text-field rounded outlined v-model="activityForm.points" type="number" label="Points" append-outer-icon="mdi-plus" @click:append-outer="increment" prepend-icon="mdi-minus" @click:prepend="decrement"></v-text-field>
+              <NumberField v-model="activityForm.points" label="Points" />
             </v-col>
             <v-col>
               <v-select rounded outlined :items="fieldTypes" label="Category"></v-select>
@@ -25,31 +23,29 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn text rounded @click="dialog = false">Close</v-btn>
-        <v-btn v-if="profile" color="primary" rounded @click="dialog = false">Update Activity</v-btn>
-        <v-btn v-else color="primary" rounded @click="dialog = false">Create new Activity</v-btn>
+        <v-btn color="primary" rounded @click="submit">Create new Activity</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+  import { createActivity } from '@/utils/ekalayapi'
+
+  const NumberField = () => import('@/components/general/NumberField')
+
   export default {
     components: {
+      NumberField
     },
     props: {
-      profile: {
-        type: Object,
-        default: null
-      },
       block: {
         type: Boolean,
         default: false
       }
     },
     created() {
-      if (this.profile) {
-        this.activityForm = this.profile
-      }
+
     },
     data: () => ({
       dialog: false,
@@ -79,15 +75,23 @@
           text: 'Bonus',
           value: 4
         }
-      ]
+      ],
+      loading: false
     }),
     methods: {
-      increment () {
-        this.activityForm.points = parseInt(this.activityForm.points,10) + 1
+      submit() {
+        this.loading = true
+        createActivity(this.form).then(() => {
+          this.$message('Successfully created activity!', 'success')
+          this.form = {
+            name: '',
+            points: 0,
+            category: 1
+          }
+          this.loading = false
+          this.dialog = false
+        })
       },
-      decrement () {
-        this.activityForm.points = parseInt(this.activityForm.points,10) - 1
-      }
     }
   }
 </script>

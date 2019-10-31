@@ -1,7 +1,7 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
-    <v-card flat hover outlined>
-      <v-data-table :headers="headers" :items="permits" :search="search" item-key="name">
+    <v-card flat>
+      <v-data-table :headers="headers" :items="permits" :search="search" item-key="_id">
         <template v-slot:top>
           <v-toolbar flat>
             <v-spacer></v-spacer>
@@ -15,15 +15,23 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+  import { permitsResident } from '@/utils/ekalayapi'
+  import { format, parseISO } from 'date-fns'
+
   export default {
-    methods: {
-      onRefresh: function () {
-        return new Promise(function (resolve) {
-          setTimeout(function () {
-            resolve()
-          }, 1000)
-        })
+    created() {
+      if ((this.roles === 0 && this.profileid === this.$route.params.profileId) || this.roles !== 0) {
+        this.fetchData()
+      } else {
+        this.$router.push({ path: `/permits/${this.profileid}` })
       }
+    },
+    computed: {
+      ...mapGetters([
+        'roles',
+        'profileid'
+      ])
     },
     data() {
       return {
@@ -42,7 +50,7 @@
           },
           {
             text: 'Date/Time',
-            value: 'dateTime'
+            value: 'dataOne'
           },
           {
             text: 'Approved by RA',
@@ -53,15 +61,50 @@
             value: 'approvedDM'
           },
         ],
-        permits: [{
-          upid: '2019-02142',
-          location: 'CS Atrium',
-          reason: 'To study',
-          dateTime: 'October 18, 2019 - October 19, 2019',
-          approvedRA: '✔',
-          approvedDM: '✔',
-        }],
+        permits: [],
+        loading: false
       }
     },
+    methods: {
+      onRefresh: function () {
+        return this.fetchData()
+      },
+      integerToSymbols(bool) {
+        if (bool === 1) {
+          return '✔'
+        } else if (bool === 0) {
+          return '✘'
+        } else {
+          return 'Not yet processed.'
+        }
+      },
+      fetchMore: async function(permit) {
+        var toOutput = permit
+        toOutput.approvedRA = `${this.integerToSymbols(permit.approvedRA)}${permit.remarksRA ? ' | ' + permit.remarksRA : ''}`
+        toOutput.approvedDM = `${this.integerToSymbols(permit.approvedDM)}${permit.remarksDM ? ' | ' + permit.remarksDM : ''}`
+        if (permit._resident) {
+          const resident = permit._resident
+          toOutput.upid = resident.upid
+        }
+        if (permit.permitType === 0) {
+          toOutput.dataOne = format(parseISO(permit.dataTwo), 'h:mm a') + ', ' + format(parseISO(permit.dataOne), 'MMMM d, yyyy')
+        } else if (permit.permitType === 1) {
+          toOutput.dataOne = format(parseISO(permit.dataOne), 'MMMM d, yyyy') + ' - ' + format(parseISO(permit.dataTwo), 'MMMM d, yyyy')
+        } else if (permit.permitType === 2) {
+          toOutput.dataOne = format(parseISO(permit.dataTwo), 'h:mm a') + ', ' + format(parseISO(permit.dataOne), 'MMMM d, yyyy')
+        }
+        toOutput.timestamp = format(parseISO(permit.timestamp), 'MMMM d, yyyy | h:mm a')
+        this.permits.push(toOutput)
+      },
+      fetchData: async function() {
+        this.loading = true
+        this.permits = []
+        var response = await permitsResident(this.currentPage, this.$route.params.profileId)
+        this.totalDocs = response.totalDocs
+        const promises = response.docs.map(this.fetchMore)
+        await Promise.all(promises)
+        this.loading = false
+      }
+    }
   }
 </script>
