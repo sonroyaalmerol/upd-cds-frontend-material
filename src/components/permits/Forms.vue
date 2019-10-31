@@ -5,16 +5,24 @@
         <v-text-field v-if="roles !== 0" rounded outlined v-model="form.upid" :counter="10" :rules="upidRules" label="Student Number" required>
         </v-text-field>
 
-        <v-row>
-          <v-col>
-            <DatePicker v-if="permitType === 1" v-model="form.dataOne" label="Start Date" />
-            <DatePicker v-else v-model="form.dataOne" label="Date" />
-          </v-col>
-          <v-col>
-            <DatePicker v-if="permitType === 1" v-model="form.dataTwo" label="End Date" />
-            <TimePicker v-else v-model="form.dataTwo" label="Time" />
-          </v-col>
-        </v-row>
+        <template v-if="!isMobileDevice">
+          <v-row>
+            <v-col>
+              <DatePicker v-if="permitType === 1" v-model="form.dataOne" label="Start Date" />
+              <DatePicker v-else v-model="form.dataOne" label="Date" />
+            </v-col>
+            <v-col>
+              <DatePicker v-if="permitType === 1" v-model="form.dataTwo" label="End Date" />
+              <TimePicker v-else v-model="form.dataTwo" label="Time" />
+            </v-col>
+          </v-row>
+        </template>
+        <template v-else>
+          <DatePicker v-if="permitType === 1" v-model="form.dataOne" label="Start Date" />
+          <DatePicker v-else v-model="form.dataOne" label="Date" />
+          <DatePicker v-if="permitType === 1" v-model="form.dataTwo" label="End Date" />
+          <TimePicker v-else v-model="form.dataTwo" label="Time" />
+        </template>
 
         <v-text-field rounded outlined v-model="form.location" label="Location" required></v-text-field>
         <v-text-field rounded outlined v-model="form.reason" label="Reason" required></v-text-field>
@@ -50,7 +58,10 @@
       ...mapGetters([
         'roles',
         'isAthletePerformer'
-      ])
+      ]),
+      isMobileDevice() {
+        return (typeof this.$windowOrientation !== "undefined") || (this.$userAgent.indexOf('IEMobile') !== -1);
+      }
     },
     data() {
       return {

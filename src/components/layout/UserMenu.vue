@@ -59,7 +59,8 @@
         'avatar',
         'first_name',
         'last_name',
-        'roles'
+        'roles',
+        'uid'
       ]),
       role() {
         switch (this.roles) {
@@ -74,14 +75,21 @@
       }
     },
     created() {
-      getDarkMode().then((res) => {
-        this.$vuetify.theme.dark = res
-      })
+      if (this.uid) {
+        this.getDarkMode()
+      }
     },
     activated() {
-      getDarkMode().then((res) => {
-        this.$vuetify.theme.dark = res
-      })
+      if (this.uid) {
+        this.getDarkMode()
+      }
+    },
+    watch: {
+      uid(next) {
+        if(next !== '') {
+          this.getDarkMode()
+        }
+      }
     },
     data: () => ({
       privacy: false,
@@ -98,7 +106,12 @@
         setDarkMode({ darkMode: !this.$vuetify.theme.dark }).then(() => {
           this.$vuetify.theme.dark = !this.$vuetify.theme.dark
         })
-      }
+      },
+      getDarkMode() {
+        getDarkMode().then((res) => {
+          this.$vuetify.theme.dark = res
+        })
+      },
     }
   }
 </script>
