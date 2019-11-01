@@ -21,7 +21,7 @@
               </v-chip>
             </td>
             <td>{{ violation.details }}</td>
-            <td>{{ violation.timestamp }}</td>
+            <td>{{ parseTimestamp(violation.timestamp) }}</td>
           </tr>
         </tbody>
       </template>
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+  import { format, parseISO } from 'date-fns'
+
   export default {
     props: {
       value: {
@@ -37,6 +39,11 @@
         required: true
       },
       loading: Boolean
+    },
+    methods: {
+      parseTimestamp(timestamp) {
+        return format(parseISO(timestamp), 'MMMM d, yyyy | h:mm a')
+      },
     }
   }
 </script>
