@@ -13,17 +13,8 @@
         </v-card-title>
         <v-card-text>
           <template v-for="field in form.fields">
-            <v-tooltip v-if="field.description" bottom :key="field._id">
-              <template v-slot:activator="{ on }">
-                <v-text-field v-on="on" v-if="field.type === 0" rounded outlined v-model="responses[`${form._id}$%^${field._id}`]" :label="field.name" :required="field.required" />
-                <v-select v-on="on" v-else-if="field.type === 1" rounded outlined v-model="responses[`${form._id}$%^${field._id}`]" :label="field.name" :required="field.required" :items="field.choices" />
-              </template>
-              <span>{{ field.description }}</span>
-            </v-tooltip>
-            <template v-else>
-              <v-text-field v-if="field.type === 0" rounded outlined v-model="responses[`${form._id}$%^${field._id}`]" :key="field._id" :label="field.name" :required="field.required" />
-              <v-select v-else-if="field.type === 1" rounded outlined v-model="responses[`${form._id}$%^${field._id}`]" :key="field._id" :label="field.name" :required="field.required" :items="field.choices" />
-            </template>
+            <v-text-field :key="field._id" v-if="field.type === 0" rounded outlined v-model="responses[`${form._id}$%^${field._id}`]" :label="field.name" :required="field.required" :hint="field.description" persistent-hint />
+            <v-select :key="field._id" v-else-if="field.type === 1" rounded outlined v-model="responses[`${form._id}$%^${field._id}`]" :label="field.name" :required="field.required" :items="field.choices" :hint="field.description" persistent-hint />
           </template>
         </v-card-text>
         <v-card-actions>

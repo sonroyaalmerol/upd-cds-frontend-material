@@ -36,7 +36,7 @@
                   <div>Non-academic: {{ booleanToSymbols(data._resident._pis.applyPermitEMNonAcad) }} | {{ data._resident._pis.emTimeNonAcad }}</div>
                   <div>Fieldtrip: {{ booleanToSymbols(data._resident._pis.fieldTrip) }}</div>
                 </template>
-                <div>Remarks: {{ booleanToSymbols(data._resident._pis.remarks) }}</div>
+                <div>Remarks: {{ data._resident._pis.remarks }}</div>
                 <div v-if="roles === 2">
                   RA: {{ data.processedBy }}
                 </div>
