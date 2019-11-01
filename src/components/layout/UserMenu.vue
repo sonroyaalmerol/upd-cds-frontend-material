@@ -60,6 +60,7 @@
         'first_name',
         'last_name',
         'roles',
+        'upid',
         'uid'
       ]),
       role() {
