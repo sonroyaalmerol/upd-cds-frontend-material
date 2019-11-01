@@ -130,7 +130,7 @@
         residents: []
       }
     },
-    created() {
+    activated() {
       this.fetchData()
     },
     computed: {

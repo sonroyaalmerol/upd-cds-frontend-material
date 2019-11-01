@@ -15,6 +15,7 @@
         item-key="name"
         :show-expand="roles !== 0 || isCouncil"
         @click:row="clicked"
+        :loading="loading"
       >
         <template v-slot:top>
           <v-toolbar flat>
@@ -129,18 +130,6 @@
         'profileid',
         'isCouncil'
       ]),
-    },
-    created() {
-      if (this.roles === 0) {
-        this.headers = [
-          { text: 'Activity Name', value: 'name' },
-          { text: 'Points', value: 'points' },
-          { text: 'Category', value: 'category' },
-          { text: 'Attended', value: 'attended' },
-          { text: '', value: 'data-table-expand' }
-        ]
-      }
-      this.fetchData()
     },
     activated() {
       if (this.roles === 0) {

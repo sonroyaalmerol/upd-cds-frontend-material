@@ -59,7 +59,7 @@
         'last_name'
       ]),
     },
-    created() {
+    activated() {
       if (this.$route.params.activityId && this.roles !== 0) {
         this.fetchData()
       } else {

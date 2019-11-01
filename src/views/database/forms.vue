@@ -65,7 +65,7 @@
       ActionsPanel,
       ConfirmButton
     },
-    created() {
+    activated() {
       this.fetchData()
     },
     methods: {

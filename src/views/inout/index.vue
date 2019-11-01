@@ -83,13 +83,6 @@
         totalDocs: 0
       }
     },
-    created() {
-      if ((this.roles === 0 && this.profileid === this.$route.params.profileId) || this.roles !== 0) {
-        this.fetchData()
-      } else {
-        this.$router.push({ path: `/inoutentries/${this.profileid}` })
-      }
-    },
     activated() {
       if ((this.roles === 0 && this.profileid === this.$route.params.profileId) || this.roles !== 0) {
         this.fetchData()

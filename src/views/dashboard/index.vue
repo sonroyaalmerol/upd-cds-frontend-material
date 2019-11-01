@@ -88,7 +88,7 @@
         returnedkey: true
       }
     },
-    created() {
+    activated() {
       this.fetchData()
     },
     computed: {

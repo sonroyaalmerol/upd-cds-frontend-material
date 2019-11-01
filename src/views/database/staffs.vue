@@ -63,7 +63,7 @@
         'uid'
       ])
     },
-    created() {
+    activated() {
       this.fetchData()
     },
     methods: {

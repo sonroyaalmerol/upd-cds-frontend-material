@@ -114,13 +114,6 @@
         })
       },
     },
-    created() {
-      if ((this.roles === 1 && this.profileid === this.$route.params.assistantId) || this.roles === 2 && this.$route.params.assistantId) {
-        this.fetchData()
-      } else {
-        this.$router.push({ path: `/database/directives/${this.profileid}` })
-      }
-    },
     activated() {
       if ((this.roles === 1 && this.profileid === this.$route.params.assistantId) || this.roles === 2 && this.$route.params.assistantId) {
         this.fetchData()

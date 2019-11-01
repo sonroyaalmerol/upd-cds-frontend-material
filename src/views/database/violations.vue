@@ -18,7 +18,7 @@
     </ActionsPanel>
     <v-card flat>
       <v-data-table :headers="headers" :items="violations" :single-expand="singleExpand" :expanded.sync="expanded"
-        :search="search" item-key="_id" :show-expand="roles !== 0" @click:row="clicked">
+        :search="search" item-key="_id" :show-expand="roles !== 0" @click:row="clicked" :loading="loading">
         <template v-slot:top>
           <v-toolbar flat>
             <v-spacer></v-spacer>
@@ -62,13 +62,6 @@
   const ConfirmButton = () => import('@/components/general/ConfirmButton')
 
   export default {
-    created() {
-      if ((this.roles === 0 && this.profileid === this.$route.params.residentId) || this.roles !== 0) {
-        this.fetchData()
-      } else {
-        this.$router.push({ path: `/database/violations/${this.profileid}` })
-      }
-    },
     activated() {
       if ((this.roles === 0 && this.profileid === this.$route.params.residentId) || this.roles !== 0) {
         this.fetchData()

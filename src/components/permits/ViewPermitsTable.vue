@@ -1,7 +1,7 @@
 <template>
   <v-card flat>
     <v-data-table :headers="headers" :items="permits" :single-expand="singleExpand" :expanded.sync="expanded"
-      item-key="_id" show-expand @click:row="clicked">
+      item-key="_id" show-expand @click:row="clicked" :loading="loading">
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
           <v-row>
@@ -68,7 +68,7 @@
         permits: []
       }
     },
-    created() {
+    activated() {
       this.fetchData()
     },
     methods: {

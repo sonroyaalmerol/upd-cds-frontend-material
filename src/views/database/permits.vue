@@ -114,7 +114,7 @@
         totalDocs: 0
       }
     },
-    created() {
+    activated() {
       this.fetchData()
     }
   }

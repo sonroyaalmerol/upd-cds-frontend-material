@@ -7,7 +7,7 @@
     </ActionsPanel>
     <v-card flat>
       <v-data-table :headers="headers" :items="assistants" :single-expand="singleExpand" :expanded.sync="expanded"
-        :search="search" item-key="_id" show-expand @click:row="clicked">
+        :search="search" item-key="_id" show-expand @click:row="clicked" :loading="loading">
         <template v-slot:top>
           <v-toolbar flat>
             <v-spacer></v-spacer>
@@ -69,7 +69,7 @@
         'uid'
       ])
     },
-    created() {
+    activated() {
       this.fetchData()
     },
     methods: {
@@ -169,6 +169,7 @@
           },
         ],
         assistants: [],
+        loading: false,
         deleting: false,
         checkingOut: false,
       }

@@ -54,7 +54,7 @@
         this.loading = false
       },
     },
-    created() {
+    activated() {
       this.fetchData()
     }
   }

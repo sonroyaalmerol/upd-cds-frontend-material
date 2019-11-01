@@ -20,7 +20,7 @@
   import { format, parseISO } from 'date-fns'
 
   export default {
-    created() {
+    activated() {
       if ((this.roles === 0 && this.profileid === this.$route.params.profileId) || this.roles !== 0) {
         this.fetchData()
       } else {

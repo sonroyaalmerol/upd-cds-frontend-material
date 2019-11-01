@@ -40,7 +40,7 @@
       ApplicationRules,
       ApprovingList
     },
-    created() {
+    activated() {
       this.fetchData()
     },
     methods: {
