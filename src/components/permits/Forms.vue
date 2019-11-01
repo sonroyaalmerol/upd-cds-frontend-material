@@ -106,6 +106,8 @@
           this.form.dataTwo = this.form.dataTwo.setHours(23, 59, 59, 99)
         } else if (this.permitType === 2) {
           this.form.dataTwo = this.form.dataTwo.setHours(0, 1, 0, 0)
+        } else if (this.permitType === 1) {
+          this.form.dataTwo.setDate(this.form.dataTwo.getDate() + 1)
         }
       },
       onSubmit() {

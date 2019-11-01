@@ -9,7 +9,7 @@
       <v-app-bar-nav-icon dark v-if="$route.path !== '/login' && $route.path !== '/register'"
         @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <img alt="Logo" :src="require('./assets/logo.png')" width="50px" />
-      <v-toolbar-title dark class="headline">
+      <v-toolbar-title dark class="headline" v-if="!isMobileDevice">
         <span class="font-weight-light ms-3">e</span>
         <span>Kalay</span>
         <span class="font-weight-light"> - Centralized Database System</span>
@@ -25,12 +25,8 @@
       <template v-if="$route.path !== '/login' && $route.path !== '/register'" v-slot:extension>
         <v-toolbar-title dark>
           <v-icon>{{ $route.meta.icon }}</v-icon>
-          <span v-if="$route.params.profileId" class="font-weight-light">{{ $route.name }}
-            ({{ $route.params.profileId }})</span>
-          <span v-else-if="$route.params.residentId" class="font-weight-light">{{ $route.name }}
-            ({{ $route.params.residentId }})</span>
-          <span v-else-if="$route.params.activityId" class="font-weight-light">{{ $route.name }}
-            ({{ $route.params.activityId }})</span>
+          <span v-if="name" class="font-weight-light">{{ $route.name }}
+            ({{ name }})</span>
           <span v-else class="font-weight-light">{{ $route.name }}</span>
         </v-toolbar-title>
       </template>
@@ -51,6 +47,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import { getActivity, getResidentById, getAssistantById } from '@/utils/ekalayapi'
 
   const MainMenu = () => import('@/components/layout/MainMenu')
   const ConnectionStatus = () => import('@/components/layout/ConnectionStatus')
@@ -69,7 +66,8 @@
     },
     data: () => ({
       drawer: null,
-      drawerRight: null
+      drawerRight: null,
+      name: ''
     }),
     computed: {
       ...mapGetters([
@@ -80,9 +78,48 @@
       },
       theme() {
         return (this.$vuetify.theme.dark) ? 'dark' : 'light'
+      },
+      isMobileDevice() {
+        return (typeof this.$windowOrientation !== "undefined") || (this.$userAgent.indexOf('IEMobile') !== -1);
+      },
+      path() {
+        return this.$route.path
       }
     },
+    watch: {
+      async path() {
+        await this.setName()
+      }
+    },
+    async created() {
+      await this.setName()
+    },
     methods: {
+      activityName: async function() {
+        var act = await getActivity(this.$route.params.activityId)
+        return act.name
+      },
+      residentName: async function(id) {
+        var res = await getResidentById(id)
+        return `${res.firstName} ${res.lastName}`
+      },
+      assistantName: async function(id) {
+        var res = await getAssistantById(id)
+        return `${res.firstName} ${res.lastName}`
+      },
+      setName: async function() {
+        if (this.$route.params.profileId) {
+          this.name = await this.residentName(this.$route.params.profileId)
+        } else if (this.$route.params.residentId) {
+          this.name = await this.residentName(this.$route.params.residentId)
+        } else if (this.$route.params.activityId) {
+          this.name = await this.activityName()
+        } else if (this.$route.params.assistantId) {
+          this.name = await this.assistantName(this.$route.params.assistantId)
+        } else {
+          this.name = ''
+        }
+      }
     }
   }
 </script>

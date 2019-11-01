@@ -1,23 +1,18 @@
 <template>
-  <v-data-table :headers="headers" :items="permits" :single-expand="singleExpand" :expanded.sync="expanded" :search="search"
-    item-key="_id" show-expand @click:row="clicked">
-    <template v-slot:top>
-      <v-toolbar flat>
-        <v-spacer></v-spacer>
-        <v-text-field rounded outlined v-model="search" append-icon="mdi-account-search" label="Search" single-line hide-details>
-        </v-text-field>
-      </v-toolbar>
-    </template>
-    <template v-slot:expanded-item="{ headers, item }">
-      <td :colspan="headers.length">
-        <v-row>
-          <v-col>
-            <ConfirmButton color="red" @action="deletePermit(item)">Delete</ConfirmButton>
-          </v-col>
-        </v-row>
-      </td>
-    </template>
-  </v-data-table>
+  <v-card flat>
+    <v-data-table :headers="headers" :items="permits" :single-expand="singleExpand" :expanded.sync="expanded"
+      item-key="_id" show-expand @click:row="clicked">
+      <template v-slot:expanded-item="{ headers, item }">
+        <td :colspan="headers.length">
+          <v-row>
+            <v-col>
+              <ConfirmButton color="red" @action="deletePermit(item)">Delete</ConfirmButton>
+            </v-col>
+          </v-row>
+        </td>
+      </template>
+    </v-data-table>
+  </v-card>
 </template>
 
 <script>
@@ -43,7 +38,6 @@
     data() {
       return {
         expanded: [],
-        search: '',
         singleExpand: true,
         headers: [{
             text: 'Location',
