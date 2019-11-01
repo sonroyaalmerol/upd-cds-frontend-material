@@ -3,19 +3,19 @@
     <ActionsPanel v-if="roles !== 0">
       <v-row>
         <v-col>
-          <BatchProfileUploader block disabled />
+          <BatchProfileUploader block @done="fetchData()" />
         </v-col>
         <v-col>
-          <ProfileForm block @done="fetchData()"/>
+          <ProfileForm block @done="fetchData()" />
         </v-col>
         <v-col>
           <AddAccountabilityButton batch block :residents="residents" />
         </v-col>
         <v-col>
-          <v-btn rounded block color="primary" disabled>Export Violations</v-btn>
+          <v-btn rounded block color="primary" :loading="exportingVio" @click="exportViolations">Export Violations</v-btn>
         </v-col>
         <v-col>
-          <v-btn rounded block color="primary" disabled>Export Accountabilities</v-btn>
+          <v-btn rounded block color="primary" :loading="exportingAcc" @click="exportAccountabilities">Export Accountabilities</v-btn>
         </v-col>
         <v-col>
           <v-btn rounded block color="red" disabled>Clear Database</v-btn>
@@ -76,7 +76,8 @@
 </template>
 
 <script>
-  import { residents, deleteUserById, deleteResident } from '@/utils/ekalayapi'
+  import { residents, deleteUserById, deleteResident, accountabilitiesAll, violationsAll } from '@/utils/ekalayapi'
+  import downloadCSV from '@/utils/downloadCSV'
   import { mapGetters } from 'vuex'
 
   const ProfileForm = () => import('@/components/database/ProfileForm')
@@ -124,6 +125,8 @@
         loading: false,
         resetting: false,
         checkingout: false,
+        exportingAcc: false,
+        exportingVio: false,
         residents: []
       }
     },
@@ -136,6 +139,20 @@
       ]),
     },
     methods: {
+      exportAccountabilities() {
+        this.exportingAcc = true
+        accountabilitiesAll().then((res) => {
+          downloadCSV(res, 'accountabilities')
+          this.exportingAcc = false
+        })
+      },
+      exportViolations() {
+        this.exportingVio = true
+        violationsAll().then((res) => {
+          downloadCSV(res, 'violations')
+          this.exportingVio = false
+        })
+      },
       clicked(value) {
         if (this.expanded.includes(value)) {
           var index = this.expanded.indexOf(value);

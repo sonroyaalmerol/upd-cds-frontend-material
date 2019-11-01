@@ -9,7 +9,7 @@
       </v-card-title>
       <v-card-text>
         <v-container>
-          <v-textarea v-model="details" label="Details"></v-textarea>
+          <v-textarea v-model="form.details" label="Details"></v-textarea>
         </v-container>
       </v-card-text>
       <v-card-actions>

@@ -2,7 +2,7 @@
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel v-if="roles !== 0">
       <v-col>
-        <v-btn rounded color="primary" disabled>Export CSV</v-btn>
+        <v-btn rounded color="primary" @click="exportCSV">Export CSV</v-btn>
       </v-col>
     </ActionsPanel>
     <v-card flat>
@@ -42,6 +42,7 @@
   import { mapGetters } from 'vuex'
   import { activityInOuts, getActivity } from '@/utils/ekalayapi'
   import { format, parseISO } from 'date-fns'
+  import downloadCSV from '@/utils/downloadCSV'
 
   const ActionsPanel = () => import('@/components/database/ActionsPanel')
 
@@ -95,6 +96,9 @@
         }
         this.loading = false
       },
+      exportCSV() {
+        downloadCSV(this.inOutEntries, `${this.activity.name}`)
+      }
     },
     data() {
       return {

@@ -12,7 +12,7 @@
           <v-btn rounded block color="primary" :to="`/permits/${resident._id}`">Review Permits</v-btn>
         </v-col>
         <v-col>
-          <v-btn rounded block color="primary" disabled>Export to CSV</v-btn>
+          <v-btn rounded block color="primary" @click="exportViolations">Export to CSV</v-btn>
         </v-col>
       </v-row>
     </ActionsPanel>
@@ -55,6 +55,7 @@
   import { mapGetters } from 'vuex'
   import { violations, getResidentById, deleteViolation } from '@/utils/ekalayapi'
   import { format, parseISO } from 'date-fns'
+  import downloadCSV from '@/utils/downloadCSV'
 
   const ActionsPanel = () => import('@/components/database/ActionsPanel')
   const AddViolationButton = () => import('@/components/database/AddViolationButton')
@@ -128,6 +129,9 @@
           this.deleting = false
         })
       },
+      exportViolations() {
+        downloadCSV(this.violations, `${this.resident.upid}-violations`)
+      }
     },
     data() {
       return {
