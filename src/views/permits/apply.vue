@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container-refresh>
     <ApplicationRules />
     <v-card flat>
       <v-tabs v-model="tab" background-color="transparent" grow>
@@ -26,7 +26,7 @@
         </v-tab-item>
       </v-tabs-items>
     </v-card>
-  </v-container>
+  </v-container-refresh>
 </template>
 
 <script>
