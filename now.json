@@ -1,7 +1,5 @@
 {
-  "version": 2,
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/.*", "dest": "/index.html" }
-  ]
+  "env": {
+    "VUE_APP_BASE_API": "https://api.updkalay.com/api/v2"
+  }
 }

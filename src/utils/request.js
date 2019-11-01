@@ -3,7 +3,7 @@ import store from '../store/index'
 import { getToken } from '@/utils/auth'
 
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API,
+  baseURL: "https://api.updkalay.com/api/v2",
   timeout: 18000
 })
 
