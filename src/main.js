@@ -5,6 +5,7 @@ import store from './store/index'
 import './registerServiceWorker'
 import vuetify from './plugins/vuetify'
 import './utils/permission'
+import updateMixin from './update-mixin'
 
 import VueOffline from 'vue-offline'
 import ContainerRefresh from '@/components/general/ContainerRefresh'
@@ -12,7 +13,7 @@ import ContainerRefresh from '@/components/general/ContainerRefresh'
 Vue.use(VueOffline)
 Vue.component('v-container-refresh', ContainerRefresh)
 
-
+Vue.mixin(updateMixin)
 Vue.config.productionTip = false
 Vue.prototype.$windowOrientation = window.orientation
 Vue.prototype.$userAgent = navigator.userAgent

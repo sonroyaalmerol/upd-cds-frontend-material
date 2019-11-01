@@ -41,7 +41,7 @@
       </keep-alive>
     </v-content>
 
-    <ConnectionStatus />
+    <UpdateNotifier />
   </v-app>
 </template>
 
@@ -50,7 +50,7 @@
   import { getActivity, getResidentById, getAssistantById } from '@/utils/ekalayapi'
 
   const MainMenu = () => import('@/components/layout/MainMenu')
-  const ConnectionStatus = () => import('@/components/layout/ConnectionStatus')
+  const UpdateNotifier = () => import('@/components/layout/UpdateNotifier')
   const NotificationDrawer = () => import('@/components/layout/NotificationDrawer')
   const UserMenu = () => import('@/components/layout/UserMenu')
   const GlobalAlert = () => import('@/components/general/GlobalAlert')
@@ -59,7 +59,7 @@
     name: 'App',
     components: {
       MainMenu,
-      ConnectionStatus,
+      UpdateNotifier,
       NotificationDrawer,
       UserMenu,
       GlobalAlert

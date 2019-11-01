@@ -7,6 +7,25 @@ if (workbox) {
 
   workbox.routing.registerNavigationRoute('/index.html')
 
+  // This code listens for the user's confirmation to update the app.
+  console.log('sw:listening for message events')
+  self.addEventListener('message', (e) => {
+    console.log('sw:message received', e)
+    if (!e.data) {
+      return
+    }
+
+    switch (e.data) {
+      case 'skipWaiting':
+        console.log('skipWaiting')
+        self.skipWaiting()
+        break
+      default:
+        // NOOP
+        break
+    }
+  })
+
   workbox.routing.registerRoute(
     new RegExp('https://api.updkalay.com'),
     workbox.strategies.networkFirst({
