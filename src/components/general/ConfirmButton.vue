@@ -3,7 +3,7 @@
     <v-btn v-if="!confirm" :dark="!disabled" rounded :block="block" :color="color" @click="checkStatus" :loading="loading" :disabled="disabled">
       <slot />
     </v-btn>
-    <v-tooltip v-else top>
+    <v-tooltip v-else top :value="true">
       <template v-slot:activator="{ on }">
         <v-btn dark rounded :block="block" :color="'warning'" @click="checkStatus" v-on="on">
           <slot />

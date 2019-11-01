@@ -9,20 +9,28 @@
           <v-row>
             <v-col>
               <DatePicker v-if="permitType === 1" v-model="form.dataOne" label="Start Date" />
-              <DatePicker v-else v-model="form.dataOne" label="Date" />
+              <DatePicker v-else-if="permitType !== 3 && permitType !== 4" v-model="form.dataOne" label="Date" />
+
+              <DatePicker v-else-if="permitType === 3 || permitType === 4" v-model="form.dataOne" label="Start Date" />
             </v-col>
             <v-col>
               <DatePicker v-if="permitType === 1" v-model="form.dataTwo" label="End Date" />
-              <TimePicker v-else v-model="form.dataTwo" label="Time" />
+              <TimePicker v-else-if="permitType !== 3 && permitType !== 4" v-model="form.dataTwo" label="Time" />
+
+              <DatePicker v-else-if="permitType === 3 || permitType === 4" v-model="form.dataOne2" label="End Date" />
             </v-col>
           </v-row>
         </template>
         <template v-else>
           <DatePicker v-if="permitType === 1" v-model="form.dataOne" label="Start Date" />
-          <DatePicker v-else v-model="form.dataOne" label="Date" />
+          <DatePicker v-else-if="permitType !== 3 && permitType !== 4" v-model="form.dataOne" label="Date" />
+          <DatePicker v-else-if="permitType === 3 || permitType === 4" v-model="form.dataOne" label="Start Date" />
+
           <DatePicker v-if="permitType === 1" v-model="form.dataTwo" label="End Date" />
-          <TimePicker v-else v-model="form.dataTwo" label="Time" />
+          <TimePicker v-else-if="permitType !== 3 && permitType !== 4" v-model="form.dataTwo" label="Time" />
+          <DatePicker v-else-if="permitType === 3 || permitType === 4" v-model="form.dataOne2" label="End Date" />
         </template>
+        <TimePicker v-if="permitType === 3 || permitType === 4" v-model="form.dataTwo" label="Time" />
 
         <v-text-field rounded outlined v-model="form.location" label="Location" required></v-text-field>
         <v-text-field rounded outlined v-model="form.reason" label="Reason" required></v-text-field>
@@ -97,14 +105,14 @@
         this.form.notes = ''
         this.form.upid = ''
         this.form.dataOne = new Date()
-        if (this.permitType === 2) {
+        if (this.permitType === 2 || this.permitType === 4) {
           this.form.dataOne.setDate(this.form.dataOne.getDate() + 1)
         }
         this.form.dataOne2 = this.form.dataOne
         this.form.dataTwo = new Date()
-        if (this.permitType === 0) {
+        if (this.permitType === 0 || this.permitType === 3) {
           this.form.dataTwo = this.form.dataTwo.setHours(23, 59, 59, 99)
-        } else if (this.permitType === 2) {
+        } else if (this.permitType === 2 || this.permitType === 4) {
           this.form.dataTwo = this.form.dataTwo.setHours(0, 1, 0, 0)
         } else if (this.permitType === 1) {
           this.form.dataTwo.setDate(this.form.dataTwo.getDate() + 1)
