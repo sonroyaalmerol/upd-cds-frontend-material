@@ -16,6 +16,11 @@
       refreshApp() {
         Bus.$emit('refresh_app')
       },
+    },
+    data() {
+      return {
+        updateExists: false
+      }
     }
   }
 </script>

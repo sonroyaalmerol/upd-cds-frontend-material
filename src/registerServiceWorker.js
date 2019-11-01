@@ -16,12 +16,14 @@ if (process.env.NODE_ENV === 'production') {
     cached () {
       console.log('Content has been cached for offline use.')
     },
-    /* updatefound () {
+    updatefound () {
       console.log('New content is downloading.')
-    }, */
-    updated (registration) {
-      console.log('New content is available! We\'ll show a refresh button for the user to click on and refresh')
-      document.dispatchEvent(new CustomEvent('swUpdated', { detail: registration }))
+    },
+    updated () {
+      console.log('New content is available; Refresh...')
+      setTimeout(() => {
+        window.location.reload(true)
+      }, 1000)
     },
     offline () {
       console.log('No internet connection found. App is running in offline mode.')
