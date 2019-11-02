@@ -32,9 +32,7 @@ service.interceptors.response.use(
   error => {
     // console.log(error.response.data) // for debug
     // Error 401: No Authorization was found in request.headers
-    if (error.response.data.message !== 'No Authorization was found in request.headers') {
-      store.dispatch('setAlert', { message: `Error ${error.response.data.statusCode}: ${error.response.data.message}`, type: 'error' })
-    }
+    store.dispatch('setAlert', { message: `Error ${error.response.data.statusCode}: ${error.response.data.message}`, type: 'error' })
     return Promise.reject(error)
   }
 )

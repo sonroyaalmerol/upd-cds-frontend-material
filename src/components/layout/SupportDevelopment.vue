@@ -11,7 +11,7 @@
         <p>Almost everyone use their smartphones nowadays to access eKalay. Sadly, I am not a native mobile app developer. I may be able to develop one but I cannot guarantee as of now.</p>
         <b>How?</b>
         <p>For inquiries, email me at <b>sonraalmerol@addu.edu.ph</b>. Please do contact me if you are interested.</p>
-        <p>Thanks for using the eKalay system!</p>
+        <p>Thank you for using the eKalay system!</p>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>

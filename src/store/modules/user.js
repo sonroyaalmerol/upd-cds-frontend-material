@@ -101,34 +101,24 @@ const user = {
     },
 
     logout({ commit }) {
-      return new Promise((resolve) => {
-        commit('SET_TOKEN', '')
-        commit('SET_ROLES', null)
-        commit('SET_FIRST_NAME', '')
-        commit('SET_LAST_NAME', '')
-        commit('SET_UPID', '')
-        commit('SET_UID', '')
-        commit('SET_KRHID', '')
-        commit('SET_USERNAME', '')
-        commit('SET_PROFILEID', '')
-        commit('SET_IS_ATHLETE_PERFORMER', false)
-        commit('SET_IS_COUNCIL', false)
-        commit('SET_AVATAR', 'https://media.giphy.com/media/a2lMiN48e5PB6/giphy.gif')
-        remove_token()
-        resolve()
-        /* logout(state.token).then(() => {
-        }).catch(error => {
-          reject(error)
-        }) */
-      })
+      commit('SET_TOKEN', '')
+      commit('SET_ROLES', null)
+      commit('SET_FIRST_NAME', '')
+      commit('SET_LAST_NAME', '')
+      commit('SET_UPID', '')
+      commit('SET_UID', '')
+      commit('SET_KRHID', '')
+      commit('SET_USERNAME', '')
+      commit('SET_PROFILEID', '')
+      commit('SET_IS_ATHLETE_PERFORMER', false)
+      commit('SET_IS_COUNCIL', false)
+      commit('SET_AVATAR', 'https://media.giphy.com/media/a2lMiN48e5PB6/giphy.gif')
+      remove_token()
     },
 
     fedLogout({ commit }) {
-      return new Promise(resolve => {
-        commit('SET_TOKEN', '')
-        remove_token()
-        resolve()
-      })
+      commit('SET_TOKEN', '')
+      remove_token()
     }
   }
 }

@@ -8,7 +8,7 @@
       </template>
       <v-app-bar-nav-icon dark v-if="$route.path !== '/login' && $route.path !== '/register'"
         @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <img alt="Logo" :src="require('./assets/logo.png')" width="50px" />
+      <Logo />
       <v-toolbar-title dark class="headline" v-if="!isMobileDevice">
         <span class="font-weight-light ms-3">e</span>
         <span>Kalay</span>
@@ -60,6 +60,7 @@
   const NotificationDrawer = () => import('@/components/layout/NotificationDrawer')
   const UserMenu = () => import('@/components/layout/UserMenu')
   const GlobalAlert = () => import('@/components/general/GlobalAlert')
+  const Logo = () => import('@/components/layout/Logo')
 
   export default {
     name: 'App',
@@ -68,7 +69,8 @@
       UpdateNotifier,
       NotificationDrawer,
       UserMenu,
-      GlobalAlert
+      GlobalAlert,
+      Logo
     },
     data: () => ({
       drawer: null,

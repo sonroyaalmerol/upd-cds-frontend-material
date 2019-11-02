@@ -23,6 +23,7 @@
 
 <script>
   import { notifications, readNotification } from '@/utils/ekalayapi'
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'App',
@@ -38,9 +39,14 @@
       }
     },
     created() {
-      this.fetchData()
+      if (this.uid) {
+        this.fetchData()
+      }
     },
     computed: {
+      ...mapGetters([
+        'uid'
+      ]),
       localDrawer: {
         get() {
           return this.value

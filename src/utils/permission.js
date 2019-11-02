@@ -16,10 +16,9 @@ router.beforeEach((to, from, next) => {
         store.dispatch('getInfo').then(() => {
           next()
         }).catch((err) => {
-          store.dispatch('fedLogout').then(() => {
-            message(err || 'Verification failed, please login again', 'error')
-            next({ path: '/login' })
-          })
+          store.dispatch('fedLogout')
+          message(err || 'Verification failed, please login again', 'error')
+          next({ path: '/login' })
         })
       } else {
         if (to.meta.roles) {
@@ -27,7 +26,7 @@ router.beforeEach((to, from, next) => {
             next()
           } else {
             message('You are not allowed to enter that part.', 'error')
-            next({ path: '/login' })
+            next({ path: '/dashboard' })
           }
         } else {
           next()
@@ -38,7 +37,6 @@ router.beforeEach((to, from, next) => {
     if (whiteList.indexOf(to.path) !== -1) {
       next()
     } else {
-      message('Authentication is required for that page!', 'error')
       next(`/login?redirect=${to.path}`)
     }
   }

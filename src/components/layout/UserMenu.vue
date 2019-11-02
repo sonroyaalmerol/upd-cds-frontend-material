@@ -80,11 +80,6 @@
         this.getDarkMode()
       }
     },
-    activated() {
-      if (this.uid) {
-        this.getDarkMode()
-      }
-    },
     watch: {
       uid(next) {
         if(next !== '') {
@@ -99,9 +94,8 @@
     }),
     methods: {
       logout() {
-        this.$store.dispatch('logout').then(() => {
-          this.$router.push({ path: '/login' })
-        })
+        this.$store.dispatch('logout')
+        location.reload()
       },
       toggleDarkMode() {
         setDarkMode({ darkMode: !this.$vuetify.theme.dark }).then(() => {

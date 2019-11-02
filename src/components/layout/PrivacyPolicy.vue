@@ -5,9 +5,9 @@
         <span class="headline">Privacy Policy</span>
       </v-card-title>
       <v-card-text>
-        Your privacy is very important to us. Accordingly, we have developed this Policy in order for you to understand
+        <p>Your privacy is very important to us. Accordingly, we have developed this Policy in order for you to understand
         how we collect, use, communicate and disclose and make use of personal information. The following outlines our
-        privacy policy.
+        privacy policy.</p>
         <ul>
           <li>Before or at the time of collecting personal information, we will identify the purposes for which
             information is being collected.</li>
@@ -24,8 +24,8 @@
           <li>We will make readily available to customers information about our policies and practices relating to the
             management of personal information.</li>
         </ul>
-        We are committed to conducting our business in accordance with these principles in order to ensure that the
-        confidentiality of personal information is protected and maintained.
+        <p class="mt-4">We are committed to conducting our business in accordance with these principles in order to ensure that the
+        confidentiality of personal information is protected and maintained.</p>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>

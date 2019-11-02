@@ -142,9 +142,6 @@
     created() {
       this.fetchProfile()
     },
-    activated() {
-      this.fetchProfile()
-    },
     computed: {
       ...mapGetters([
         'profileid',
@@ -160,6 +157,13 @@
       },
       isMobileDevice() {
         return (typeof this.$windowOrientation !== "undefined") || (this.$userAgent.indexOf('IEMobile') !== -1);
+      }
+    },
+    watch: {
+      async dialog(next) {
+        if (next === true) {
+          await this.fetchProfile()
+        }
       }
     },
     data: () => ({
