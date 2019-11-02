@@ -24,7 +24,7 @@
     </ActionsPanel>
     <v-card flat>
       <v-data-table :headers="headers" :items="residents" :single-expand="singleExpand" :expanded.sync="expanded"
-        :search="search" item-key="_id" show-expand @click:row="clicked" :loading="loading">
+        :search="search" item-key="_id" show-expand @click:row="clicked" :loading="loading" :custom-filter="filterUsers">
         <template v-slot:top>
           <v-toolbar flat>
             <v-spacer></v-spacer>
@@ -139,6 +139,10 @@
       ]),
     },
     methods: {
+      filterUsers(value, search, item) {
+        var searchKey = `${item.name ? item.name : ''} ${item.upid ? item.upid : ''} ${item.krhid ? item.krhid : ''} ${item.corridor ? item.corridor : ''} ${item.room ? item.room : ''} ${item.username ? item.username : ''}`
+        return !search || searchKey.toLowerCase().includes(search.toLowerCase())
+      },
       exportAccountabilities() {
         this.exportingAcc = true
         accountabilitiesAll().then((res) => {
