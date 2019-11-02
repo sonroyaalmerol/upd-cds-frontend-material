@@ -34,6 +34,9 @@
             </v-row>
           </td>
         </template>
+        <template v-slot:item.postedBy="{ value }">
+          {{ value.firstName }} {{ value.lastName }}
+        </template>
         <template v-slot:item.required="{ value }">
           <v-chip v-if="value" tile class="ma-2" color="success">
             Required
