@@ -37,7 +37,7 @@
         }
       },
       computedTimeFormatted () {
-        return format(parse(this.localPicker, 'HH:mm', new Date()), 'hh:mm b')
+        return format(parse(this.localPicker, 'HH:mm', new Date()), 'hh:mm a')
       }
     }
   }

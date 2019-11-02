@@ -9,7 +9,7 @@ export default (array, filename) => {
     var init = flatten(data)
     Object.keys(init).forEach((obj) => {
       if (dateKeys.includes(obj)) {
-        init[obj] = init[obj] ? format(new Date(init[obj]), 'MM-dd-yyyy (hh:mm b)') : 'N/A'
+        init[obj] = init[obj] ? format(new Date(init[obj]), 'MM-dd-yyyy (hh:mm a)') : 'N/A'
       }
     })
     return init
