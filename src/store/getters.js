@@ -1,6 +1,7 @@
 const getters = {
   alert: state => state.app.alert,
   alertType: state => state.app.alertType,
+  updateAvailable: state => state.app.updateAvailable,
   token: state => state.user.token,
   avatar: state => state.user.avatar,
   name: state => state.user.name,

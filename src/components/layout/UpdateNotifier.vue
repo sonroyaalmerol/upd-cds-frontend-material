@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-sheet v-model="updateExists">
+  <v-bottom-sheet v-model="updateAvailable">
     <v-sheet class="text-center" height="150px">
       <v-btn class="mt-6" text dark color="primary" @click="refreshApp">Update</v-btn>
       <div>An update is available!</div>
@@ -8,14 +8,20 @@
 </template>
 
 <script>
-  import { Bus } from '@/bus'
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'App',
     methods: {
       refreshApp() {
-        Bus.$emit('refresh_app')
+        this.$store.dispatch('setUpdateAvailable', false)
+        window.location.reload(true)
       },
+    },
+    computed: {
+      ...mapGetters([
+        'updateAvailable'
+      ]),
     },
     data() {
       return {

@@ -5,7 +5,7 @@
         <v-avatar color="teal" size="48">
           <img
             alt="User"
-            :src="avatar" />
+            :src="avatar.replace('image/upload/', 'image/upload/w_400,h_400,c_fill,g_face/')" />
         </v-avatar>
       </v-btn>
     </template>

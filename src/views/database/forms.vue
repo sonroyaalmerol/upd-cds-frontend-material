@@ -22,7 +22,7 @@
                 <CreateForm block :form="item" @done="fetchData()" />
               </v-col>
               <v-col>
-                <v-btn rounded block color="primary">Download Responses</v-btn>
+                <v-btn rounded block color="primary" @click="downloadCSV(item)">Download Responses</v-btn>
               </v-col>
               <v-col>
                 <ConfirmButton :key="item._id" v-if="item.closed" block color="success" @action="openForm(item)" :loading="changingStatus">Go Live</ConfirmButton>
@@ -52,8 +52,11 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { forms, deleteForm, openForm, closeForm } from '@/utils/ekalayapi'
+  import { forms, deleteForm, openForm, closeForm, responses } from '@/utils/ekalayapi'
   import { format, parseISO } from 'date-fns'
+  import Papa from 'papaparse'
+  import FileSaver from 'file-saver'
+  import flatten from 'flat'
 
   const CreateForm = () => import('@/components/database/CreateForm')
   const ActionsPanel = () => import('@/components/database/ActionsPanel')
@@ -118,6 +121,27 @@
           this.$message('Successfully changed state of form to LIVE!', 'success')
         })
       },
+      downloadCSV(form) {
+        responses(form._id).then((response) => {
+          var fields = [['timestamp', '_resident.upid', '_resident.krhid', '_resident.lastName', '_resident.firstName']]
+          for (var y = 0; y < response.length; y++) {
+            var titles = Object.keys(response[y].response)
+            for (var x = 0; x < titles.length; x++) {
+              var toAddfields = [...toAddfields, `response.${titles[x]}`]
+            }
+            fields = [...fields, toAddfields]
+          }
+
+          fields = [...new Set([].concat(...fields))]
+
+          const csv = Papa.unparse({
+            fields,
+            data: response.map(flatten)
+          })
+          var csvData = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+          FileSaver.saveAs(csvData, `${form._id}-responses.csv`)
+        })
+      }
     },
     computed: {
       ...mapGetters([
