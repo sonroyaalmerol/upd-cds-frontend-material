@@ -17,6 +17,7 @@
       v-model="page"
       class="my-4"
       :length="numberOfPages"
+      :total-visible="6"
     ></v-pagination>
   </div>
 </template>
