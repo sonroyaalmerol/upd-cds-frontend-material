@@ -15,6 +15,12 @@
         <span class="font-weight-light"> - Centralized Database System</span>
       </v-toolbar-title>
       <div class="flex-grow-1"></div>
+
+      <v-btn class="me-3" dark v-if="$route.path !== '/login' && $route.path !== '/register' && !isMobileDevice" icon
+        @click.stop="forceRerender">
+        <v-icon>mdi-reload</v-icon>
+      </v-btn>
+
       <v-btn class="me-3" dark v-if="$route.path !== '/login' && $route.path !== '/register'" icon
         @click.stop="drawerRight = !drawerRight">
         <v-icon>mdi-bell</v-icon>
@@ -37,7 +43,7 @@
     <v-content :style="{background: $vuetify.theme.themes[theme].background}">
       <GlobalAlert />
       <keep-alive>
-        <router-view :key="`${$route.fullPath}-${token}`" />
+        <router-view :key="`${$route.fullPath}-${token}-${componentKey}`" />
       </keep-alive>
     </v-content>
 
@@ -67,7 +73,8 @@
     data: () => ({
       drawer: null,
       drawerRight: null,
-      name: ''
+      name: '',
+      componentKey: 0
     }),
     computed: {
       ...mapGetters([
@@ -95,6 +102,9 @@
       await this.setName()
     },
     methods: {
+      forceRerender() {
+        this.componentKey += 1 
+      },
       activityName: async function() {
         var act = await getActivity(this.$route.params.activityId)
         return act.name
