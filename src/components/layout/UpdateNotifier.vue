@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-sheet v-model="updateAvailable">
+  <v-bottom-sheet v-model="updateAvailable" persistent>
     <v-sheet class="text-center" height="150px">
       <v-btn class="mt-6" text dark color="primary" @click="refreshApp">Update</v-btn>
       <div>An update is available!</div>
