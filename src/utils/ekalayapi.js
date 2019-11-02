@@ -601,3 +601,20 @@ export function deletePermit(id) {
     method: 'delete'
   })
 }
+
+export function notifications() {
+  return request({
+    url: `/notifications`,
+    method: 'get'
+  })
+}
+
+export function readNotification(id) {
+  return request({
+    url: `/notifications/${id}`,
+    method: 'put',
+    data: {
+      read: true
+    }
+  })
+}
