@@ -27,13 +27,13 @@
         <v-list-item-title>Support Development</v-list-item-title>
       </v-list-item>
       <v-divider class="mb-2" />
-      <v-list-item @click.stop="logout">
-        <v-list-item-title>Log Out</v-list-item-title>
-      </v-list-item>
-      <v-divider class="mb-2" />
       <v-list-item @click.stop="toggleDarkMode">
         <v-list-item-title v-if="$vuetify.theme.dark">Disable Dark Mode</v-list-item-title>
         <v-list-item-title v-else>Enable Dark Mode</v-list-item-title>
+      </v-list-item>
+      <v-divider class="mb-2" />
+      <v-list-item @click.stop="logout">
+        <v-list-item-title>Log Out</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-menu>

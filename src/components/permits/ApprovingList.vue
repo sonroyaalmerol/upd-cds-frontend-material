@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-card flat tile :loading="loading">
-      <template v-if="value.length">
+      <template v-if="localValue.length">
         <template v-for="(res, i) in dataToShow">
-          <ApprovingElement :data="res" :key="i" />
+          <ApprovingElement :data="res" :key="`${i}-${res._id}`" @done="done(i)" />
         </template>
       </template>
       <v-card v-else flat tile>
@@ -42,11 +42,24 @@
     computed: {
       dataToShow() {
         var index = this.page - 1
-        var toShow = this.value
+        var toShow = this.localValue
         return toShow.slice(index * this.permitsPerPage, (index + 1) * this.permitsPerPage)
       },
       numberOfPages() {
-        return Math.ceil(this.value.length/this.permitsPerPage)
+        return Math.ceil(this.localValue.length/this.permitsPerPage)
+      },
+      localValue: {
+        get() {
+          return this.value
+        },
+        set(localValue) {
+          this.$emit('input', localValue)
+        }
+      }
+    },
+    methods: {
+      done(index) {
+        this.localValue.splice(index, 1)
       }
     },
     data: () => ({

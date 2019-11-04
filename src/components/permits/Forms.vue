@@ -124,21 +124,12 @@
 
         applyPermit(this.form).then(() => {
           if (this.roles !== 0) {
-            this.$message({
-              message: 'Successfully submitted permit! You may now process this permit.',
-              type: 'success'
-            })
+            this.$message('Successfully submitted permit! You may now process this permit.', 'success')
           } else {
             if (isBefore(new Date(), setHours(setMinutes(setSeconds(setMilliseconds(new Date(), 0), 0), 0), 16))) {
-              this.$message({
-                message: 'Successfully submitted permit! Please wait for the admin to process your request within the day.',
-                type: 'success'
-              })
+              this.$message('Successfully submitted permit! Please wait for the admin to process your request within the day.', 'success')
             } else {
-              this.$message({
-                message: 'Successfully submitted permit! Since it\'s already past 4pm, this permit will be processed the next working day.',
-                type: 'success'
-              })
+              this.$message('Successfully submitted permit! Since it\'s already past 4pm, this permit will be processed the next working day.', 'success')
             }
           }
           this.form.location = ''
