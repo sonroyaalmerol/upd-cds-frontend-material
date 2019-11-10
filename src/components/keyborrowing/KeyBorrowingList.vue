@@ -15,7 +15,7 @@
     ></v-pagination>
     <center v-if="!loading">
       <template v-for="(res, i) in dataToShow">
-        <ResidentCard :data="res" :key="`${i}-${res.image}`" />
+        <ResidentCard :data="res" :key="`${i}-${res._id}`" />
       </template>
     </center>
     <center v-else>

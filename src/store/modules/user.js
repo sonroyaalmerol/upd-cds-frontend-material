@@ -1,5 +1,5 @@
-import { login as log_in, getInfo as get_info, getProfile as get_profile } from '@/utils/ekalayapi'
-import { getToken as get_token, setToken as set_token, removeToken as remove_token } from '@/utils/auth'
+import { getInfo as get_info, getProfile as get_profile, login as log_in } from '@/utils/ekalayapi'
+import { getToken as get_token, removeToken as remove_token, setToken as set_token } from '@/utils/auth'
 
 const user = {
   state: {
@@ -11,7 +11,7 @@ const user = {
     uid: '',
     krhid: '',
     profileid: '',
-    avatar: 'https://media.giphy.com/media/a2lMiN48e5PB6/giphy.gif',
+    avatar: '',
     roles: null,
     isAthletePerformer: false,
     isCouncil: false
@@ -88,10 +88,10 @@ const user = {
             if (profile.displayPhoto) {
               commit('SET_AVATAR', profile.displayPhoto)
             } else {
-              commit('SET_AVATAR', 'https://media.giphy.com/media/a2lMiN48e5PB6/giphy.gif')
+              commit('SET_AVATAR', '')
             }
           } else {
-            commit('SET_AVATAR', 'https://media.giphy.com/media/a2lMiN48e5PB6/giphy.gif')
+            commit('SET_AVATAR', '')
           }
           resolve(response)
         }).catch(error => {
@@ -112,7 +112,7 @@ const user = {
       commit('SET_PROFILEID', '')
       commit('SET_IS_ATHLETE_PERFORMER', false)
       commit('SET_IS_COUNCIL', false)
-      commit('SET_AVATAR', 'https://media.giphy.com/media/a2lMiN48e5PB6/giphy.gif')
+      commit('SET_AVATAR', '')
       remove_token()
     },
 

@@ -6,7 +6,7 @@
           <v-img
             height="200"
             width="200"
-            :src="localData.displayPhoto.replace('image/upload/', 'image/upload/w_400,h_400,c_fill,g_face/')"
+            :src="localData.displayPhoto ? localData.displayPhoto.replace('image/upload/', 'image/upload/w_400,h_400,c_fill,g_face/') : require('@/assets/profpic.png')"
           ></v-img>
         </v-col>
       </v-row>
