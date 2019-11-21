@@ -81,9 +81,9 @@
     methods: {
       submit() {
         this.loading = true
-        createActivity(this.form).then(() => {
+        createActivity(this.activityForm).then(() => {
           this.$message('Successfully created activity!', 'success')
-          this.form = {
+          this.activityForm = {
             name: '',
             points: 0,
             category: 1
