@@ -93,7 +93,6 @@ export default {
             duration: 0
           }) */
         }
-        console.log(this.$refs)
         this.formsLoading = false
       })
     }
