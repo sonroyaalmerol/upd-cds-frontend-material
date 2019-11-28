@@ -14,8 +14,10 @@
         <v-card-text>
           <v-form :ref="form._id" v-model="valid[form._id]" lazy-validation>
             <template v-for="field in form.fields">
-              <v-text-field :key="field._id" v-if="field.type === 0" rounded outlined v-model="responses[`${form._id}$%^${field._id}`]" :label="field.name" :rules="value => field.required ? !!value : true || 'Required field!'" :hint="field.description" persistent-hint />
-              <v-select :key="field._id" v-else-if="field.type === 1" rounded outlined v-model="responses[`${form._id}$%^${field._id}`]" :label="field.name" :rules="value => field.required ? !!value : true || 'Required field!'" :items="field.choices" :hint="field.description" persistent-hint />
+              <v-text-field :key="field._id" v-if="field.type === 0 && field.required" rounded outlined v-model="responses[`${form._id}$%^${field._id}`]" :label="field.name" :rules="[rules.required]" :hint="field.description" persistent-hint />
+              <v-text-field :key="field._id" v-else-if="field.type === 0 && !field.required" rounded outlined v-model="responses[`${form._id}$%^${field._id}`]" :label="field.name" :hint="field.description" persistent-hint />
+              <v-select :key="field._id" v-else-if="field.type === 1 && field.required" rounded outlined v-model="responses[`${form._id}$%^${field._id}`]" :label="field.name" :rules="[rules.required]" :items="field.choices" :hint="field.description" persistent-hint />
+              <v-select :key="field._id" v-else-if="field.type === 1 && !field.required" rounded outlined v-model="responses[`${form._id}$%^${field._id}`]" :label="field.name" :items="field.choices" :hint="field.description" persistent-hint />
             </template>
           </v-form>
         </v-card-text>
@@ -39,7 +41,10 @@ export default {
       responses: {},
       valid: {},
       submitting: false,
-      formsLoading: false
+      formsLoading: false,
+      rules: {
+        required: value => !!value || 'Required field!'
+      }
     }
   },
   computed: {
@@ -52,9 +57,9 @@ export default {
   },
   methods: {
     submitForm: function(id, index) {
-      if (this.$refs[id].validate()) {
+      var form = this.forms[index]
+      if (this.$refs[form._id][0].validate()) {
         this.submitting = true
-        var form = this.forms[index]
         var toSubmit = {}
         var keysToDelete = []
         for (var i = 0; i < form.fields.length; i++) {
@@ -88,6 +93,7 @@ export default {
             duration: 0
           }) */
         }
+        console.log(this.$refs)
         this.formsLoading = false
       })
     }
