@@ -13,8 +13,8 @@
         </v-card-title>
         <v-card-text>
           <template v-for="field in form.fields">
-            <v-text-field :key="field._id" v-if="field.type === 0" rounded outlined v-model="responses[`${form._id}$%^${field._id}`]" :label="field.name" :required="field.required" :hint="field.description" persistent-hint />
-            <v-select :key="field._id" v-else-if="field.type === 1" rounded outlined v-model="responses[`${form._id}$%^${field._id}`]" :label="field.name" :required="field.required" :items="field.choices" :hint="field.description" persistent-hint />
+            <v-text-field :key="field._id" v-if="field.type === 0" rounded outlined v-model="responses[`${form._id}$%^${field._id}`]" :label="field.name" :rules="value => field.required ? (!!value || 'Required field!') : true" :hint="field.description" persistent-hint />
+            <v-select :key="field._id" v-else-if="field.type === 1" rounded outlined v-model="responses[`${form._id}$%^${field._id}`]" :label="field.name" :rules="value => field.required ? (!!value || 'Required field!') : true" :items="field.choices" :hint="field.description" persistent-hint />
           </template>
         </v-card-text>
         <v-card-actions>

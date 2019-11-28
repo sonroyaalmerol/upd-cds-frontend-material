@@ -15,7 +15,7 @@
               <NumberField v-model="activityForm.points" label="Points" />
             </v-col>
             <v-col>
-              <v-select rounded outlined :items="fieldTypes" label="Category"></v-select>
+              <v-select v-model="activityForm.category" rounded outlined :items="fieldTypes" label="Category"></v-select>
             </v-col>
           </v-row>
         </v-container>
