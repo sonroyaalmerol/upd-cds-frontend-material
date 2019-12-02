@@ -496,6 +496,14 @@ export function updateActivityInOut(data, id) {
   })
 }
 
+export function confirmActivityInOut(data, id) {
+  return request({
+    url: `/activityInOuts/${id}?confirm=true`,
+    method: 'put',
+    data
+  })
+}
+
 export function deleteActivityInOut(id) {
   return request({
     url: `/activityInOuts/${id}`,

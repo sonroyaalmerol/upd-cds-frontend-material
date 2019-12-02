@@ -15,14 +15,22 @@
             </v-text-field>
           </v-toolbar>
         </template>
-        <template v-slot:expanded-item="{ headers }">
+        <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length">
             <v-row>
-              <v-col>
-                <v-btn rounded block color="primary" disabled>Confirm</v-btn>
-              </v-col>
-              <v-col>
-                <v-btn rounded block color="primary" disabled>Manual Add Out</v-btn>
+              <template v-if="!item.counted">
+                <v-col>
+                  <ConfirmButton :key="item._id" rounded block color="primary" @action="confirmInOut(item, 1)" :loading="confirming" :disabled="confirming">Full Points</ConfirmButton>
+                </v-col>
+                <v-col>
+                  <ConfirmButton :key="item._id" rounded block color="primary" @action="confirmInOut(item, 0.5)" :loading="confirming" :disabled="confirming">Half Points</ConfirmButton>
+                </v-col>
+                <v-col>
+                  <ConfirmButton :key="item._id" rounded block color="primary" @action="confirmInOut(item, 0)" :loading="confirming" :disabled="confirming">No Points</ConfirmButton>
+                </v-col>
+              </template>
+              <v-col v-else>
+                <v-btn rounded block color="primary" disabled>Counted Points: {{ item.counted }}</v-btn>
               </v-col>
             </v-row>
           </td>
@@ -40,15 +48,17 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { activityInOuts, getActivity } from '@/utils/ekalayapi'
+  import { activityInOuts, getActivity, confirmActivityInOut } from '@/utils/ekalayapi'
   import { format, parseISO } from 'date-fns'
   import downloadCSV from '@/utils/downloadCSV'
 
   const ActionsPanel = () => import('@/components/database/ActionsPanel')
+  const ConfirmButton = () => import('@/components/general/ConfirmButton')
 
   export default {
     components: {
-      ActionsPanel
+      ActionsPanel,
+      ConfirmButton
     },
     computed: {
       ...mapGetters([
@@ -90,6 +100,7 @@
         this.loading = true
         try {
           this.inOutEntries = await activityInOuts(this.$route.params.activityId)
+          console.log(this.inOutEntries)
           this.activity = await getActivity(this.$route.params.activityId)
         } catch (err) {
           this.$message('Activity ID not found. Please try again!', 'error')
@@ -98,6 +109,17 @@
       },
       exportCSV() {
         downloadCSV(this.inOutEntries, `${this.activity.name}`)
+      },
+      
+      confirmInOut(entry, multiplier) {
+        var entryCopy = entry
+        entryCopy.multiplier = multiplier
+        this.confirming = true
+        confirmActivityInOut(entryCopy, entry._id).then(async () => {
+          this.$message('Successfully confirmed entry!', 'success')
+          await this.fetchData()
+          this.confirming = false
+        })
       }
     },
     data() {
@@ -132,7 +154,8 @@
         ],
         inOutEntries: [],
         activity: {},
-        loading: false
+        loading: false,
+        confirming: false
       }
     },
   }
