@@ -100,7 +100,6 @@
         this.loading = true
         try {
           this.inOutEntries = await activityInOuts(this.$route.params.activityId)
-          console.log(this.inOutEntries)
           this.activity = await getActivity(this.$route.params.activityId)
         } catch (err) {
           this.$message('Activity ID not found. Please try again!', 'error')

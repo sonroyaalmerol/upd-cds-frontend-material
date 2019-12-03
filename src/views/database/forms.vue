@@ -22,7 +22,7 @@
                 <CreateForm block :form="item" @done="fetchData()" />
               </v-col>
               <v-col>
-                <v-btn rounded block color="primary" @click="downloadCSV(item)">Download Responses</v-btn>
+                <v-btn rounded block color="primary" @click="downloadCSV(item)" :loading="downloading">Download Responses</v-btn>
               </v-col>
               <v-col>
                 <ConfirmButton :key="item._id" v-if="item.closed" block color="success" @action="openForm(item)" :loading="changingStatus">Go Live</ConfirmButton>
@@ -125,6 +125,7 @@
         })
       },
       downloadCSV(form) {
+        this.downloading = true
         responses(form._id).then((response) => {
           var fields = [['timestamp', '_resident.upid', '_resident.krhid', '_resident.lastName', '_resident.firstName']]
           for (var y = 0; y < response.length; y++) {
@@ -143,6 +144,7 @@
           })
           var csvData = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
           FileSaver.saveAs(csvData, `${form._id}-responses.csv`)
+          this.downloading = false
         })
       }
     },
@@ -180,7 +182,8 @@
         forms: [],
         deletingForm: false,
         changingStatus: false,
-        loading: false
+        loading: false,
+        downloading: false
       }
     },
   }
