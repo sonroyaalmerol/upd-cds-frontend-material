@@ -50,9 +50,14 @@
           </td>
         </template>
         <template v-slot:item.attended="{ item }">
-          <v-chip v-if="item._attendees.find(x => x._id === profileid)" tile class="ma-2" color="success">
-            Attended
-          </v-chip>
+          <template v-if="item._attendees.find(x => x._id === profileid)">
+            <v-chip v-if="item.inout.counted || item.inout.counted === 0" tile class="ma-2" color="success">
+              Attended (<b>{{ item.inout.counted }} points</b>)
+            </v-chip>
+            <v-chip v-else tile class="ma-2" color="success">
+              Attended (Not yet confirmed)
+            </v-chip>
+          </template>
           <v-chip v-else tile class="ma-2" color="error">
             No attendance found
           </v-chip>
@@ -155,6 +160,7 @@
           { text: '', value: 'data-table-expand' },
         ],
         activities: [],
+        activityInOuts: [],
         loading: false,
         deleting: false
       }

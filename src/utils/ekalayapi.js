@@ -504,6 +504,14 @@ export function confirmActivityInOut(data, id) {
   })
 }
 
+export function undoConActivityInOut(data, id) {
+  return request({
+    url: `/activityInOuts/${id}?removecon=true`,
+    method: 'put',
+    data
+  })
+}
+
 export function deleteActivityInOut(id) {
   return request({
     url: `/activityInOuts/${id}`,

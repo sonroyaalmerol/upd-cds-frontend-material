@@ -18,19 +18,19 @@
         <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length">
             <v-row>
-              <template v-if="!item.counted">
+              <template v-if="!item.counted && item.counted !== 0">
                 <v-col>
-                  <ConfirmButton :key="item._id" rounded block color="primary" @action="confirmInOut(item, 1)" :loading="confirming" :disabled="confirming">Full Points</ConfirmButton>
+                  <ConfirmButton :key="item._id" rounded block color="primary" @action="confirmInOut(item, 1)" :loading="confirming">Full Points</ConfirmButton>
                 </v-col>
                 <v-col>
-                  <ConfirmButton :key="item._id" rounded block color="primary" @action="confirmInOut(item, 0.5)" :loading="confirming" :disabled="confirming">Half Points</ConfirmButton>
+                  <ConfirmButton :key="item._id" rounded block color="primary" @action="confirmInOut(item, 0.5)" :loading="confirming">Half Points</ConfirmButton>
                 </v-col>
                 <v-col>
-                  <ConfirmButton :key="item._id" rounded block color="primary" @action="confirmInOut(item, 0)" :loading="confirming" :disabled="confirming">No Points</ConfirmButton>
+                  <ConfirmButton :key="item._id" rounded block color="primary" @action="confirmInOut(item, 0)" :loading="confirming">No Points</ConfirmButton>
                 </v-col>
               </template>
               <v-col v-else>
-                <v-btn rounded block color="primary" disabled>Counted Points: {{ item.counted }}</v-btn>
+                <ConfirmButton :key="item._id" rounded block color="primary" @action="undoInOut(item)" :loading="confirming">[<b>UNDO</b>] Counted Points: {{ item.counted }}</ConfirmButton>
               </v-col>
             </v-row>
           </td>
@@ -48,7 +48,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { activityInOuts, getActivity, confirmActivityInOut } from '@/utils/ekalayapi'
+  import { activityInOuts, getActivity, confirmActivityInOut, undoConActivityInOut } from '@/utils/ekalayapi'
   import { format, parseISO } from 'date-fns'
   import downloadCSV from '@/utils/downloadCSV'
 
@@ -112,10 +112,23 @@
       
       confirmInOut(entry, multiplier) {
         var entryCopy = entry
+        var index = this.inOutEntries.findIndex((val) => val === entry) + 1
         entryCopy.multiplier = multiplier
         this.confirming = true
         confirmActivityInOut(entryCopy, entry._id).then(async () => {
           this.$message('Successfully confirmed entry!', 'success')
+          await this.fetchData()
+          this.expanded = []
+          this.expanded.push(this.inOutEntries[index])
+          this.confirming = false
+        })
+      },
+      
+      undoInOut(entry) {
+        var entryCopy = entry
+        this.confirming = true
+        undoConActivityInOut(entryCopy, entry._id).then(async () => {
+          this.$message('Successfully removed points!', 'success')
           await this.fetchData()
           this.confirming = false
         })
