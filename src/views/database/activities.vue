@@ -44,6 +44,9 @@
                 <v-btn :key="item._id" rounded block color="primary" :to="`/database/activities/${item._id}`">View Entries</v-btn>
               </v-col>
               <v-col v-if="roles !== 0">
+                <v-btn :key="item._id" rounded block color="primary" :to="`/database/activities/${item._id}/process`">Process Entries</v-btn>
+              </v-col>
+              <v-col v-if="roles !== 0">
                 <ConfirmButton :key="item._id" color="red" block @action="deleteActivity(item)" :loading="deleting">Delete</ConfirmButton>
               </v-col>
             </v-row>
