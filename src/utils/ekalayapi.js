@@ -440,6 +440,13 @@ export function getActivity(id) {
   })
 }
 
+export function getActivityStatistics(id) {
+  return request({
+    url: `/activities/${id}/statistics`,
+    method: 'get'
+  })
+}
+
 export function createActivity(data) {
   return request({
     url: `/activities`,
@@ -468,6 +475,14 @@ export function activityInOuts(x, y) {
   var profile = y || ''
   return request({
     url: `/activityInOuts?activity=${activity}&profile=${profile}`,
+    method: 'get'
+  })
+}
+
+export function toProcessActivityInOuts(x) {
+  var activity = x || ''
+  return request({
+    url: `/activityInOuts?activity=${activity}&process=true`,
     method: 'get'
   })
 }

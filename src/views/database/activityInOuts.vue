@@ -1,9 +1,14 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
     <ActionsPanel v-if="roles !== 0">
-      <v-col>
-        <v-btn rounded color="primary" @click="exportCSV">Export CSV</v-btn>
-      </v-col>
+      <v-row>
+        <v-col>
+          <v-btn rounded block color="primary" :to="`/database/activities/${activity._id}/process`">Process Entries</v-btn>
+        </v-col>
+        <v-col>
+          <v-btn rounded block color="primary" @click="exportCSV">Export CSV</v-btn>
+        </v-col>
+      </v-row>
     </ActionsPanel>
     <v-card flat>
       <v-data-table :headers="headers" :items="inOutEntries" :single-expand="singleExpand" :expanded.sync="expanded"
@@ -20,17 +25,11 @@
             <v-row>
               <template v-if="!item.counted && item.counted !== 0">
                 <v-col>
-                  <ConfirmButton :key="item._id" rounded block color="primary" @action="confirmInOut(item, 1)" :loading="confirming">Full Points</ConfirmButton>
-                </v-col>
-                <v-col>
-                  <ConfirmButton :key="item._id" rounded block color="primary" @action="confirmInOut(item, 0.5)" :loading="confirming">Half Points</ConfirmButton>
-                </v-col>
-                <v-col>
-                  <ConfirmButton :key="item._id" rounded block color="primary" @action="confirmInOut(item, 0)" :loading="confirming">No Points</ConfirmButton>
+                  <ConfirmButton :key="item._id" rounded block color="primary" disabled>Counted Points: Not yet processed!</ConfirmButton>
                 </v-col>
               </template>
               <v-col v-else>
-                <ConfirmButton :key="item._id" rounded block color="primary" @action="undoInOut(item)" :loading="confirming">[<b>UNDO</b>] Counted Points: {{ item.counted }}</ConfirmButton>
+                <ConfirmButton :key="item._id" rounded block color="primary" @action="undoInOut(item)" :loading="confirming">Undo points processed (Points: {{ item.counted }})</ConfirmButton>
               </v-col>
             </v-row>
           </td>
@@ -48,7 +47,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { activityInOuts, getActivity, confirmActivityInOut, undoConActivityInOut } from '@/utils/ekalayapi'
+  import { activityInOuts, getActivity, undoConActivityInOut } from '@/utils/ekalayapi'
   import { format, parseISO } from 'date-fns'
   import downloadCSV from '@/utils/downloadCSV'
 
@@ -108,20 +107,6 @@
       },
       exportCSV() {
         downloadCSV(this.inOutEntries, `${this.activity.name}`)
-      },
-      
-      confirmInOut(entry, multiplier) {
-        var entryCopy = entry
-        var index = this.inOutEntries.findIndex((val) => val === entry) + 1
-        entryCopy.multiplier = multiplier
-        this.confirming = true
-        confirmActivityInOut(entryCopy, entry._id).then(async () => {
-          this.$message('Successfully confirmed entry!', 'success')
-          await this.fetchData()
-          this.expanded = []
-          this.expanded.push(this.inOutEntries[index])
-          this.confirming = false
-        })
       },
       
       undoInOut(entry) {

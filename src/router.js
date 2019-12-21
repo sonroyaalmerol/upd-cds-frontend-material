@@ -1,6 +1,6 @@
-import Vue from 'vue'
-import Router from 'vue-router'
 import Layout from './Layout'
+import Router from 'vue-router'
+import Vue from 'vue'
 
 Vue.use(Router)
 
@@ -177,6 +177,16 @@ export default new Router({
           name: 'Activities',
           meta: {
             title: 'Activities',
+            roles: [1, 2]
+          },
+          hidden: true
+        },
+        {
+          path: 'activities/:activityId/process',
+          component: () => import('@/views/database/activityInOutsProcess'),
+          name: 'Unprocessed Entries',
+          meta: {
+            title: 'Unprocessed Entries',
             roles: [1, 2]
           },
           hidden: true
