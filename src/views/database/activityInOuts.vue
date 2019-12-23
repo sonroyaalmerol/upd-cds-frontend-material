@@ -25,14 +25,20 @@
             <v-row>
               <template v-if="!item.counted && item.counted !== 0">
                 <v-col>
-                  <ConfirmButton :key="item._id" rounded block color="primary" disabled>Counted Points: Not yet processed!</ConfirmButton>
+                  <ConfirmButton :key="item._id" rounded block color="primary" disabled>Not yet processed!</ConfirmButton>
                 </v-col>
               </template>
               <v-col v-else>
-                <ConfirmButton :key="item._id" rounded block color="primary" @action="undoInOut(item)" :loading="confirming">Undo points processed (Points: {{ item.counted }})</ConfirmButton>
+                <ConfirmButton :key="item._id" rounded block color="primary" @action="undoInOut(item)" :loading="confirming">Undo points</ConfirmButton>
               </v-col>
             </v-row>
           </td>
+        </template>
+        <template v-slot:item.counted="{ value }">
+          <template v-if="value">
+            <b>{{ value }}</b> / {{ activity.points }}
+          </template>
+          <template v-else>N/A</template>
         </template>
         <template v-slot:item.in="{ value }">
           {{ parseTimestamp(value) }}
@@ -143,6 +149,10 @@
           {
             text: 'Out Timestamp',
             value: 'out'
+          },
+          {
+            text: 'Points',
+            value: 'counted'
           },
           {
             text: '',

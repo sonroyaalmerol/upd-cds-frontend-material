@@ -293,9 +293,10 @@ export function updatePIS(data, id) {
   })
 }
 
-export function inoutentries(profileId, page) {
+export function inoutentries(profileId, page, a) {
+  var all = a || ''
   return request({
-    url: `/inoutentries?profileId=${profileId}&page=${page}`,
+    url: `/inoutentries?profileId=${profileId}${all ? '&all=true' : `&page=${page}`}`,
     method: 'get'
   })
 }

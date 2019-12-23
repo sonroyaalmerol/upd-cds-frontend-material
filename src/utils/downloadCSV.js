@@ -1,5 +1,5 @@
-import Papa from 'papaparse'
 import FileSaver from 'file-saver'
+import Papa from 'papaparse'
 import flatten from 'flat'
 import { format } from 'date-fns'
 
@@ -10,6 +10,9 @@ export default (array, filename) => {
     Object.keys(init).forEach((obj) => {
       if (dateKeys.includes(obj)) {
         init[obj] = init[obj] ? format(new Date(init[obj]), 'MM-dd-yyyy (hh:mm a)') : 'N/A'
+      }
+      if (obj === 'status') {
+        init[obj] = init[obj] ? 'IN' : 'OUT'
       }
     })
     return init

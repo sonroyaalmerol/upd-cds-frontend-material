@@ -45,11 +45,16 @@
                 <v-btn :key="item._id" rounded block color="primary" :to="`/database/accountabilities/${item._id}`">Accountabilities</v-btn>
               </v-col>
               <v-col>
+                <v-btn :key="item._id" rounded block color="primary" :to="`/inoutentries/${item._id}`">In/Out Entries</v-btn>
+              </v-col>
+              <v-col>
                 <ProfileForm :key="item._id" block :profile="item" @done="fetchData()" />
               </v-col>
               <v-col>
                 <PISForm :key="item._id" block :pisId="item._pis" />
               </v-col>
+            </v-row>
+            <v-row>
               <v-col v-if="item.userId">
                 <ConfirmButton :key="item._id" block color="red" @action="resetAcc(item)" :loading="resetting">Reset Account</ConfirmButton>
               </v-col>

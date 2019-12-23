@@ -1,5 +1,10 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
+    <ActionsPanel v-if="roles !== 0">
+      <v-col>
+        <v-btn rounded color="primary" :loading="exporting" @click="exportCSV">Export CSV</v-btn>
+      </v-col>
+    </ActionsPanel>
     <v-card flat>
       <v-data-table :headers="headers" :items="inoutentries" item-key="_id" :loading="loading" disable-filtering disable-pagination disable-sort hide-default-footer>
         <template v-slot:item.timestamp="{ value }">
@@ -29,8 +34,14 @@
   import { mapGetters } from 'vuex'
   import { inoutentries } from '@/utils/ekalayapi'
   import { format, parseISO } from 'date-fns'
+  import downloadCSV from '@/utils/downloadCSV'
+
+  const ActionsPanel = () => import('@/components/database/ActionsPanel')
 
   export default {
+    components: {
+      ActionsPanel
+    },
     methods: {
       parseTimestamp(timestamp) {
         return format(parseISO(timestamp), 'MMMM d, yyyy | h:mm a')
@@ -48,7 +59,14 @@
           this.$message('Resident ID not found. Please try again!', 'error')
         }
         this.loading = false
-      }
+      },
+      exportCSV() {
+        this.exporting = true
+        inoutentries(this.$route.params.profileId, this.page, true).then((res) => {
+          downloadCSV(res, 'inoutentries')
+          this.exporting = false
+        })
+      },
     },
     computed: {
       ...mapGetters([
@@ -80,7 +98,8 @@
         inoutentries: [],
         page: 1,
         entriesPerPage: 10,
-        totalDocs: 0
+        totalDocs: 0,
+        exporting: false
       }
     },
     activated() {
