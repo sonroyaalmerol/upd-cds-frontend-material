@@ -14,7 +14,8 @@ const user = {
     avatar: '',
     roles: null,
     isAthletePerformer: false,
-    isCouncil: false
+    isCouncil: false,
+    inOut: true
   },
 
   mutations: {
@@ -53,6 +54,9 @@ const user = {
     },
     SET_IS_COUNCIL: (state, isCouncil) => {
       state.isCouncil = isCouncil
+    },
+    SET_IN_OUT: (state, inOut) => {
+      state.inOut = inOut
     }
   },
 
@@ -84,6 +88,9 @@ const user = {
           commit('SET_LAST_NAME', profile.lastName)
           commit('SET_IS_ATHLETE_PERFORMER', profile.isAthletePerformer)
           commit('SET_IS_COUNCIL', profile.isCouncil)
+          if (profile._inout) {
+            commit('SET_IN_OUT', profile._inout.status)
+          }
           if ('displayPhoto' in profile) {
             if (profile.displayPhoto) {
               commit('SET_AVATAR', profile.displayPhoto)
@@ -113,6 +120,7 @@ const user = {
       commit('SET_IS_ATHLETE_PERFORMER', false)
       commit('SET_IS_COUNCIL', false)
       commit('SET_AVATAR', '')
+      commit('SET_IN_OUT', true)
       remove_token()
     },
 

@@ -14,6 +14,7 @@ const getters = {
   krhid: state => state.user.krhid,
   profileid: state => state.user.profileid,
   isAthletePerformer: state => state.user.isAthletePerformer,
-  isCouncil: state => state.user.isCouncil
+  isCouncil: state => state.user.isCouncil,
+  inOut: state => state.user.inOut
 }
 export default getters

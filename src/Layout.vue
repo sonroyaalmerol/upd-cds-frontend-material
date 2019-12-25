@@ -25,6 +25,13 @@
         @click.stop="drawerRight = !drawerRight">
         <v-icon>mdi-bell</v-icon>
       </v-btn>
+
+      <v-tooltip v-if="$route.path !== '/login' && $route.path !== '/register'" bottom>
+        <template v-slot:activator="{ on }">
+          <v-avatar class="mx-3" v-on="on" :color="inOutColor" size="16" />
+        </template>
+        <span>You are {{ inOut ? 'IN' : 'OUT' }}!</span>
+      </v-tooltip>
       
       <UserMenu />
 
@@ -80,7 +87,8 @@
     }),
     computed: {
       ...mapGetters([
-        'token'
+        'token',
+        'inOut'
       ]),
       appBarGradient() {
         return 'to top right, rgba(66,66,66,1), rgba(0,0,0,.8)'
@@ -93,6 +101,9 @@
       },
       path() {
         return this.$route.path
+      },
+      inOutColor() {
+        return this.inOut ? 'green' : 'red'
       }
     },
     watch: {
