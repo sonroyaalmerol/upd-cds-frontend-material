@@ -12,6 +12,7 @@
     <PrivacyPolicy v-model="privacy" />
     <SupportDevelopment v-model="support" />
     <ProfileForm v-model="profile" />
+    <ThemePicker v-model="themePicker" />
     <v-list rounded class="overflow-y-auto">
       <v-list-item>
         <v-list-item-title>{{ first_name }} {{ last_name }} ({{ role }})</v-list-item-title>
@@ -27,9 +28,12 @@
         <v-list-item-title>Support Development</v-list-item-title>
       </v-list-item>
       <v-divider class="mb-2" />
+      <v-list-item @click.stop="themePicker = true">
+        <v-list-item-title><v-avatar class="mr-2" :color="$vuetify.theme.themes[this.theme].primary" size="25" /> Change Primary Color</v-list-item-title>
+      </v-list-item>
       <v-list-item @click.stop="toggleDarkMode">
-        <v-list-item-title v-if="$vuetify.theme.dark">Disable Dark Mode</v-list-item-title>
-        <v-list-item-title v-else>Enable Dark Mode</v-list-item-title>
+        <v-list-item-title v-if="$vuetify.theme.dark"><v-icon class="mr-2">mdi-weather-sunny</v-icon> Disable Dark Mode</v-list-item-title>
+        <v-list-item-title v-else><v-icon class="mr-2">mdi-weather-night</v-icon> Enable Dark Mode</v-list-item-title>
       </v-list-item>
       <v-divider class="mb-2" />
       <v-list-item @click.stop="logout">
@@ -41,17 +45,19 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { getDarkMode, setDarkMode } from '@/utils/ekalayapi'
+  import { getTheme, setTheme } from '@/utils/ekalayapi'
 
   const PrivacyPolicy = () => import('@/components/layout/PrivacyPolicy')
   const SupportDevelopment = () => import('@/components/layout/SupportDevelopment')
   const ProfileForm = () => import('@/components/layout/ProfileForm')
+  const ThemePicker = () => import('@/components/layout/ThemePicker')
 
   export default {
     components: {
       PrivacyPolicy,
       SupportDevelopment,
-      ProfileForm
+      ProfileForm,
+      ThemePicker
     },
     name: 'App',
     computed: {
@@ -73,24 +79,33 @@
             return 'Dorm Manager'
         }
         return this.upid
+      },
+      theme() {
+        return (this.$vuetify.theme.dark) ? 'dark' : 'light'
       }
     },
     created() {
       if (this.uid) {
-        this.getDarkMode()
+        this.getTheme()
       }
     },
     watch: {
       uid(next) {
         if(next !== '') {
-          this.getDarkMode()
+          this.getTheme()
+        }
+      },
+      themePicker(next) {
+        if(next === false) {
+          setTheme({ darkMode: this.$vuetify.theme.dark, primaryColor: this.$vuetify.theme.themes[this.theme].primary })
         }
       }
     },
     data: () => ({
       privacy: false,
       support: false,
-      profile: false
+      profile: false,
+      themePicker: false
     }),
     methods: {
       logout() {
@@ -98,13 +113,14 @@
         location.reload()
       },
       toggleDarkMode() {
-        setDarkMode({ darkMode: !this.$vuetify.theme.dark }).then(() => {
+        setTheme({ darkMode: !this.$vuetify.theme.dark, primaryColor: this.$vuetify.theme.themes[this.theme].primary }).then(() => {
           this.$vuetify.theme.dark = !this.$vuetify.theme.dark
         })
       },
-      getDarkMode() {
-        getDarkMode().then((res) => {
-          this.$vuetify.theme.dark = res
+      getTheme() {
+        getTheme().then((res) => {
+          this.$vuetify.theme.dark = res.darkMode
+          this.$vuetify.theme.themes[this.theme].primary = res.primaryColor
         })
       },
     }

@@ -35,16 +35,16 @@ export function getInfo() {
   })
 }
 
-export function getDarkMode() {
+export function getTheme() {
   return request({
-    url: '/setting/color',
+    url: '/setting/theme',
     method: 'get'
   })
 }
 
-export function setDarkMode(data) {
+export function setTheme(data) {
   return request({
-    url: '/setting/color',
+    url: '/setting/theme',
     method: 'post',
     data
   })
