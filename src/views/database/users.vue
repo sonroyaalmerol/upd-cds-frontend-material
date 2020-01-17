@@ -51,7 +51,7 @@
                 <ProfileForm :key="item._id" block :profile="item" @done="fetchData()" />
               </v-col>
               <v-col>
-                <PISForm :key="item._id" block :pisId="item._pis" :profileId="item._id" />
+                <PISForm :key="item._id" block :pisId="item._pis" :profileId="item._id" @done="fetchData()" />
               </v-col>
             </v-row>
             <v-row>
