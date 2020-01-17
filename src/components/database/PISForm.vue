@@ -48,6 +48,10 @@
       block: {
         type: Boolean,
         default: false
+      },
+      profileId: {
+        type: String,
+        default: ''
       }
     },
     data: () => ({
@@ -73,6 +77,9 @@
         getPISById(this.pisId).then((res) => {
           this.loading = false
           this.pisForm = res
+          if (!this.pisForm._resident) {
+            this.pisForm._resident = this.profileId
+          }
         })
       }
     },
