@@ -1,14 +1,14 @@
 <template>
   <v-navigation-drawer v-if="$route.path !== '/login' && $route.path !== '/register'" v-model="localDrawer" app
     clipped right>
-    <v-card v-if="notifications.length === 0" flat hover outlined tile :loading="loading">
+    <v-card v-if="notifications.length === 0" flat hover outlined tile :loading="loading" color="#363636">
       <v-card-text>
         No notifications
       </v-card-text>
     </v-card>
     <template v-else>
       <template v-for="notification in notifications">
-        <v-card :key="notification._id" flat hover outlined tile>
+        <v-card :key="notification._id" flat hover outlined tile color="#363636">
           <v-card-text>
             <div>
               <b>{{ notification.title }}</b>
