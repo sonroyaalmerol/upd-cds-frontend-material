@@ -1,5 +1,18 @@
 <template>
   <v-container-refresh :on-refresh="onRefresh">
+    <HowPWA v-model="howpwa" />
+    <v-row>
+      <v-col>
+        <v-alert
+          icon="mdi-cellphone-information"
+          prominent
+          text
+          type="info"
+        >
+          Did you know? You can add this website to your home screen for it to function like a mobile app. Click <a @click="howpwa = true">here</a> to learn more!
+        </v-alert>
+      </v-col>
+    </v-row>
     <v-row v-if="roles === 0">
       <Forms ref="formsComponent" />
     </v-row>
@@ -54,6 +67,7 @@
   const ViolationsTable = () => import('@/components/dashboard/ViolationsTable')
   const DirectivesTable = () => import('@/components/dashboard/DirectivesTable')
   const Forms = () => import('@/components/dashboard/Forms')
+  const HowPWA = () => import('@/components/layout/HowPWA')
 
   import { permits, violations, accountabilities, directives } from '@/utils/ekalayapi'
   import { mapGetters } from 'vuex'
@@ -66,7 +80,8 @@
       PermitsTable,
       ViolationsTable,
       DirectivesTable,
-      Forms
+      Forms,
+      HowPWA
     },
     data: function() {
       return {
@@ -85,7 +100,8 @@
         accountabilities: [],
         violations: [],
         directives: [],
-        returnedkey: true
+        returnedkey: true,
+        howpwa: false
       }
     },
     activated() {

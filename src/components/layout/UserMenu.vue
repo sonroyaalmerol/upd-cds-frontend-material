@@ -9,6 +9,7 @@
         </v-avatar>
       </v-btn>
     </template>
+    <HowPWA v-model="howpwa" />
     <PrivacyPolicy v-model="privacy" />
     <SupportDevelopment v-model="support" />
     <ProfileForm v-model="profile" />
@@ -19,6 +20,10 @@
       </v-list-item>
       <v-list-item v-if="roles === 0" @click.stop="profile = true">
         <v-list-item-title>Edit Student Profile</v-list-item-title>
+      </v-list-item>
+      <v-divider class="mb-2" />
+      <v-list-item @click.stop="howpwa = true">
+        <v-list-item-title>Mobile App</v-list-item-title>
       </v-list-item>
       <v-divider class="mb-2" />
       <v-list-item @click.stop="privacy = true">
@@ -51,13 +56,15 @@
   const SupportDevelopment = () => import('@/components/layout/SupportDevelopment')
   const ProfileForm = () => import('@/components/layout/ProfileForm')
   const ThemePicker = () => import('@/components/layout/ThemePicker')
+  const HowPWA = () => import('@/components/layout/HowPWA')
 
   export default {
     components: {
       PrivacyPolicy,
       SupportDevelopment,
       ProfileForm,
-      ThemePicker
+      ThemePicker,
+      HowPWA
     },
     name: 'App',
     computed: {
@@ -105,7 +112,8 @@
       privacy: false,
       support: false,
       profile: false,
-      themePicker: false
+      themePicker: false,
+      howpwa: false,
     }),
     methods: {
       logout() {
