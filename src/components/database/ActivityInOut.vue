@@ -25,6 +25,7 @@
 
 <script>
   import { activityInEntry, activityOutEntry } from '@/utils/ekalayapi'
+  import { format } from 'date-fns'
 
   export default {
     components: {
@@ -58,7 +59,7 @@
         activityInEntry({ _activity, krhid, timestamp }).then(() => {
           this.krhid = ''
           this.$refs.krhidIn.$el.focus()
-          this.$message(`IN entry added for ${krhid} (${timestamp})`, 'success')
+          this.$message(`IN entry added for ${krhid} (${format(timestamp, 'MMMM d, yyyy, h:mm a')})`, 'success')
         }).catch(() => {
           this.krhid = ''
           this.$refs.krhidIn.$el.focus()
@@ -71,7 +72,7 @@
         activityOutEntry({ _activity, krhid, timestamp }).then(() => {
           this.krhid = ''
           this.$refs.krhidOut.$el.focus()
-          this.$message(`OUT entry added for ${krhid} (${timestamp})`, 'success')
+          this.$message(`OUT entry added for ${krhid} (${format(timestamp, 'MMMM d, yyyy, h:mm a')})`, 'success')
         }).catch(() => {
           this.krhid = ''
           this.$refs.krhidOut.$el.focus()

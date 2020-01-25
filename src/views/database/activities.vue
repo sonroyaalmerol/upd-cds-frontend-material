@@ -40,11 +40,16 @@
               <v-col>
                 <ActivityInOut :key="item._id" out block :activityId="item._id" />
               </v-col>
+            </v-row>
+            <v-row>
               <v-col v-if="roles !== 0">
                 <v-btn :key="item._id" rounded block color="primary" :to="`/database/activities/${item._id}`">View Entries</v-btn>
               </v-col>
               <v-col v-if="roles !== 0">
                 <v-btn :key="item._id" rounded block color="primary" :to="`/database/activities/${item._id}/process`">Process Entries</v-btn>
+              </v-col>
+              <v-col v-if="roles !== 0">
+                <ActivityForm :key="item._id" :activityId="item._id" block @done="fetchData()" />
               </v-col>
               <v-col v-if="roles !== 0">
                 <ConfirmButton :key="item._id" color="red" block @action="deleteActivity(item)" :loading="deleting">Delete</ConfirmButton>
