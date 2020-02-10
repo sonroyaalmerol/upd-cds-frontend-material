@@ -58,11 +58,13 @@
           permit.dataOne = format(parseISO(permit.dataOne), 'MMMM d, yyyy') + ' - ' + format(parseISO(permit.dataTwo), 'MMMM d, yyyy')
         } else if (permit.permitType === 2) {
           permit.dataOne = format(parseISO(permit.dataTwo), 'h:mm a') + ', ' + format(parseISO(permit.dataOne), 'MMMM d, yyyy')
+        } else if (permit.permitType === 5) {
+          permit.dataOne = format(parseISO(permit.dataTwo), 'h:mm a') + ' the next day, ' + format(parseISO(permit.dataOne), 'MM/dd/yyyy')
         }
       },
       fetchData: async function() {
-        const res = await Promise.all([permits(0), permits(1), permits(2)])
-        this.laten = res[0]
+        const res = await Promise.all([permits(0), permits(1), permits(2), permits(5)])
+        this.laten = [...res[0], ...res[3]]
         this.overn = res[1]
         this.earlym = res[2]
         this.lnLoading = false

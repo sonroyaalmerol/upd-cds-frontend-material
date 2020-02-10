@@ -9,13 +9,13 @@
           <v-row>
             <v-col>
               <DatePicker v-if="permitType === 1" v-model="form.dataOne" label="Start Date" />
-              <DatePicker v-else-if="permitType !== 3 && permitType !== 4" v-model="form.dataOne" label="Date" />
+              <DatePicker v-else-if="(permitType !== 3 && permitType !== 4) || isSpecial" v-model="form.dataOne" label="Date" />
 
-              <DatePicker v-else-if="permitType === 3 || permitType === 4" v-model="form.dataOne" label="Start Date" />
+              <DatePicker v-else-if="(permitType === 3 || permitType === 4) && !isSpecial" v-model="form.dataOne" label="Start Date" />
             </v-col>
             <v-col>
               <DatePicker v-if="permitType === 1" v-model="form.dataTwo" label="End Date" />
-              <TimePicker v-else-if="permitType !== 3 && permitType !== 4" v-model="form.dataTwo" label="Time" />
+              <TimePicker v-else-if="(permitType !== 3 && permitType !== 4) || isSpecial" v-model="form.dataTwo" label="Time" :disabled="isSpecial" :key="`data1Timepicker`" />
 
               <DatePicker v-else-if="permitType === 3 || permitType === 4" v-model="form.dataOne2" label="End Date" />
             </v-col>
@@ -23,17 +23,17 @@
         </template>
         <template v-else>
           <DatePicker v-if="permitType === 1" v-model="form.dataOne" label="Start Date" />
-          <DatePicker v-else-if="permitType !== 3 && permitType !== 4" v-model="form.dataOne" label="Date" />
-          <DatePicker v-else-if="permitType === 3 || permitType === 4" v-model="form.dataOne" label="Start Date" />
+          <DatePicker v-else-if="(permitType !== 3 && permitType !== 4) || isSpecial" v-model="form.dataOne" label="Date" />
+          <DatePicker v-else-if="(permitType === 3 || permitType === 4) && !isSpecial" v-model="form.dataOne" label="Start Date" />
 
           <DatePicker v-if="permitType === 1" v-model="form.dataTwo" label="End Date" />
-          <TimePicker v-else-if="permitType !== 3 && permitType !== 4" v-model="form.dataTwo" label="Time" />
-          <DatePicker v-else-if="permitType === 3 || permitType === 4" v-model="form.dataOne2" label="End Date" />
+          <TimePicker v-else-if="(permitType !== 3 && permitType !== 4) || isSpecial" v-model="form.dataTwo" label="Time" :disabled="isSpecial" :key="`data1Timepicker`" />
+          <DatePicker v-else-if="(permitType === 3 || permitType === 4) && !isSpecial" v-model="form.dataOne2" label="End Date" />
         </template>
-        <TimePicker v-if="permitType === 3 || permitType === 4" v-model="form.dataTwo" label="Time" />
-
-        <v-text-field rounded outlined v-model="form.location" label="Location" required></v-text-field>
-        <v-text-field rounded outlined v-model="form.reason" label="Reason" required></v-text-field>
+        <TimePicker v-if="(permitType === 3 || permitType === 4) && !isSpecial" v-model="form.dataTwo" label="Time" :key="`data2Timepicker`"/>
+        <v-switch v-if="permitType === 0 || permitType === 3" v-model="isSpecial" inset :label="'Special UP Fair Late Night'"></v-switch>
+        <v-text-field rounded outlined v-model="form.location" label="Location" :disabled="isSpecial" required></v-text-field>
+        <v-text-field rounded outlined v-model="form.reason" label="Reason" :disabled="isSpecial" required></v-text-field>
         <v-text-field rounded outlined v-model="form.notes" label="Remarks"></v-text-field>
         <v-btn rounded :disabled="!valid" color="success" class="mr-4 mt-2" @click="onSubmit">
           Apply Permit
@@ -83,11 +83,30 @@
           upid: '',
           permitType: 0
         },
+        isSpecial: false,
         valid: true,
         submitting: false,
         upidRules: [
           v => !!v || 'Student Number is required',
         ],
+      }
+    },
+    watch: {
+      isSpecial: function (val) {
+        this.form.dataTwo = new Date()
+        if (val) {
+          this.form.dataTwo = this.form.dataTwo.setHours(2, 0, 0, 0)
+          this.form.reason = 'UP Fair'
+          this.form.location = 'Sunken Garden'
+        } else {
+          if (this.permitType === 0 || this.permitType === 3) {
+            this.form.dataTwo = this.form.dataTwo.setHours(23, 59, 59, 99)
+          } else if (this.permitType === 2 || this.permitType === 4) {
+            this.form.dataTwo = this.form.dataTwo.setHours(0, 1, 0, 0)
+          }
+          this.form.reason = ''
+          this.form.location = ''
+        }
       }
     },
     props: {
@@ -100,6 +119,7 @@
         }
       },
       defaults() {
+        this.isSpecial = false
         this.form.location = ''
         this.form.reason = ''
         this.form.notes = ''
@@ -121,7 +141,10 @@
       onSubmit() {
         this.form.permitType = this.permitType
         this.submitting = true
-
+        if (this.isSpecial) {
+          // UP Fair
+          this.form.permitType = 5
+        }
         applyPermit(this.form).then(() => {
           if (this.roles !== 0) {
             this.$message('Successfully submitted permit! You may now process this permit.', 'success')

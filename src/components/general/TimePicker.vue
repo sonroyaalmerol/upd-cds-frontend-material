@@ -1,10 +1,10 @@
 <template>
   <v-dialog ref="dialog" v-model="modal" :return-value.sync="localPicker" persistent width="290px">
     <template v-slot:activator="{ on }">
-      <v-text-field rounded outlined clearable v-model="computedTimeFormatted" :label="label" prepend-icon="mdi-clock" readonly v-on="on" required>
+      <v-text-field rounded outlined :clearable="!disabled" v-model="computedTimeFormatted" :label="label" prepend-icon="mdi-clock" readonly v-on="on" required>
       </v-text-field>
     </template>
-    <v-time-picker v-if="modal" v-model="localPicker" full-width ampm-in-title>
+    <v-time-picker v-if="modal" v-model="localPicker" :disabled="disabled" full-width ampm-in-title>
       <v-spacer></v-spacer>
       <v-btn rounded text color="primary" @click="modal = false">Cancel</v-btn>
       <v-btn rounded text color="primary" @click="$refs.dialog.save(localPicker)">OK</v-btn>
@@ -19,6 +19,10 @@
     props: {
       value: {
         required: true
+      },
+      disabled: {
+        type: Boolean,
+        default: false
       },
       label: String
     },

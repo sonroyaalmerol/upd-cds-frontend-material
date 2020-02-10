@@ -94,6 +94,8 @@
           permit.dataOne = format(parseISO(permit.dataOne), 'MMMM d, yyyy') + ' - ' + format(parseISO(permit.dataTwo), 'MMMM d, yyyy')
         } else if (permit.permitType === 2) {
           permit.dataOne = format(parseISO(permit.dataTwo), 'h:mm a') + ', ' + format(parseISO(permit.dataOne), 'MMMM d, yyyy')
+        } else if (permit.permitType === 5) {
+          permit.dataOne = format(parseISO(permit.dataTwo), 'h:mm a') + ' the next day, ' + format(parseISO(permit.dataOne), 'MM/dd/yyyy')
         }
       },
       integerToSymbols(bool) {
@@ -107,7 +109,14 @@
       },
       fetchData: async function() {
         this.loading = true
-        this.permits = await permits(this.permitType)
+        if (this.permitType === 0) {
+          var ln = await permits(this.permitType)
+          var ln_special = await permits(5)
+          this.permits = [...ln, ...ln_special]
+        } else {
+          this.permits = await permits(this.permitType)
+        }
+        
         Promise.all(this.permits.map(this.sortPermits)).then(() => {
           this.loading = false
         }).catch(() => {

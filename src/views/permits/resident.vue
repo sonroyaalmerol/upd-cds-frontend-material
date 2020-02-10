@@ -92,6 +92,8 @@
           toOutput.dataOne = format(parseISO(permit.dataOne), 'MMMM d, yyyy') + ' - ' + format(parseISO(permit.dataTwo), 'MMMM d, yyyy')
         } else if (permit.permitType === 2) {
           toOutput.dataOne = format(parseISO(permit.dataTwo), 'h:mm a') + ', ' + format(parseISO(permit.dataOne), 'MMMM d, yyyy')
+        } else if (permit.permitType === 5) {
+          toOutput.dataOne = format(parseISO(permit.dataTwo), 'h:mm a') + ' the next day, ' + format(parseISO(permit.dataOne), 'MMMM d, yyyy')
         }
         toOutput.timestamp = format(parseISO(permit.timestamp), 'MMMM d, yyyy | h:mm a')
         this.permits.push(toOutput)
