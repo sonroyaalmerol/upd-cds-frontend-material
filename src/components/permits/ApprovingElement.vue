@@ -13,7 +13,7 @@
           </v-chip>
           <div class="text--primary mb-3">{{ data.reason }} (<b>{{ data.location }}</b>)</div>
           <div class="text--primary">Leave alone: {{ booleanToSymbols(data._resident._pis.leave) }}</div>
-          <div v-if="data.permitType === 0" class="text--primary">Late Night: {{ booleanToSymbols(data._resident._pis.lateNight) }}</div>
+          <div v-if="data.permitType === 0 || data.permitType === 5" class="text--primary">Late Night: {{ booleanToSymbols(data._resident._pis.lateNight) }}</div>
           <template v-else-if="data.permitType === 1">
             <div>Overnight: {{ booleanToSymbols(data._resident._pis.overnight) }}</div>
           </template>
