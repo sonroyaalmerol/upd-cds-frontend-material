@@ -31,7 +31,7 @@
           <DatePicker v-else-if="(permitType === 3 || permitType === 4) && !isSpecial" v-model="form.dataOne2" label="End Date" />
         </template>
         <TimePicker v-if="(permitType === 3 || permitType === 4) && !isSpecial" v-model="form.dataTwo" label="Time" :key="`data2Timepicker`"/>
-        <v-switch v-if="permitType === 0 || permitType === 3" v-model="isSpecial" inset :label="'Special UP Fair Late Night'"></v-switch>
+        <v-switch v-if="(permitType === 0 || permitType === 3) && isUPFairSeason" v-model="isSpecial" inset :label="'Special UP Fair Late Night'"></v-switch>
         <v-text-field rounded outlined v-model="form.location" label="Location" :disabled="isSpecial" required></v-text-field>
         <v-text-field rounded outlined v-model="form.reason" label="Reason" :disabled="isSpecial" required></v-text-field>
         <v-text-field rounded outlined v-model="form.notes" label="Remarks"></v-text-field>
@@ -51,7 +51,7 @@
   const TimePicker = () => import('@/components/general/TimePicker')
   const DatePicker = () => import('@/components/general/DatePicker')
   import { mapGetters } from 'vuex'
-  import { applyPermit } from '@/utils/ekalayapi'
+  import { applyPermit, getGlobalSetting } from '@/utils/ekalayapi'
   import { isBefore, setMilliseconds, setSeconds, setMinutes, setHours } from 'date-fns'
 
   export default {
@@ -59,7 +59,9 @@
       TimePicker,
       DatePicker
     },
-    created() {
+    async created() {
+      const setting = await getGlobalSetting()
+      this.isUPFairSeason = setting.enableUPFairPermits
       this.defaults()
     },
     computed: {
@@ -86,6 +88,7 @@
         isSpecial: false,
         valid: true,
         submitting: false,
+        isUPFairSeason: false,
         upidRules: [
           v => !!v || 'Student Number is required',
         ],

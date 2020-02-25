@@ -14,6 +14,7 @@
     <SupportDevelopment v-model="support" />
     <ProfileForm v-model="profile" />
     <ThemePicker v-model="themePicker" />
+    <GlobalSettings v-model="globalSettings" />
     <v-list rounded class="overflow-y-auto">
       <v-list-item>
         <v-list-item-title>{{ first_name }} {{ last_name }} ({{ role }})</v-list-item-title>
@@ -40,6 +41,10 @@
         <v-list-item-title v-if="$vuetify.theme.dark"><v-icon class="mr-2">mdi-weather-sunny</v-icon> Disable Dark Mode</v-list-item-title>
         <v-list-item-title v-else><v-icon class="mr-2">mdi-weather-night</v-icon> Enable Dark Mode</v-list-item-title>
       </v-list-item>
+      <v-divider v-if="roles === 2" class="mb-2" />
+      <v-list-item v-if="roles === 2" @click.stop="globalSettings = true">
+        <v-list-item-title><v-icon class="mr-2">mdi-settings</v-icon> Global Settings (DM Only)</v-list-item-title>
+      </v-list-item>
       <v-divider class="mb-2" />
       <v-list-item @click.stop="logout">
         <v-list-item-title>Log Out</v-list-item-title>
@@ -56,6 +61,7 @@
   const SupportDevelopment = () => import('@/components/layout/SupportDevelopment')
   const ProfileForm = () => import('@/components/layout/ProfileForm')
   const ThemePicker = () => import('@/components/layout/ThemePicker')
+  const GlobalSettings = () => import('@/components/layout/GlobalSettings')
   const HowPWA = () => import('@/components/layout/HowPWA')
 
   export default {
@@ -64,6 +70,7 @@
       SupportDevelopment,
       ProfileForm,
       ThemePicker,
+      GlobalSettings,
       HowPWA
     },
     name: 'App',
@@ -114,6 +121,7 @@
       profile: false,
       themePicker: false,
       howpwa: false,
+      globalSettings: false,
     }),
     methods: {
       logout() {

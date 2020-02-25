@@ -10,7 +10,7 @@
         <v-card-text>
           <b>General Rules</b>
           <ul>
-            <li>The cut-off time for the online permits is 4:00 pm.</li>
+            <li>The cut-off time for the online permits is {{ deadline }}.</li>
             <li>All permits not filed by that time will be queued for the next day unless it's Friday.</li>
             <li>The online permits are closed during weekends.</li>
           </ul>
@@ -35,9 +35,18 @@
 </template>
 
 <script>
+  import { getGlobalSetting } from '@/utils/ekalayapi'
+  import { format } from 'date-fns'
+
   export default {
+    created() {
+      getGlobalSetting().then((res) => {
+        this.deadline = format(new Date(res.permitCutOffTime), 'h:mm a')
+      })
+    },
     data() {
       return {
+        deadline: '',
         show: false
       }
     },

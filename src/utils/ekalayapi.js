@@ -35,6 +35,28 @@ export function getInfo() {
   })
 }
 
+export function getGlobalSetting() {
+  return request({
+    url: '/setting/global',
+    method: 'get'
+  })
+}
+
+export function changeGlobalSetting(data) {
+  return request({
+    url: '/setting/global',
+    method: 'post',
+    data
+  })
+}
+
+export function getGlobalSettingHistory() {
+  return request({
+    url: '/setting/global/history',
+    method: 'get'
+  })
+}
+
 export function getTheme() {
   return request({
     url: '/setting/theme',
