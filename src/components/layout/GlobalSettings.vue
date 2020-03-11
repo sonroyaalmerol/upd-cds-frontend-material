@@ -8,6 +8,7 @@
         <v-container>
           <TimePicker v-model="form.permitCutOffTime" label="Permits Cut-off Time" />
           <TimePicker v-model="form.lateNightTime" label="Late Night Time" />
+          <NumberField v-model="form.onPermitLimit" label="Overnight Permit Days Limit" />
           <v-switch color="primary" v-model="form.enableUPFairPermits"
             label="Enable UP Fair Permits">
           </v-switch>
@@ -28,9 +29,12 @@
   import { getGlobalSetting, changeGlobalSetting } from '@/utils/ekalayapi'
 
   const TimePicker = () => import('@/components/general/TimePicker')
+  const NumberField = () => import('@/components/general/NumberField')
+
   export default {
     components: {
-      TimePicker
+      TimePicker,
+      NumberField
     },
     props: {
       value: {
@@ -82,6 +86,7 @@
         lateNightTime: set(new Date(), {
           month: 0, date: 1, year: 1970, hours: 22, minutes: 0, seconds: 0, milliseconds: 0
         }),
+        onPermitLimit: 5,
         _manager: ''
       },
       loading: false
