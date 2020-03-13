@@ -28,6 +28,7 @@
         <template v-slot:top>
           <v-toolbar flat>
             <v-spacer></v-spacer>
+            <v-btn class="mr-4" rounded color="primary" :loading="exportingDb" @click="exportDb">Export</v-btn>
             <v-text-field rounded outlined v-model="search" append-icon="mdi-account-search" label="Search" single-line hide-details>
             </v-text-field>
           </v-toolbar>
@@ -132,6 +133,7 @@
         checkingout: false,
         exportingAcc: false,
         exportingVio: false,
+        exportingDb: false,
         residents: []
       }
     },
@@ -145,7 +147,9 @@
     },
     methods: {
       filterUsers(value, search, item) {
-        var searchKey = `${item.name ? item.name : ''} ${item.upid ? item.upid : ''} ${item.krhid ? item.krhid : ''} ${item.corridor ? item.corridor : ''} ${item.room ? item.room : ''} ${item.username ? item.username : ''}`
+        var searchKey = ''
+        searchKey = `location:${item.inout ? item.inout: ''} ${item.name ? item.name : ''} ${item.upid ? item.upid : ''} ${item.krhid ? item.krhid : ''} ${item.corridor ? item.corridor : ''} ${item.room ? item.room : ''} ${item.username ? item.username : ''}`
+
         return !search || searchKey.toLowerCase().includes(search.toLowerCase())
       },
       exportAccountabilities() {
@@ -161,6 +165,31 @@
           downloadCSV(res, 'violations')
           this.exportingVio = false
         })
+      },
+      exportDb() {
+        this.exportingDb = true
+        var toExport = []
+        this.residents.map((item) => {
+          if (this.filterUsers(item, this.search, item)) {
+            var x = item
+            delete x.isAthletePerformer
+            delete x.isCouncil
+            delete x._permits
+            delete x._attendedActivities
+            delete x._id
+            delete x.displayPhotoId
+            delete x._pis
+            delete x._keyborrow
+            delete x.__v
+            delete x._user
+            delete x._inout
+            delete x.userId
+            delete x.name
+            toExport.push(x)
+          }
+        })
+        downloadCSV(toExport, 'userdb')
+        this.exportingDb = false
       },
       clicked(value) {
         if (this.expanded.includes(value)) {
