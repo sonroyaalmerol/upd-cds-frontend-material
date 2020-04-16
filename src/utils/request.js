@@ -3,7 +3,7 @@ import store from '../store/index'
 import { getToken } from '@/utils/auth'
 
 const service = axios.create({
-  baseURL: "https://fhk5z1h9x7.execute-api.ap-southeast-1.amazonaws.com/dev/api/v2",
+  baseURL: "https://api.updkalay.com/api/v2",
   // baseURL: "http://127.0.0.1:3000/api/v2",
   timeout: 18000
 })
