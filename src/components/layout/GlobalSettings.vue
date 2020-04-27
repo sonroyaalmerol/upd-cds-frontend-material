@@ -9,6 +9,9 @@
           <TimePicker v-model="form.permitCutOffTime" label="Permits Cut-off Time" />
           <TimePicker v-model="form.lateNightTime" label="Late Night Time" />
           <NumberField v-model="form.onPermitLimit" label="Overnight Permit Days Limit" />
+          <v-switch color="primary" v-model="form.enablePermitViolations"
+            label="Enable Permits Auto-violation">
+          </v-switch>
           <v-switch color="primary" v-model="form.enableUPFairPermits"
             label="Enable UP Fair Permits">
           </v-switch>
@@ -83,6 +86,7 @@
           month: 0, date: 1, year: 1970, hours: 16, minutes: 0, seconds: 0, milliseconds: 0
         }),
         enableUPFairPermits: false,
+        enablePermitViolations: false,
         lateNightTime: set(new Date(), {
           month: 0, date: 1, year: 1970, hours: 22, minutes: 0, seconds: 0, milliseconds: 0
         }),
