@@ -35,7 +35,7 @@
             </v-row>
           </td>
         </template>
-        <template v-slot:item.ismajor="{ value }">
+        <template v-slot:[`item.ismajor`]="{ value }">
           <v-chip v-if="value" tile class="ma-2" color="error">
             Major Violation
           </v-chip>
@@ -43,7 +43,7 @@
             Minor Violation
           </v-chip>
         </template>
-        <template v-slot:item.timestamp="{ value }">
+        <template v-slot:[`item.timestamp`]="{ value }">
           {{ parseTimestamp(value) }}
         </template>
       </v-data-table>

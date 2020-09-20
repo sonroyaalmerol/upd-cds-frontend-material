@@ -27,7 +27,7 @@
             </v-row>
           </td>
         </template>
-        <template v-slot:item.done="{ value }">
+        <template v-slot:[`item.done`]="{ value }">
           <v-chip v-if="value" tile class="ma-2" color="success">
             Accomplished
           </v-chip>
@@ -35,7 +35,7 @@
             Not yet accomplished
           </v-chip>
         </template>
-        <template v-slot:item.doneOn="{ value }">
+        <template v-slot:[`item.doneOn`]="{ value }">
           {{ parseTimestamp(value) }}
         </template>
       </v-data-table>

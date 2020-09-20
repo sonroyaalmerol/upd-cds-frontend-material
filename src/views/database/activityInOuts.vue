@@ -34,16 +34,16 @@
             </v-row>
           </td>
         </template>
-        <template v-slot:item.counted="{ value }">
+        <template v-slot:[`item.counted`]="{ value }">
           <template v-if="value">
             <b>{{ value }}</b> / {{ activity.points }}
           </template>
           <template v-else>N/A</template>
         </template>
-        <template v-slot:item.in="{ value }">
+        <template v-slot:[`item.in`]="{ value }">
           {{ parseTimestamp(value) }}
         </template>
-        <template v-slot:item.out="{ value }">
+        <template v-slot:[`item.out`]="{ value }">
           {{ parseTimestamp(value) }}
         </template>
       </v-data-table>

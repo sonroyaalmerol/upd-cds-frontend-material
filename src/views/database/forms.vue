@@ -34,10 +34,10 @@
             </v-row>
           </td>
         </template>
-        <template v-slot:item.postedBy="{ value }">
+        <template v-slot:[`item.postedBy`]="{ value }">
           {{ value.firstName }} {{ value.lastName }}
         </template>
-        <template v-slot:item.required="{ value }">
+        <template v-slot:[`item.required`]="{ value }">
           <v-chip v-if="value" tile class="ma-2" color="success">
             Required
           </v-chip>
@@ -45,7 +45,7 @@
             Not required
           </v-chip>
         </template>
-        <template v-slot:item.timestamp="{ value }">
+        <template v-slot:[`item.timestamp`]="{ value }">
           {{ parseTimestamp(value) }}
         </template>
       </v-data-table>

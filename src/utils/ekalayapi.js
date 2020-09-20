@@ -323,6 +323,13 @@ export function inoutentries(profileId, page, a) {
   })
 }
 
+export function inoutentriesAll() {
+  return request({
+    url: `/inoutentries?allresidents=true`,
+    method: 'get'
+  })
+}
+
 export function keyborrowentries(profileId) {
   return request({
     url: `/keyborrowentries?profileId=${profileId}`,

@@ -18,7 +18,7 @@
           <v-btn rounded block color="primary" :loading="exportingAcc" @click="exportAccountabilities">Export Accountabilities</v-btn>
         </v-col>
         <v-col>
-          <v-btn rounded block color="red" disabled>Clear Database</v-btn>
+          <v-btn rounded block color="primary" :loading="exportingInOutEntries" @click="exportInOutEntries">Export In/Out Entries</v-btn>
         </v-col>
       </v-row>
     </ActionsPanel>
@@ -65,7 +65,7 @@
             </v-row>
           </td>
         </template>
-        <template v-slot:item.inout="{ value }">
+        <template v-slot:[`item.inout`]="{ value }">
           <v-chip v-if="value === 'IN'" tile class="ma-2" color="success">
             IN
           </v-chip>
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-  import { residents, deleteUserById, deleteResident, accountabilitiesAll, violationsAll } from '@/utils/ekalayapi'
+  import { residents, deleteUserById, deleteResident, accountabilitiesAll, violationsAll, inoutentriesAll } from '@/utils/ekalayapi'
   import downloadCSV from '@/utils/downloadCSV'
   import { mapGetters } from 'vuex'
 
@@ -134,6 +134,7 @@
         exportingAcc: false,
         exportingVio: false,
         exportingDb: false,
+        exportingInOutEntries: false,
         residents: []
       }
     },
@@ -164,6 +165,13 @@
         violationsAll().then((res) => {
           downloadCSV(res, 'violations')
           this.exportingVio = false
+        })
+      },
+      exportInOutEntries() {
+        this.exportingInOutEntries = true
+        inoutentriesAll().then((res) => {
+          downloadCSV(res, 'inoutentries')
+          this.exportingInOutEntries = false
         })
       },
       exportDb() {

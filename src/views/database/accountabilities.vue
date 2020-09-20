@@ -27,7 +27,7 @@
             </v-row>
           </td>
         </template>
-        <template v-slot:item.cleared="{ value, item }">
+        <template v-slot:[`item.cleared`]="{ value, item }">
           <v-chip v-if="value" tile class="ma-2" color="success">
             Cleared (by: {{ item.clearedBy }})
           </v-chip>
@@ -35,7 +35,7 @@
             Not Cleared
           </v-chip>
         </template>
-        <template v-slot:item.clearedOn="{ value }">
+        <template v-slot:[`item.clearedOn`]="{ value }">
           {{ parseTimestamp(value) }}
         </template>
       </v-data-table>

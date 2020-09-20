@@ -57,7 +57,7 @@
             </v-row>
           </td>
         </template>
-        <template v-slot:item.attended="{ item }">
+        <template v-slot:[`item.attended`]="{ item }">
           <template v-if="item._attendees.find(x => x._id === profileid)">
             <v-chip v-if="item.inout.counted || item.inout.counted === 0" tile class="ma-2" color="success">
               Attended (<b>{{ item.inout.counted }} points</b>)
@@ -70,7 +70,7 @@
             No attendance found
           </v-chip>
         </template>
-        <template v-slot:item.category="{ value }">
+        <template v-slot:[`item.category`]="{ value }">
           <v-chip v-if="value === 4" tile color="success" class="ma-2">
             Bonus
           </v-chip>

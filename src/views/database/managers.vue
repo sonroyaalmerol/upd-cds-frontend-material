@@ -30,7 +30,7 @@
             </v-row>
           </td>
         </template>
-        <template v-slot:item.inout="{ value }">
+        <template v-slot:[`item.inout`]="{ value }">
           <v-chip v-if="value === 'IN'" tile class="ma-2" color="success">
             IN
           </v-chip>

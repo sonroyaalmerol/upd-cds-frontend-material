@@ -5,7 +5,7 @@ if (workbox) {
   // precache this. This is all we need for precaching
   workbox.core.setCacheNameDetails({ prefix: 'd4' })
   //Change this value every time before you build
-  const LATEST_VERSION = 'v3.0'
+  const LATEST_VERSION = 'v3.1'
   self.addEventListener('activate', () => {
     console.log(`%c ${LATEST_VERSION} `, 'background: #ddd; color: #0000ff')
     if (caches) {
