@@ -108,7 +108,7 @@
         expanded: [],
         singleExpand: true,
         headers: [{
-            text: 'Student Number',
+            text: 'Resident Number',
             value: 'upid'
           },
           {

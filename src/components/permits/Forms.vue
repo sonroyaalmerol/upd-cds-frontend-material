@@ -2,7 +2,7 @@
   <v-card flat outlined :loading="submitting">
     <v-card-text>
       <v-form ref="form" v-model="valid" lazy-validation>
-        <v-text-field v-if="roles !== 0" rounded outlined v-model="form.upid" :counter="10" :rules="upidRules" label="Student Number" required>
+        <v-text-field v-if="roles !== 0" rounded outlined v-model="form.upid" :counter="10" :rules="upidRules" label="Resident Number" required>
         </v-text-field>
 
         <template v-if="!isMobileDevice">
@@ -90,7 +90,7 @@
         submitting: false,
         isUPFairSeason: false,
         upidRules: [
-          v => !!v || 'Student Number is required',
+          v => !!v || 'Resident Number is required',
         ],
       }
     },

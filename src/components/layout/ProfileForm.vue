@@ -13,7 +13,7 @@
               </center>
             </v-col>
           </v-row>
-          <v-text-field rounded outlined v-model="residentForm.upid" :counter="10" label="Student Number" disabled required></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.upid" :counter="10" label="Resident Number" disabled required></v-text-field>
           <v-text-field rounded outlined v-model="residentForm.krhid" :counter="12" label="KRH ID Number" disabled required></v-text-field>
           <template v-if="!isMobileDevice">
             <v-row>

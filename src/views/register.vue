@@ -8,7 +8,7 @@
           </v-toolbar>
           <v-card-text>
             <v-form>
-              <v-text-field v-model="registrationForm.upid" rounded outlined label="Student Number" name="upid" type="text" color="primary"></v-text-field>
+              <v-text-field v-model="registrationForm.upid" rounded outlined label="Resident Number" name="upid" type="text" color="primary"></v-text-field>
               <v-text-field v-model="registrationForm.email" rounded outlined label="Email Address" name="email" type="text" color="primary"></v-text-field>
               <v-text-field v-model="registrationForm.username" rounded outlined label="Username" name="username" type="text" color="primary"></v-text-field>
               <v-text-field v-model="registrationForm.password" rounded outlined id="password" label="Password" name="password" type="password" color="primary">

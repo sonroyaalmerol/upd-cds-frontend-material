@@ -18,7 +18,7 @@
               </center>
             </v-col>
           </v-row>
-          <v-text-field rounded outlined v-model="raForm.upid" :counter="10" label="Student Number" required></v-text-field>
+          <v-text-field rounded outlined v-model="raForm.upid" :counter="10" label="Resident Number" required></v-text-field>
           <v-text-field rounded outlined v-model="raForm.krhid" :counter="12" label="KRH ID Number" required></v-text-field>
           <v-row>
             <v-col>
