@@ -18,7 +18,7 @@
               </center>
             </v-col>
           </v-row>
-          <v-subheader><b>Resident Profile</b></v-subheader>
+          <h2 style="margin-bottom: 20px; margin-top: 20px; margin-left: 5px;"><b>Resident Profile</b></h2>
           <v-text-field rounded outlined v-model="residentForm.upid" :counter="8" label="Resident Number" required>
           </v-text-field>
           <v-text-field rounded outlined v-model="residentForm.krhid" :counter="12" label="KRH ID Number" required>
@@ -100,7 +100,7 @@
 
           <v-divider />
 
-          <v-subheader><b>Resident Contact Details</b></v-subheader>
+          <h2 style="margin-bottom: 20px; margin-top: 20px; margin-left: 5px;"><b>Resident Contact Details</b></h2>
 
           <v-text-field rounded outlined v-model="residentForm.phoneNumber" label="Cellphone Number"></v-text-field>
           <v-text-field rounded outlined v-model="residentForm.email" label="Email Address"></v-text-field>
@@ -110,7 +110,7 @@
 
           <v-divider />
 
-          <v-subheader><b>Person to Contact in Case of Emergency</b></v-subheader>
+          <h2 style="margin-bottom: 20px; margin-top: 20px; margin-left: 5px;"><b>Person to Contact in Case of Emergency</b></h2>
 
           <v-text-field rounded outlined v-model="residentForm.emergencyName" label="Name">
           </v-text-field>
@@ -123,25 +123,25 @@
 
           <v-divider />
 
-          <v-subheader><b>Health Information</b></v-subheader>
+          <h2 style="margin-bottom: 20px; margin-top: 20px; margin-left: 5px;"><b>Health Information</b></h2>
 
-          <v-textarea rounded outlined v-model="residentForm.healthCondition" label="Health Conditions" hint="Ikaw ba ay buntis or mayroon ka bang pangmatagalang sakit? (hika, allergy, high blood, diabetes history ng sakit sa baga o paghinga, kahit ano)"></v-textarea>
-          <v-textarea rounded outlined v-model="residentForm.medicineMaintenance" label="Medicines" hint="Mayroon ka bang gamot pang-maintenance?"></v-textarea>
-          <v-textarea rounded outlined v-model="residentForm.fluVaccine" label="Flu Vaccination" hint="Nakapagpaturok ka ba ng flu vaccine sa nakaraang 12 months?"></v-textarea>
+          <v-textarea rounded outlined v-model="residentForm.healthCondition" label="Mayroon ka bang pangmatagalang sakit?" hint="Diabetes, High Blood, etc."></v-textarea>
+          <v-textarea rounded outlined v-model="residentForm.medicineMaintenance" label="Mayroon ka bang maintenance na gamot?" hint="Isulat ang NA kung walang maintenance na gamot"></v-textarea>
+          <v-textarea rounded outlined v-model="residentForm.fluVaccine" label="Kailan ang iyong huling flu vaccine?" hint="Isulat ang NA kung hindi pa o hindi maalala kung naka flu vaccine"></v-textarea>
 
           <v-divider />
 
-          <v-subheader><b>Schedule and Activity</b></v-subheader>
+          <h2 style="margin-bottom: 20px; margin-top: 20px; margin-left: 5px;"><b>Schedule and Activity</b></h2>
 
           <v-text-field rounded outlined v-model="residentForm.workSchedule" label="Work schedule (e.g., Mon-Fri 8-5PM)"></v-text-field>
           <v-text-field rounded outlined v-model="residentForm.dayOff" label="Day off"></v-text-field>
-          <v-textarea rounded outlined v-model="residentForm.workOvertime" label="Expecting work overtime?" hint="Ineexpect mo bang mag-overtime sa trabaho? Gaano kadalas? Tuwing kailan? (mga araw at oras)"></v-textarea>
-          <v-text-field rounded outlined v-model="residentForm.schoolCourse" label="Working while going to school?" hint="Nag-aaral ka ba kasabay ng pagtatrabaho? Kapag oo, ilagay ang school at course."></v-text-field>
-          <v-text-field rounded outlined v-model="residentForm.transportationToHome" label="Transportation" hint="Kunsakaling uuwi o manggagaling sa bahay, ano ang iyong sasakyan paalis/papuntang dormitoryo?"></v-text-field>
-          <v-text-field rounded outlined v-model="residentForm.homePopulation" label="Number of people at home" hint="Ilan ang kasama mo sa bahay?"></v-text-field>
-          <v-textarea rounded outlined v-model="residentForm.homeRiskInfo" label="Home Risk Information" hint="Mayroon ka bang kasama sa bahay na madalas sa lugar na matao o maraming may sakit? Anong klaseng mga lugar?"></v-textarea>
-          <v-textarea rounded outlined v-model="residentForm.homeElderInfo" label="Elderly at Home" hint="May kasama ka ba sa bahay na matanda, o batang mas mababa sa 21 ang edad? Anong mga edad?"></v-textarea>
-          <v-textarea rounded outlined v-model="residentForm.remarks" label="More remarks" hint="Iba pang impormasyon na maaaring dapat naming malaman habang ika’y nakatira sa aming dormitoryo (e.g., religious, personal, etc.)"></v-textarea>
+          <v-textarea rounded outlined v-model="residentForm.workOvertime" label="Kailan at anong oras mo ineexpect mag-overtime?" hint="Isulat ang NA kung di nag eexpect ng overtime"></v-textarea>
+          <v-text-field rounded outlined v-model="residentForm.schoolCourse" label="Nag-aaral ka ba kasabay ng trabaho?" hint="Kung oo, pakilagay ang degree at school. Kung hindi, NA"></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.transportationToHome" label="Sasakyan pag umuuwi" hint="Kunsakaling uuwi o manggagaling sa bahay, ano ang iyong sasakyan paalis/papuntang dormitoryo?"></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.homePopulation" label="Ilan ang kasama sa bahay?"></v-text-field>
+          <v-textarea rounded outlined v-model="residentForm.homeRiskInfo" label="May kasamang frontliner sa bahay?" hint="Kasama ang kung sino man na madalas humaharap sa maraming tao o sa may sakit. Kung oo, pakilagay ano ang kanilang trabaho. Kung wala, NA"></v-textarea>
+          <v-textarea rounded outlined v-model="residentForm.homeElderInfo" label="May kasamang matanda o bata sa bahay?" hint="Kung oo, pakilagay ang mga edad. Kung wala, NA"></v-textarea>
+          <v-textarea rounded outlined v-model="residentForm.remarks" label="Iba pang impormasyon" hint="Iba pang impormasyon na maaaring dapat naming malaman habang ika’y nakatira sa aming dormitoryo (e.g., religious, personal, etc.)"></v-textarea>
         </v-container>
       </v-card-text>
       <v-card-actions>
