@@ -13,20 +13,23 @@
               </center>
             </v-col>
           </v-row>
-          <v-text-field rounded outlined v-model="residentForm.upid" :counter="10" label="Resident Number" disabled required></v-text-field>
-          <v-text-field rounded outlined v-model="residentForm.krhid" :counter="12" label="KRH ID Number" disabled required></v-text-field>
+          <h2 style="margin-bottom: 20px; margin-top: 20px; margin-left: 5px;"><b>Resident Profile</b></h2>
+          <v-text-field rounded outlined v-model="residentForm.upid" :counter="8" label="Resident Number" required>
+          </v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.krhid" :counter="12" label="KRH ID Number" required>
+          </v-text-field>
           <template v-if="!isMobileDevice">
             <v-row>
               <v-col>
-                <v-text-field rounded outlined v-model="residentForm.firstName" label="First Name" disabled required>
+                <v-text-field rounded outlined v-model="residentForm.firstName" label="First Name" required>
                 </v-text-field>
               </v-col>
               <v-col>
-                <v-text-field rounded outlined v-model="residentForm.lastName" label="Last Name" disabled required>
+                <v-text-field rounded outlined v-model="residentForm.lastName" label="Last Name" required>
                 </v-text-field>
               </v-col>
             </v-row>
-            <v-row>
+            <!--<v-row>
               <v-col>
                 <v-text-field rounded outlined v-model="residentForm.college" label="College"></v-text-field>
               </v-col>
@@ -43,24 +46,17 @@
               <v-col>
                 <v-switch color="primary" v-model="residentForm.isCouncil" label="House Council Member"></v-switch>
               </v-col>
-            </v-row>
+            </v-row>-->
           </template>
           <template v-else>
-            <v-text-field rounded outlined v-model="residentForm.firstName" label="First Name" disabled required></v-text-field>
-            <v-text-field rounded outlined v-model="residentForm.lastName" label="Last Name" disabled required></v-text-field>
-            <v-text-field rounded outlined v-model="residentForm.college" label="College"></v-text-field>
+            <v-text-field rounded outlined v-model="residentForm.firstName" label="First Name" required></v-text-field>
+            <v-text-field rounded outlined v-model="residentForm.lastName" label="Last Name" required></v-text-field>
+            <!--<v-text-field rounded outlined v-model="residentForm.college" label="College"></v-text-field>
             <v-text-field rounded outlined v-model="residentForm.degree" label="Degree Program"></v-text-field>
             <v-switch color="primary" v-model="residentForm.isAthletePerformer" label="University Athlete/Performer">
             </v-switch>
-            <v-switch color="primary" v-model="residentForm.isCouncil" label="House Council Member"></v-switch>
+            <v-switch color="primary" v-model="residentForm.isCouncil" label="House Council Member"></v-switch>-->
           </template>
-          <v-text-field rounded outlined v-model="residentForm.contact" label="Resident Contact Number"></v-text-field>
-          <v-text-field rounded outlined v-model="residentForm.emergency" label="Person to contact in case of emerency"></v-text-field>
-          <v-text-field rounded outlined v-model="residentForm.emergencyContact" label="Emergency Contact Number"></v-text-field>
-          <v-radio-group v-model="residentForm.sex" label="Sex" row>
-            <v-radio color="blue" label="Male" value="Male"></v-radio>
-            <v-radio color="red" label="Female" value="Female"></v-radio>
-          </v-radio-group>
           <template v-if="!isMobileDevice">
             <v-row>
               <v-col>
@@ -79,14 +75,7 @@
                 <v-text-field rounded outlined v-model="residentForm.civilStatus" label="Civil Status"></v-text-field>
               </v-col>
             </v-row>
-            <v-row>
-              <v-col>
-                <DatePicker v-model="residentForm.birthday" label="Birthday" />
-              </v-col>
-              <v-col>
-                <v-text-field rounded outlined v-model="residentForm.stsBracket" label="STS Bracket"></v-text-field>
-              </v-col>
-            </v-row>
+            <DatePicker v-model="residentForm.birthday" label="Birthday" />
           </template>
           <template v-else>
             <v-select rounded outlined v-model="residentForm.corridor" :items="corridors" label="Corridor">
@@ -95,14 +84,59 @@
             <v-text-field rounded outlined v-model="residentForm.religion" label="Religion"></v-text-field>
             <v-text-field rounded outlined v-model="residentForm.civilStatus" label="Civil Status"></v-text-field>
             <DatePicker v-model="residentForm.birthday" label="Birthday" />
-            <v-text-field rounded outlined v-model="residentForm.stsBracket" label="STS Bracket"></v-text-field>
+            <!--<v-text-field rounded outlined v-model="residentForm.stsBracket" label="STS Bracket"></v-text-field>-->
           </template>
+          <v-radio-group v-model="residentForm.sex" label="Sex" row>
+            <v-radio color="blue" label="Male" value="Male"></v-radio>
+            <v-radio color="red" label="Female" value="Female"></v-radio>
+          </v-radio-group>
+          <v-text-field rounded outlined v-model="residentForm.office" label="Office"></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.position" label="Position"></v-text-field>
+
+          <v-divider />
+
+          <h2 style="margin-bottom: 20px; margin-top: 20px; margin-left: 5px;"><b>Resident Contact Details</b></h2>
+
+          <v-text-field rounded outlined v-model="residentForm.phoneNumber" label="Cellphone Number"></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.email" label="Email Address"></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.officeNumber" label="Office Phone Number"></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.homeNumber" label="Home Phone Number"></v-text-field>
           <v-textarea rounded outlined v-model="residentForm.homeAddress" label="Home Address"></v-textarea>
-          <v-textarea rounded outlined v-model="residentForm.mmAddress" label="Metro Manila Address"></v-textarea>
-          <v-textarea rounded outlined v-model="residentForm.foodAllergies" label="Food Allergies"></v-textarea>
-          <v-textarea rounded outlined v-model="residentForm.medicineAllergies" label="Medicine Allergies"></v-textarea>
-          <v-textarea rounded outlined v-model="residentForm.diagnosedHealthCondition" label="Diagnosed Health Condition"></v-textarea>
-          <v-textarea rounded outlined v-model="residentForm.recurringSymptoms" label="Recurring Symptoms"></v-textarea>
+
+          <v-divider />
+
+          <h2 style="margin-bottom: 20px; margin-top: 20px; margin-left: 5px;"><b>Person to Contact in Case of Emergency</b></h2>
+
+          <v-text-field rounded outlined v-model="residentForm.emergencyName" label="Name">
+          </v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.emergencyRelation" label="Relation"></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.emergencyPhoneNumber" label="Cellphone Number"></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.emergencyEmail" label="Email Address"></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.emergencyOfficeNumber" label="Office Phone Number"></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.emergencyHomeNumber" label="Home Phone Number"></v-text-field>
+          <v-textarea rounded outlined v-model="residentForm.emergencyHomeAddress" label="Home Address"></v-textarea>
+
+          <v-divider />
+
+          <h2 style="margin-bottom: 20px; margin-top: 20px; margin-left: 5px;"><b>Health Information</b></h2>
+
+          <v-textarea rounded outlined v-model="residentForm.healthCondition" label="Mayroon ka bang pangmatagalang sakit?" hint="Diabetes, High Blood, etc."></v-textarea>
+          <v-textarea rounded outlined v-model="residentForm.medicineMaintenance" label="Mayroon ka bang maintenance na gamot?" hint="Isulat ang NA kung walang maintenance na gamot"></v-textarea>
+          <v-textarea rounded outlined v-model="residentForm.fluVaccine" label="Kailan ang iyong huling flu vaccine?" hint="Isulat ang NA kung hindi pa o hindi maalala kung naka flu vaccine"></v-textarea>
+
+          <v-divider />
+
+          <h2 style="margin-bottom: 20px; margin-top: 20px; margin-left: 5px;"><b>Schedule and Activity</b></h2>
+
+          <v-text-field rounded outlined v-model="residentForm.workSchedule" label="Work schedule (e.g., Mon-Fri 8-5PM)"></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.dayOff" label="Day off"></v-text-field>
+          <v-textarea rounded outlined v-model="residentForm.workOvertime" label="Kailan at anong oras mo ineexpect mag-overtime?" hint="Isulat ang NA kung di nag eexpect ng overtime"></v-textarea>
+          <v-text-field rounded outlined v-model="residentForm.schoolCourse" label="Nag-aaral ka ba kasabay ng trabaho?" hint="Kung oo, pakilagay ang degree at school. Kung hindi, NA"></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.transportationToHome" label="Sasakyan pag umuuwi" hint="Kunsakaling uuwi o manggagaling sa bahay, ano ang iyong sasakyan paalis/papuntang dormitoryo?"></v-text-field>
+          <v-text-field rounded outlined v-model="residentForm.homePopulation" label="Ilan ang kasama sa bahay?"></v-text-field>
+          <v-textarea rounded outlined v-model="residentForm.homeRiskInfo" label="May kasamang frontliner sa bahay?" hint="Kasama ang kung sino man na madalas humaharap sa maraming tao o sa may sakit. Kung oo, pakilagay ano ang kanilang trabaho. Kung wala, NA"></v-textarea>
+          <v-textarea rounded outlined v-model="residentForm.homeElderInfo" label="May kasamang matanda o bata sa bahay?" hint="Kung oo, pakilagay ang mga edad. Kung wala, NA"></v-textarea>
+          <v-textarea rounded outlined v-model="residentForm.remarks" label="Iba pang impormasyon" hint="Iba pang impormasyon na maaaring dapat naming malaman habang ika’y nakatira sa aming dormitoryo (e.g., religious, personal, etc.)"></v-textarea>
         </v-container>
       </v-card-text>
       <v-card-actions>
@@ -205,24 +239,39 @@
         krhid: '',
         firstName: '',
         lastName: '',
-        college: '',
-        degree: '',
-        contact: '',
-        emergency: '',
-        emergencyContact: '',
+        office: '',
+        position: '',
+        phoneNumber: '',
+        email: '',
+        officeNumber: '',
+        homeNumber: '',
+        homeAddress: '',
+        emergencyName: '',
+        emergencyRelation: '',
+        emergencyEmail: '',
+        emergencyPhoneNumber: '',
+        emergencyOfficeNumber: '',
+        emergencyHomeNumber: '',
+        emergencyHomeAddress: '',
         sex: '',
         room: '',
+        corridor: '',
         religion: '',
         civilStatus: '',
-        birthday: '',
-        stsBracket: '',
-        corridor: '',
-        homeAddress: '',
-        mmAddress: '',
-        foodAllergies: '',
-        medicineAllergies: '',
-        diagnosedHealthCondition: '',
-        recurringSymptoms: '',
+        birthday: new Date(),
+        healthCondition: '',
+        medicineMaintenance: '',
+        fluVaccine: '',
+        workSchedule: '',
+        dayOff: '',
+        workOvertime: '',
+        schoolCourse: '',
+        transportationToHome: '',
+        homePopulation: '',
+        homeRiskInfo: '',
+        homeElderInfo: '',
+        remarks: '',
+
         isAthletePerformer: false,
         isCouncil: false,
         displayPhoto: '',
