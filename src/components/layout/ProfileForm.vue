@@ -14,18 +14,18 @@
             </v-col>
           </v-row>
           <h2 style="margin-bottom: 20px; margin-top: 20px; margin-left: 5px;"><b>Resident Profile</b></h2>
-          <v-text-field rounded outlined v-model="residentForm.upid" :counter="8" label="Resident Number" required>
+          <v-text-field rounded outlined v-model="residentForm.upid" :counter="8" label="Resident Number" required disabled>
           </v-text-field>
-          <v-text-field rounded outlined v-model="residentForm.krhid" :counter="12" label="KRH ID Number" required>
+          <v-text-field rounded outlined v-model="residentForm.krhid" :counter="12" label="KRH ID Number" required disabled>
           </v-text-field>
           <template v-if="!isMobileDevice">
             <v-row>
               <v-col>
-                <v-text-field rounded outlined v-model="residentForm.firstName" label="First Name" required>
+                <v-text-field rounded outlined v-model="residentForm.firstName" label="First Name" required disabled>
                 </v-text-field>
               </v-col>
               <v-col>
-                <v-text-field rounded outlined v-model="residentForm.lastName" label="Last Name" required>
+                <v-text-field rounded outlined v-model="residentForm.lastName" label="Last Name" required disabled>
                 </v-text-field>
               </v-col>
             </v-row>
@@ -49,8 +49,8 @@
             </v-row>-->
           </template>
           <template v-else>
-            <v-text-field rounded outlined v-model="residentForm.firstName" label="First Name" required></v-text-field>
-            <v-text-field rounded outlined v-model="residentForm.lastName" label="Last Name" required></v-text-field>
+            <v-text-field rounded outlined v-model="residentForm.firstName" label="First Name" required disabled></v-text-field>
+            <v-text-field rounded outlined v-model="residentForm.lastName" label="Last Name" required disabled></v-text-field>
             <!--<v-text-field rounded outlined v-model="residentForm.college" label="College"></v-text-field>
             <v-text-field rounded outlined v-model="residentForm.degree" label="Degree Program"></v-text-field>
             <v-switch color="primary" v-model="residentForm.isAthletePerformer" label="University Athlete/Performer">
@@ -60,11 +60,11 @@
           <template v-if="!isMobileDevice">
             <v-row>
               <v-col>
-                <v-select rounded outlined v-model="residentForm.corridor" :items="corridors" label="Corridor">
+                <v-select rounded outlined v-model="residentForm.corridor" :items="corridors" label="Corridor" disabled>
                 </v-select>
               </v-col>
               <v-col>
-                <v-text-field rounded outlined v-model="residentForm.room" label="Room Number"></v-text-field>
+                <v-text-field rounded outlined v-model="residentForm.room" label="Room Number" disabled></v-text-field>
               </v-col>
             </v-row>
             <v-row>
@@ -78,9 +78,9 @@
             <DatePicker v-model="residentForm.birthday" label="Birthday" />
           </template>
           <template v-else>
-            <v-select rounded outlined v-model="residentForm.corridor" :items="corridors" label="Corridor">
+            <v-select rounded outlined v-model="residentForm.corridor" :items="corridors" label="Corridor" disabled>
             </v-select>
-            <v-text-field rounded outlined v-model="residentForm.room" label="Room Number"></v-text-field>
+            <v-text-field rounded outlined v-model="residentForm.room" label="Room Number" disabled></v-text-field>
             <v-text-field rounded outlined v-model="residentForm.religion" label="Religion"></v-text-field>
             <v-text-field rounded outlined v-model="residentForm.civilStatus" label="Civil Status"></v-text-field>
             <DatePicker v-model="residentForm.birthday" label="Birthday" />
