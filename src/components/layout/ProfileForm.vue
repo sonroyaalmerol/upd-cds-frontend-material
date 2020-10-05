@@ -137,12 +137,22 @@
           <v-textarea rounded outlined v-model="residentForm.homeRiskInfo" label="May kasamang frontliner sa bahay?" hint="Kasama ang kung sino man na madalas humaharap sa maraming tao o sa may sakit. Kung oo, pakilagay ano ang kanilang trabaho. Kung wala, NA"></v-textarea>
           <v-textarea rounded outlined v-model="residentForm.homeElderInfo" label="May kasamang matanda o bata sa bahay?" hint="Kung oo, pakilagay ang mga edad. Kung wala, NA"></v-textarea>
           <v-textarea rounded outlined v-model="residentForm.remarks" label="Iba pang impormasyon" hint="Iba pang impormasyon na maaaring dapat naming malaman habang ika’y nakatira sa aming dormitoryo (e.g., religious, personal, etc.)"></v-textarea>
+          
+          <v-divider />
+
+          <h2 style="margin-bottom: 20px; margin-top: 20px; margin-left: 5px;"><b>Data Privacy Clause</b></h2>
+          
+          <v-checkbox
+            v-model="termsAgreed"
+            label="I understand that for the Kalayaan Management to carry out its mandate of providing quality housing and student care, it must necessarily process my personal and sensitive information.
+Therefore, I grant my consent to and recognize the authority of the Kalayaan Management to process my personal and sensitive personal information (including through a third-party electronic platform) pursuant to Policies on Data Privacy and other applicable laws."
+          ></v-checkbox>
         </v-container>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn rounded text @click="dialog = false">Close</v-btn>
-        <v-btn color="primary" rounded @click="updateProfile">Update Profile</v-btn>
+        <v-btn color="primary" rounded @click="updateProfile" :disabled="!termsAgreed">Update Profile</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -277,7 +287,8 @@
         displayPhoto: '',
         displayPhotoId: ''
       },
-      loading: false
+      loading: false,
+      termsAgreed: false,
     }),
     methods: {
       async fetchProfile() {
